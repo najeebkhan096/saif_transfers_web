@@ -7,7 +7,11 @@ class DriverModel {
   final String workLocation;
   final String avatar;
 
-  const DriverModel({
+  final String? phone;  // add phone, orders, income for UI completeness
+  final int? orders;
+  final double? income;
+
+  DriverModel({
     required this.firstName,
     required this.lastName,
     required this.birthDate,
@@ -15,5 +19,10 @@ class DriverModel {
     required this.homeLocation,
     required this.workLocation,
     required this.avatar,
+     this.phone='92263535355',
+     this.orders=12,
+     this.income=234,
   });
+
+  String get fullName => '$firstName $lastName';
 }

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:saif_transfers_web/model/booking.dart';
 import 'booking_tab_configs.dart';
 
 class BookingRow extends StatelessWidget {
-  final Map<String, String> booking;
+  final Booking booking;
   final bool isSelected;
   final ValueChanged<bool> onSelected;
 
@@ -31,6 +32,7 @@ class BookingRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
+      physics: NeverScrollableScrollPhysics(),
       child: Row(
         children: [
           SizedBox(
@@ -46,7 +48,7 @@ class BookingRow extends StatelessWidget {
             child: Row(
               children: [
                 CircleAvatar(
-                  backgroundImage: NetworkImage(booking["avatar"]!),
+                  backgroundImage: NetworkImage(booking.avatarUrl),
                   radius: 18,
                 ),
                 const SizedBox(width: 10),
@@ -54,12 +56,12 @@ class BookingRow extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      booking["name"]!,
+                      booking.name,
                       style: GoogleFonts.dmSans(fontWeight: FontWeight.w600),
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(
-                      booking["phone"]!,
+                      booking.phone,
                       style: GoogleFonts.dmSans(
                         fontSize: 12,
                         color: Colors.grey.shade600,
@@ -71,12 +73,12 @@ class BookingRow extends StatelessWidget {
               ],
             ),
           ),
-          _buildCell(booking["car"]!, BookingTableConfig.car),
-          _buildCell("${booking["date"]!}\n${booking["time"]!}", BookingTableConfig.dateTime),
-          _buildCell(booking["start"]!, BookingTableConfig.start),
-          _buildCell(booking["end"]!, BookingTableConfig.end),
+          _buildCell(booking.car, BookingTableConfig.car),
+          _buildCell("${booking.date}\n${booking.time}", BookingTableConfig.dateTime),
+          _buildCell(booking.start, BookingTableConfig.start),
+          _buildCell(booking.end, BookingTableConfig.end),
           _buildCell(
-            booking["income"]!,
+            booking.income,
             BookingTableConfig.income,
             style: GoogleFonts.dmSans(
               color: Colors.green,

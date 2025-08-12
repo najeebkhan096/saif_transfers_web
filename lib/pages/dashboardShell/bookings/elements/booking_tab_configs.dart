@@ -4,7 +4,7 @@
 class BookingTableConfig {
   static const double checkbox = 50;
   static const double customer = 250;
-  static const double car = 160;
+  static const double car = 120;
   static const double dateTime = 200;
   static const double start = 300;
   static const double end = 300;

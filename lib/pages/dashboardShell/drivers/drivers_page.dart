@@ -14,7 +14,7 @@ class DriversPage extends StatefulWidget {
 class _DriversPageState extends State<DriversPage> {
   final Set<int> selectedDrivers = {};
 
-  final List<DriverModel> drivers = const [
+  final List<DriverModel> drivers = [
     DriverModel(
       firstName: "John",
       lastName: "Doe",

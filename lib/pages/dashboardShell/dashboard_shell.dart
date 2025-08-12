@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:saif_transfers_web/pages/dashboardShell/dashboard_page.dart';
+import 'package:saif_transfers_web/pages/dashboardShell/dashboard/dashboard_page.dart';
 import 'package:saif_transfers_web/pages/dashboardShell/settings/settings_page.dart';
 import 'package:saif_transfers_web/theme/theme_helper.dart';
 import '../../core/utils/images.dart';
@@ -37,7 +37,7 @@ class _DashboardShellState extends State<DashboardShell> {
   ];
 
   final List<Widget> pages = [
-    DashboardPage(),
+    const DashboardPage(),
     const BookingsPage(),
     const ClientsPage(),
     const DriversPage(),

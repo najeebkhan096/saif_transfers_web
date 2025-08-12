@@ -27,6 +27,7 @@ class BookingsTableHeader extends StatelessWidget {
       ),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
+        physics: NeverScrollableScrollPhysics(),
         child: Row(
           children: [
             SizedBox(width: BookingTableConfig.checkbox), // Checkbox placeholder
