@@ -2,6 +2,7 @@ class ImageConstants {
   static const String _landingBasePath = 'images/landing';
   static const String _basePath = 'images';
   static const String _navPath = 'images/nav';
+  static const String _carPath = 'images/cars';
 
   static String imgImageNotFound = '${_basePath}image_not_found.png';
   static const String sprinter = '$_landingBasePath/sprinter.png';
@@ -20,6 +21,9 @@ class ImageConstants {
   static const String luggage = '$_landingBasePath/luggage.png';
   static const String authBanner = '$_basePath/auth_banner.png';
   static const String google = '$_basePath/google.png';
+  static const String masterCard = '$_basePath/mastercard.png';
+  static const String visaCard = '$_basePath/visacard.png';
+  static const String americanCard = '$_basePath/americanCard.png';
 
   /// Navigation Icons
   static const String bookings = '$_navPath/bookings.png';
@@ -32,6 +36,12 @@ class ImageConstants {
   static const String delete = '$_basePath/delete.png';
   static const String edit = '$_basePath/edit.png';
   static const String message = '$_basePath/message.png';
+
+
+  static const String serviceBusinessCar = '$_carPath/business_class.png';
+  static const String serviceFirstClassCar = '$_carPath/business_van.png';
+  static const String serviceBusinessVanCar = '$_carPath/electric_class.png';
+  static const String serviceElectricCar = '$_carPath/first_class.png';
 
   static const String airportTransfers =
       '$_landingBasePath/airport_transfers.png';

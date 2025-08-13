@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:saif_transfers_web/pages/dashboardShell/dashboard_shell.dart';
-import 'package:saif_transfers_web/pages/landing/landing_page.dart';
+import 'package:provider/provider.dart';
+import 'package:saif_transfers_web/pages/auth/login/login_page.dart';
+import 'package:saif_transfers_web/pages/auth/register/register_page.dart';
+import 'package:saif_transfers_web/pages/checkout/checkout_page.dart';
+import 'package:saif_transfers_web/providers/stepper_provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,10 +14,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Luxury Airport Travel',
-      debugShowCheckedModeBanner: false,
-      home: LandingPage(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => CheckoutStepperProvider()),
+      ],
+      child: MaterialApp(
+        title: 'Luxury Airport Travel',
+        debugShowCheckedModeBanner: false,
+        home: RegisterPage(),
+      ),
     );
   }
 }

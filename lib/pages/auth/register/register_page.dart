@@ -5,8 +5,8 @@ import 'package:saif_transfers_web/theme/theme_helper.dart';
 import 'package:saif_transfers_web/widgets/custom_button.dart';
 import 'package:saif_transfers_web/widgets/custom_image_view.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatelessWidget {
+  const RegisterPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,12 +17,9 @@ class LoginPage extends StatelessWidget {
           bool isMobile = constraints.maxWidth < 900;
 
           return Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Left Panel (Form)
               Expanded(
-                flex: isMobile ? 1 : 1,
                 child: SingleChildScrollView(
                   padding: EdgeInsets.symmetric(
                     horizontal: isMobile ? 24 : 40,
@@ -30,14 +27,15 @@ class LoginPage extends StatelessWidget {
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       const SizedBox(height: 30),
-                      // Logo
-                      CustomImageView(imagePath: ImageConstants.logo,width: 100,),
+                      CustomImageView(
+                        imagePath: ImageConstants.logo,
+                        width: 100,
+                      ),
                       const SizedBox(height: 40),
 
-                      // Welcome
+                      // Welcome text
                       RichText(
                         text: TextSpan(
                           style: GoogleFonts.poppins(
@@ -46,9 +44,9 @@ class LoginPage extends StatelessWidget {
                             color: Colors.black,
                           ),
                           children: const [
-                            TextSpan(text: "Welcome to "),
+                            TextSpan(text: "Create your "),
                             TextSpan(
-                              text: "Company Name",
+                              text: "Account",
                               style: TextStyle(
                                 color: Color(0xffb58a00),
                                 fontWeight: FontWeight.w600,
@@ -61,7 +59,7 @@ class LoginPage extends StatelessWidget {
 
                       // Description
                       Text(
-                        "You'll be able to easily book and manage rides, and get ride status updates on the day of travel.",
+                        "Sign up to book and manage rides, and get real-time updates on your travel.",
                         style: GoogleFonts.poppins(
                           fontSize: 14,
                           color: Colors.grey[700],
@@ -69,104 +67,57 @@ class LoginPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 30),
 
+                      // Name
+                      _buildTextField("Enter your full name"),
+                      const SizedBox(height: 20),
+
                       // Email
-                      TextField(
-                        decoration: InputDecoration(
-                          hintText: "Enter your email",
-                          hintStyle: GoogleFonts.poppins(fontSize: 14),
-                          border: const UnderlineInputBorder(),
-                        ),
-                      ),
+                      _buildTextField("Enter your email"),
                       const SizedBox(height: 20),
 
                       // Password
-                      TextField(
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          hintText: "Enter your password",
-                          hintStyle: GoogleFonts.poppins(fontSize: 14),
-                          border: const UnderlineInputBorder(),
-                          suffixIcon: const Icon(
-                            Icons.visibility_off,
-                            size: 18,
-                          ),
-                        ),
+                      _buildTextField(
+                        "Enter your password",
+                        obscure: true,
+                        suffixIcon: Icons.visibility_off,
+                      ),
+                      const SizedBox(height: 20),
+
+                      // Confirm Password
+                      _buildTextField(
+                        "Confirm your password",
+                        obscure: true,
+                        suffixIcon: Icons.visibility_off,
                       ),
                       const SizedBox(height: 30),
 
-                      // Forgot password
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          "Forgot your password?",
-                          style: GoogleFonts.poppins(
-                            fontSize: 12,
-                            color: const Color(0xffb58a00),
-                          ),
-                        ),
+                      // Register Button
+                      const CustomButton(
+                        text: 'Register',
+                        borderRadius: 10,
+                        height: 50,
                       ),
-                      const SizedBox(height: 30),
-
-                      // Login Button
-                      CustomButton(text: 'Login',borderRadius: 10,height: 50,),
                       const SizedBox(height: 30),
 
                       // Divider
-                      Row(
-                        children: [
-                          Expanded(child: Divider(color: Colors.grey[400])),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8,
-                            ),
-                            child: Text(
-                              "OR",
-                              style: GoogleFonts.poppins(fontSize: 12),
-                            ),
-                          ),
-                          Expanded(child: Divider(color: Colors.grey[400])),
-                        ],
-                      ),
+                      _buildDividerWithText("OR"),
                       const SizedBox(height: 30),
 
                       // Google Button
-                      Container(
-                        height: 48,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4),
-                          border: Border.all(color: Colors.grey[300]!),
-                          color: Colors.white,
-                        ),
-                        child: InkWell(
-                          onTap: () {},
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              CustomImageView(
-                                imagePath: ImageConstants.google,
-                              ),
-                              const SizedBox(width: 8),
-                              Text(
-                                "Login with Google",
-                                style: GoogleFonts.poppins(fontSize: 14),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                      _buildGoogleButton(),
                       const SizedBox(height: 30),
 
-                      // Sign up link
+                      // Already have an account
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "Don't have an account yet?",
+                            "Already have an account?",
                             style: GoogleFonts.poppins(fontSize: 12),
                           ),
                           const SizedBox(width: 4),
                           Text(
-                            "Sign up",
+                            "Login",
                             style: GoogleFonts.poppins(
                               fontSize: 12,
                               color: const Color(0xffb58a00),
@@ -179,10 +130,10 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
               ),
+
               // Right Panel (Illustration)
               if (!isMobile)
                 Expanded(
-                  flex: 1,
                   child: Container(
                     decoration: const BoxDecoration(
                       gradient: LinearGradient(
@@ -199,6 +150,57 @@ class LoginPage extends StatelessWidget {
             ],
           );
         },
+      ),
+    );
+  }
+
+  static Widget _buildTextField(String hint,
+      {bool obscure = false, IconData? suffixIcon}) {
+    return TextField(
+      obscureText: obscure,
+      decoration: InputDecoration(
+        hintText: hint,
+        hintStyle: GoogleFonts.poppins(fontSize: 14),
+        border: const UnderlineInputBorder(),
+        suffixIcon: suffixIcon != null ? Icon(suffixIcon, size: 18) : null,
+      ),
+    );
+  }
+
+  static Widget _buildDividerWithText(String text) {
+    return Row(
+      children: [
+        Expanded(child: Divider(color: Colors.grey[400])),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: Text(text, style: GoogleFonts.poppins(fontSize: 12)),
+        ),
+        Expanded(child: Divider(color: Colors.grey[400])),
+      ],
+    );
+  }
+
+  static Widget _buildGoogleButton() {
+    return Container(
+      height: 48,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(4),
+        border: Border.all(color: Colors.grey[300]!),
+        color: Colors.white,
+      ),
+      child: InkWell(
+        onTap: () {},
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+             CustomImageView(imagePath: ImageConstants.google),
+            const SizedBox(width: 8),
+            Text(
+              "Register with Google",
+              style: GoogleFonts.poppins(fontSize: 14),
+            ),
+          ],
+        ),
       ),
     );
   }

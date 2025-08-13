@@ -38,6 +38,7 @@ dependencies:
   flutter_svg:
   cached_network_image:
   responsive_framework: ^1.5.1
+  provider:
   fl_chart: ^1.0.0
 
 dev_dependencies:
@@ -67,6 +68,7 @@ flutter:
     - images/
     - images/landing/
     - images/nav/
+    - images/cars/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

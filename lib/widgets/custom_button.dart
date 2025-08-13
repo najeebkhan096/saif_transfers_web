@@ -3,13 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import '../theme/theme_helper.dart';
 import 'custom_image_view.dart';
 
-/// CustomButton - A flexible button component that supports both icon and text styles
-///
-/// By default, it's a text button unless `iconPath` is provided.
-///
-/// All styling (text style, colors, sizes, borders, gradients) can be customized.
-///
-/// If `iconPath` is given, button behaves as an icon button.
 class CustomButton extends StatelessWidget {
   const CustomButton({
     super.key,
@@ -44,41 +37,42 @@ class CustomButton extends StatelessWidget {
   final bool? isEnabled;
   final EdgeInsets? margin;
 
-  bool get _isIconVariant => iconPath != null && iconPath!.isNotEmpty;
+  bool get _isIconVariant => iconPath?.isNotEmpty ?? false;
 
   @override
   Widget build(BuildContext context) {
-    final bool enabled = isEnabled ?? true;
+    final enabled = isEnabled ?? true;
 
     return Padding(
-      padding: margin ?? EdgeInsets.symmetric(horizontal: 10),
+      padding: margin ?? const EdgeInsets.symmetric(horizontal: 10),
       child: SizedBox(
         width: width,
         height: height,
-        child: Material(
-          color: appTheme.transparentCustom,
-          child: InkWell(
-            onTap: enabled ? onPressed : null,
-            borderRadius: BorderRadius.circular(borderRadius?? 8),
-            child: AnimatedScale(
-              scale: enabled ? 1.0 : 0.95,
-              duration: const Duration(milliseconds: 200),
-              child: Container(
-                width: width,
-                height: height,
-                decoration: BoxDecoration(
-                  color: gradient == null
-                      ? (backgroundColor ?? _getDefaultBackgroundColor())
-                      : null,
-                  gradient: gradient,
-                  border: _getBorder(),
-                  borderRadius: BorderRadius.circular(borderRadius?? 8),
+        child: InkWell(
+          onTap: enabled ? onPressed : null,
+          borderRadius: BorderRadius.circular(borderRadius ?? 8),
+          child: AnimatedScale(
+            scale: enabled ? 1.0 : 0.95,
+            duration: const Duration(milliseconds: 200),
+            child: Container(
+              decoration: BoxDecoration(
+                color: backgroundColor,
+                gradient: backgroundColor == null
+                    ? (gradient ??
+                          const LinearGradient(
+                            colors: [Color(0xffEFBF04), Color(0xff896D02)],
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                          ))
+                    : null,
+                border: Border.all(
+                  color: borderColor ?? appTheme.colorFFD0D0,
+                  width: 0.5,
                 ),
-                padding: EdgeInsets.all(
-                  _isIconVariant ? 12 : 0,
-                ),
-                child: Center(child: _buildContent()),
+                borderRadius: BorderRadius.circular(borderRadius ?? 8),
               ),
+              padding: EdgeInsets.all(_isIconVariant ? 12 : 0),
+              child: Center(child: _buildContent()),
             ),
           ),
         ),
@@ -87,33 +81,15 @@ class CustomButton extends StatelessWidget {
   }
 
   Widget _buildContent() {
-    if (_isIconVariant) {
-      return CustomImageView(
-        imagePath: iconPath!,
-        height: 24,
-        width: 24,
-      );
-    } else {
-      return  Text(
-        text ?? '',
-        style: GoogleFonts.dmSans().copyWith(
-          color: textColor ?? appTheme.whiteCustom,
-          fontSize: (fontSize ),
-          fontWeight: fontWeight,
-        ),
-      );
-
-    }
-  }
-
-  Color _getDefaultBackgroundColor() {
-    if (_isIconVariant) {
-      return appTheme.transparentCustom;
-    }
-    return appTheme.blueCustom;
-  }
-
-  Border? _getBorder() {
-    return Border.all(color: borderColor ?? appTheme.colorFFD0D0, width: 0.5);
+    return _isIconVariant
+        ? CustomImageView(imagePath: iconPath!, height: 24, width: 24)
+        : Text(
+            text ?? '',
+            style: GoogleFonts.dmSans(
+              color: textColor ?? appTheme.whiteCustom,
+              fontSize: fontSize,
+              fontWeight: fontWeight,
+            ),
+          );
   }
 }
