@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:saif_transfers_web/pages/auth/login/login_page.dart';
-import 'package:saif_transfers_web/pages/auth/register/register_page.dart';
-import 'package:saif_transfers_web/pages/checkout/checkout_page.dart';
+import 'package:saif_transfers_web/pages/landing/landing_page.dart';
+import 'package:saif_transfers_web/providers/navigation.dart';
 import 'package:saif_transfers_web/providers/stepper_provider.dart';
+import 'core/routes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,11 +17,13 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => CheckoutStepperProvider()),
+        ChangeNotifierProvider(create: (_) => NavigationProvider()),
       ],
       child: MaterialApp(
-        title: 'Luxury Airport Travel',
+        title: 'Saif Transfers',
         debugShowCheckedModeBanner: false,
-        home: RegisterPage(),
+        initialRoute: AppRoutes.landing,
+        onGenerateRoute: AppRoutes.generateRoute,
       ),
     );
   }

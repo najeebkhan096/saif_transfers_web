@@ -5,6 +5,8 @@ import 'package:saif_transfers_web/theme/theme_helper.dart';
 import 'package:saif_transfers_web/widgets/custom_button.dart';
 import 'package:saif_transfers_web/widgets/custom_image_view.dart';
 
+import '../../../core/routes.dart';
+
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
 
@@ -92,10 +94,14 @@ class RegisterPage extends StatelessWidget {
                       const SizedBox(height: 30),
 
                       // Register Button
-                      const CustomButton(
+                       CustomButton(
                         text: 'Register',
                         borderRadius: 10,
                         height: 50,
+                        onPressed: (){
+                          Navigator.pushNamed(context, AppRoutes.dashboard);
+
+                        },
                       ),
                       const SizedBox(height: 30),
 
@@ -104,7 +110,7 @@ class RegisterPage extends StatelessWidget {
                       const SizedBox(height: 30),
 
                       // Google Button
-                      _buildGoogleButton(),
+                      _buildGoogleButton(context),
                       const SizedBox(height: 30),
 
                       // Already have an account
@@ -116,12 +122,18 @@ class RegisterPage extends StatelessWidget {
                             style: GoogleFonts.poppins(fontSize: 12),
                           ),
                           const SizedBox(width: 4),
-                          Text(
-                            "Login",
-                            style: GoogleFonts.poppins(
-                              fontSize: 12,
-                              color: const Color(0xffb58a00),
-                              fontWeight: FontWeight.w500,
+                          InkWell(
+                            onTap: (){
+                              Navigator.pushNamed(context, AppRoutes.login);
+
+                            },
+                            child: Text(
+                              "Login",
+                              style: GoogleFonts.poppins(
+                                fontSize: 12,
+                                color: const Color(0xffb58a00),
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ),
                         ],
@@ -180,7 +192,7 @@ class RegisterPage extends StatelessWidget {
     );
   }
 
-  static Widget _buildGoogleButton() {
+  static Widget _buildGoogleButton(context) {
     return Container(
       height: 48,
       decoration: BoxDecoration(
@@ -189,7 +201,10 @@ class RegisterPage extends StatelessWidget {
         color: Colors.white,
       ),
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          Navigator.pushNamed(context, AppRoutes.dashboard);
+
+        },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

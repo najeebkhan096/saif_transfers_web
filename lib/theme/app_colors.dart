@@ -6,6 +6,7 @@ class AppColor {
   Color get white => const Color(0xFFFFFFFF);
   Color get red => Colors.red;
   Color get gray400 => const Color(0xFF9CA3AF);
+  Color get formBackgroundColor => const Color(0xFFF6F6F6);
   Color get primaryColor => const Color(0xFFEAB308);
 
   // Custom Named Colors

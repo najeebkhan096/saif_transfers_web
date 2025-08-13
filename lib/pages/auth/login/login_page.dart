@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:saif_transfers_web/core/routes.dart';
 import 'package:saif_transfers_web/core/utils/images.dart';
 import 'package:saif_transfers_web/theme/theme_helper.dart';
 import 'package:saif_transfers_web/widgets/custom_button.dart';
@@ -108,7 +109,10 @@ class LoginPage extends StatelessWidget {
                       const SizedBox(height: 30),
 
                       // Login Button
-                      CustomButton(text: 'Login',borderRadius: 10,height: 50,),
+                      CustomButton(text: 'Login',borderRadius: 10,height: 50,onPressed: (){
+                        Navigator.pushNamed(context, AppRoutes.dashboard);
+
+                      },),
                       const SizedBox(height: 30),
 
                       // Divider
@@ -138,7 +142,10 @@ class LoginPage extends StatelessWidget {
                           color: Colors.white,
                         ),
                         child: InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.pushNamed(context, AppRoutes.dashboard);
+
+                          },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [

@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:saif_transfers_web/theme/theme_helper.dart';
 import 'drivers_tab_config.dart';
 import '../../../../model/driver.dart';
 
@@ -20,11 +23,11 @@ class DriverRow extends StatelessWidget {
   });
 
   Widget _buildCell(
-      String text,
-      double width, {
-        TextStyle? style,
-        Alignment alignment = Alignment.centerLeft,
-      }) {
+    String text,
+    double width, {
+    TextStyle? style,
+    Alignment alignment = Alignment.centerLeft,
+  }) {
     return Container(
       width: width,
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
@@ -38,6 +41,16 @@ class DriverRow extends StatelessWidget {
     );
   }
 
+  Color getRandomColor() {
+    final Random random = Random();
+    return Color.fromARGB(
+      255, // Fully opaque
+      random.nextInt(256), // Red (0-255)
+      random.nextInt(256), // Green (0-255)
+      random.nextInt(256), // Blue (0-255)
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final nameStyle = GoogleFonts.dmSans(
@@ -45,7 +58,7 @@ class DriverRow extends StatelessWidget {
       fontSize: 14,
     );
     final cellTextStyle = GoogleFonts.dmSans(fontSize: 14);
-
+    final Color randomGeneratedColor = getRandomColor();
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
@@ -84,12 +97,42 @@ class DriverRow extends StatelessWidget {
             ),
           ),
 
-          _buildCell(driver.lastName, DriversTableConfig.lastName, style: cellTextStyle),
-          _buildCell(driver.birthDate, DriversTableConfig.birthDate, style: cellTextStyle,),
-          _buildCell(driver.state, DriversTableConfig.state, style: cellTextStyle),
-          _buildCell(driver.homeLocation, DriversTableConfig.homeLocation, style: cellTextStyle),
-          _buildCell(driver.workLocation, DriversTableConfig.workLocation, style: cellTextStyle),
+          _buildCell(
+            driver.lastName,
+            DriversTableConfig.lastName,
+            style: cellTextStyle,
+          ),
+          _buildCell(
+            driver.birthDate,
+            DriversTableConfig.birthDate,
+            style: cellTextStyle,
+          ),
+          _buildCell(
+            driver.state,
+            DriversTableConfig.state,
+            style: cellTextStyle,
+          ),
+          _buildCell(
+            driver.homeLocation,
+            DriversTableConfig.homeLocation,
+            style: cellTextStyle,
+          ),
+          // _buildCell(driver.workLocation, DriversTableConfig.workLocation, style: cellTextStyle),
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 10),
 
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: randomGeneratedColor.withOpacity(0.11),
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 3),
+            child: Text(
+              driver.workLocation,
+              style: cellTextStyle.copyWith(color: randomGeneratedColor,fontWeight: FontWeight.bold),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 2,
+            ),
+          ),
         ],
       ),
     );

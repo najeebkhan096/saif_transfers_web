@@ -82,7 +82,21 @@ class CustomButton extends StatelessWidget {
 
   Widget _buildContent() {
     return _isIconVariant
-        ? CustomImageView(imagePath: iconPath!, height: 24, width: 24)
+        ? Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CustomImageView(imagePath: iconPath!, height: 24, width: 24),
+            SizedBox(width: 20  ,),
+            Text(
+              text ?? '',
+              style: GoogleFonts.dmSans(
+                color: textColor ?? appTheme.whiteCustom,
+                fontSize: fontSize,
+                fontWeight: fontWeight,
+              ),
+            )
+          ],
+        )
         : Text(
             text ?? '',
             style: GoogleFonts.dmSans(
