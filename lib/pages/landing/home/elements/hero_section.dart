@@ -24,20 +24,26 @@ class _HeroSectionState extends State<HeroSection> {
 
     return SizedBox(
       height: isMobile ? 700 : 650,
+
       child: Stack(
         children: [
           // Background Image
-          SizedBox(
+          CustomImageView(
+            imagePath: ImageConstants.bgCar,
+            fit: BoxFit.cover,
             width: double.infinity,
             height: isMobile ? 700 : 650,
-            child: Image.asset(ImageConstants.bgCar, fit: BoxFit.cover),
+            radius: BorderRadius.circular(20),
           ),
 
           // Dark overlay for readability
           Container(
             width: double.infinity,
             height: isMobile ? 500 : 650,
-            color: Colors.black.withOpacity(0.3),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Colors.black.withOpacity(0.3),
+            ),
           ),
 
           // Text Content
@@ -55,15 +61,33 @@ class _HeroSectionState extends State<HeroSection> {
                   ),
                 ),
                 const SizedBox(height: 10),
-                Text(
-                  "A New Class Of Luxury\nAirport Travel Service",
-                  style: GoogleFonts.inter(
-                    fontSize: isMobile ? 26 : 38,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    height: 1.3,
+                RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    style: GoogleFonts.inter(
+                      fontSize: isMobile ? 26 : 38,
+                      fontWeight: FontWeight.bold,
+                      height: 1.3,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: "A New Class Of ",
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                      TextSpan(
+                        text: "Luxury",
+                        style: TextStyle(
+                          color: appTheme.primaryColor,
+                        ), // gold color
+                      ),
+                      TextSpan(
+                        text: "\nAirport Travel Service",
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ],
                   ),
                 ),
+
                 const SizedBox(height: 20),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
@@ -86,7 +110,7 @@ class _HeroSectionState extends State<HeroSection> {
             ),
           ),
 
-          // Booking Form Card
+          // Booking Form Card with Tabs
           Positioned(
             right: isMobile ? 20 : 80,
             top: isMobile ? 250 : 150,
@@ -104,74 +128,88 @@ class _HeroSectionState extends State<HeroSection> {
                   ),
                 ],
               ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // Tabs
-                  Row(
-                    children: [
-                      _BookingTab(
-                        title: "One Way",
-                        selected: selectedTab == 0,
-                        onTap: () {
-                          setState(() => selectedTab = 0);
-                        },
-                      ),
-                      _BookingTab(
-                        title: "Hourly",
-                        selected: selectedTab == 1,
-                        onTap: () {
-                          setState(() => selectedTab = 1);
-                        },
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 15),
+              child: DefaultTabController(
+                length: 2,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TabBar(
 
-                  _BookingTextField(
-                    icon: ImageConstants.pickupLocation,
-                    hint: "Pickup Location",
-                  ),
-                  const SizedBox(height: 10),
-                  _BookingTextField(
-                    icon: ImageConstants.dropLocation,
-                    hint: "Drop Location",
-                  ),
-                  const SizedBox(height: 10),
-                  _BookingTextField(
-                    icon: ImageConstants.dateIcon,
-                    hint: "Date",
-                  ),
-                  const SizedBox(height: 10),
-                  _BookingTextField(icon: ImageConstants.timeIcon, hint: "Time"),
-                  const SizedBox(height: 10),
+                      indicatorColor: appTheme.black, // underline color
+                      indicatorWeight: 3, // underline thickness
+                      labelColor: appTheme.black,
+                      unselectedLabelColor: appTheme.gray400,
+                      indicatorSize: TabBarIndicatorSize.label,
 
-                  CustomButton(
-                    margin: EdgeInsets.zero,
-                    borderRadius: 5,
-                    height: 36,
-                    borderColor: appTheme.black,
-                    onPressed: () {},
-                    text: 'Add Return',
-                    textColor: appTheme.black,
-                    backgroundColor: appTheme.transparentCustom,
-                  ),
-                  const SizedBox(height: 15),
-                  CustomButton(
-                    margin: EdgeInsets.zero,
-                    borderRadius: 5,
-                    height: 36,
-                    borderColor: appTheme.red,
-                    onPressed: () {},
-                    text: 'Submit',
-                    backgroundColor: appTheme.red,
-                  ),
-                ],
+                      tabs: const [
+                        Tab(text: "One Way"),
+                        Tab(text: "Hourly"),
+                      ],
+                    ),
+                    const SizedBox(height: 15),
+
+                    SizedBox(
+                      height: 350, // form height
+                      child: TabBarView(
+                        children: [
+                          _BookingForm(),
+                          _BookingForm(),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
+
         ],
       ),
+    );
+  }
+}
+
+class _BookingForm extends StatelessWidget {
+  const _BookingForm();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        _BookingTextField(
+          icon: ImageConstants.pickupLocation,
+          hint: "Pickup Location",
+        ),
+        const SizedBox(height: 10),
+        _BookingTextField(
+          icon: ImageConstants.dropLocation,
+          hint: "Drop Location",
+        ),
+        const SizedBox(height: 10),
+        _BookingTextField(icon: ImageConstants.dateIcon, hint: "Date"),
+        const SizedBox(height: 10),
+        _BookingTextField(icon: ImageConstants.timeIcon, hint: "Time"),
+        const SizedBox(height: 10),
+
+        CustomButton(
+          margin: EdgeInsets.zero,
+          borderRadius: 5,
+          height: 36,
+          borderColor: appTheme.black,
+          onPressed: () {},
+          text: 'Add Return',
+          textColor: appTheme.black,
+          backgroundColor: appTheme.transparentCustom,
+        ),
+        const SizedBox(height: 15),
+        CustomButton(
+          margin: EdgeInsets.zero,
+          borderRadius: 5,
+          height: 36,
+          onPressed: () {},
+          text: 'Submit',
+        ),
+      ],
     );
   }
 }
@@ -216,10 +254,7 @@ class _BookingTextField extends StatelessWidget {
   final String icon;
   final String hint;
 
-  const _BookingTextField({
-    required this.icon,
-    required this.hint,
-  });
+  const _BookingTextField({required this.icon, required this.hint});
 
   @override
   Widget build(BuildContext context) {
@@ -232,11 +267,7 @@ class _BookingTextField extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Row(
         children: [
-          CustomImageView(
-            imagePath: icon,
-            height: 20,
-            width: 20,
-          ),
+          CustomImageView(imagePath: icon, height: 20, width: 20),
           const SizedBox(width: 10),
           Expanded(
             child: Text(
@@ -253,4 +284,3 @@ class _BookingTextField extends StatelessWidget {
     );
   }
 }
-

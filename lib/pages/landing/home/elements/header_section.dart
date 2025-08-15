@@ -19,7 +19,6 @@ class LandingHeaderSection extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(
         vertical: isMobile ? 12 : 18,
-        horizontal: isMobile ? 16 : 40,
       ),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -36,7 +35,8 @@ class LandingHeaderSection extends StatelessWidget {
         ],
       ),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        // crossAxisAlignment: CrossAxisAlignment.center,
+       mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Image.asset(ImageConstants.logo, height: isMobile ? 32 : 42),
           SizedBox(width: isMobile ? 12 : 32),

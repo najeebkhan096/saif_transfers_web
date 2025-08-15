@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:saif_transfers_web/core/styling.dart';
 import 'package:saif_transfers_web/pages/bookRide/book_ride_page.dart';
 import 'package:saif_transfers_web/pages/landing/contact/contact_page.dart';
 import 'package:saif_transfers_web/pages/landing/home/home_page.dart';
@@ -54,11 +55,14 @@ class LandingPage extends StatelessWidget {
           ],
         ),
       ),
-      body: Column(
-        children: [
-          const LandingHeaderSection(),
-          Expanded(child: pages[currentIndex]),
-        ],
+      body: Padding(
+        padding: appPaddingHorizontal,
+        child: Column(
+          children: [
+            const LandingHeaderSection(),
+            Expanded(child: pages[currentIndex]),
+          ],
+        ),
       ),
     );
   }

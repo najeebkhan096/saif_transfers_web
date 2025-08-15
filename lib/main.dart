@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:saif_transfers_web/pages/landing/landing_page.dart';
@@ -5,7 +6,19 @@ import 'package:saif_transfers_web/providers/navigation.dart';
 import 'package:saif_transfers_web/providers/stepper_provider.dart';
 import 'core/routes.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: const FirebaseOptions(
+      apiKey: "AIzaSyAkNO8jRPKT8OL_2d1BuZdl_yXnuVn8-3E",
+      authDomain: "airporttransfer-2d9c0.firebaseapp.com",
+      projectId: "airporttransfer-2d9c0",
+      storageBucket: "airporttransfer-2d9c0.firebasestorage.app",
+      messagingSenderId: "1068138876918",
+      appId: "1:1068138876918:web:e45cc4f687538319bdc1d7",
+      measurementId: "G-PKLTFXZYHT", // Optional
+    ),
+  );
   runApp(const MyApp());
 }
 
