@@ -7,50 +7,49 @@ import '../../../../model/user.dart';
 
 class PasswordSection extends StatelessWidget {
   final UserModel user;
-  final ValueChanged<UserModel> onUpdate;
+  final VoidCallback onEdit;
 
   const PasswordSection({
     super.key,
     required this.user,
-    required this.onUpdate,
+    required this.onEdit,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text("Password", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-        const SizedBox(height: 10),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: appTheme.formBackgroundColor),
+      ),
+      padding: EdgeInsets.all(12),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        decoration: BoxDecoration(
+          color: appTheme.formBackgroundColor,
+          borderRadius: BorderRadius.circular(8),
 
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: appTheme.formBackgroundColor),
-          ),
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-              color: appTheme.formBackgroundColor
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(user.password, style: const TextStyle(fontSize: 14)),
-                IconButton(
-                  icon: const Icon(Icons.edit, size: 18),
-                  onPressed: () {
-                    // TODO: Implement password change modal
-                  },
-                ),
-              ],
-            ),
-          ),
         ),
-      ],
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Password", style: const TextStyle(fontSize: 12, color: Colors.black54)),
+                  const SizedBox(height: 2),
+                  Text(user.password, style: const TextStyle(fontSize: 14, color: Colors.black)),
+                ],
+              ),
+            ),
+            IconButton(
+              icon: const Icon(Icons.edit, size: 18),
+              onPressed: onEdit,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

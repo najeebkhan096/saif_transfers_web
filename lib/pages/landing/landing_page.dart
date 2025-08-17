@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:saif_transfers_web/core/routes.dart';
 import 'package:saif_transfers_web/core/styling.dart';
 import 'package:saif_transfers_web/pages/bookRide/book_ride_page.dart';
 import 'package:saif_transfers_web/pages/landing/contact/contact_page.dart';
@@ -25,6 +26,7 @@ class LandingPage extends StatelessWidget {
     'Book a Ride',
     'My Account',
     'Contact',
+    'Admin Side',
   ];
 
   @override
@@ -48,21 +50,23 @@ class LandingPage extends StatelessWidget {
                 selected: navigationProvider.activeItem == title,
                 selectedColor: Colors.blue,
                 onTap: () {
-                  navigationProvider.setActiveItem(title);
-                  Navigator.of(context).pop(); // close drawer
+                  if (title == 'Admin Side') {
+                    Navigator.of(context).pop(); // close drawer first
+                    Navigator.pushNamed(context, AppRoutes.adminLoginPage);
+                  } else {
+                    navigationProvider.setActiveItem(title);
+                    Navigator.of(context).pop(); // close drawer
+                  }
                 },
               ),
           ],
         ),
       ),
-      body: Padding(
-        padding: appPaddingHorizontal,
-        child: Column(
-          children: [
-            const LandingHeaderSection(),
-            Expanded(child: pages[currentIndex]),
-          ],
-        ),
+      body: Column(
+        children: [
+          if (currentIndex != 1) const LandingHeaderSection(),
+          Expanded(child: pages[currentIndex]),
+        ],
       ),
     );
   }

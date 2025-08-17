@@ -7,6 +7,7 @@ import 'package:saif_transfers_web/widgets/custom_button.dart';
 import '../../../../core/responsive.dart';
 import '../../../../core/routes.dart';
 import '../../../../providers/navigation.dart';
+import '../../../../widgets/custom_image_view.dart';
 
 class LandingHeaderSection extends StatelessWidget {
   const LandingHeaderSection({super.key});
@@ -19,6 +20,7 @@ class LandingHeaderSection extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(
         vertical: isMobile ? 12 : 18,
+        horizontal: 20
       ),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -58,11 +60,11 @@ class LandingHeaderSection extends StatelessWidget {
                   color: Colors.grey.shade700,
                   size: isTablet ? 18 : 22,
                 ),
-                SizedBox(width: isTablet ? 4 : 8),
-                Icon(
-                  Icons.phone,
-                  color: Colors.grey.shade700,
-                  size: isTablet ? 18 : 22,
+                SizedBox(width: isTablet ? 6 : 10),
+                CustomImageView(
+                  imagePath: ImageConstants.call,
+                  width: 14,
+                  height: 14,
                 ),
                 SizedBox(width: isTablet ? 4 : 8),
                 Text(

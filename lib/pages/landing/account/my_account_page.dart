@@ -54,8 +54,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
               const SizedBox(height: 20),
               PasswordSection(
                 user: user,
-                onUpdate: (updated) {
-                  setState(() => user = updated);
+                onEdit: () {
                 },
               ),
               const SizedBox(height: 20),
@@ -71,6 +70,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
               CustomButton(
                 text: 'Delete account',
                 borderRadius: 10,
+                fontWeight: FontWeight.w600,
                 height: 50,
                 backgroundColor: appTheme.whiteCustom,
                 borderColor: appTheme.black,

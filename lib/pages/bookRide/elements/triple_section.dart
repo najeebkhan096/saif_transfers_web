@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class BookRideTripInfoSection extends StatelessWidget {
   const BookRideTripInfoSection({super.key});
@@ -6,11 +7,11 @@ class BookRideTripInfoSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 500,
+
       padding: const EdgeInsets.all(12),
-      margin: const EdgeInsets.all(12),
+
       decoration: BoxDecoration(
-        color: const Color(0xFFF8F9FA),
+        color: const Color(0xFFFF0F2F7),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(
@@ -21,7 +22,6 @@ class BookRideTripInfoSection extends StatelessWidget {
             'Sun, Apr 27, 2025 at 05:21 PM (GMT+3)',
             style: const TextStyle(
               fontSize: 15,
-              fontWeight: FontWeight.w600,
               color: Colors.black,
             ),
           ),
@@ -30,15 +30,14 @@ class BookRideTripInfoSection extends StatelessWidget {
           /// Departure → Arrival
           Row(
             children: [
-              const Icon(Icons.flight_takeoff, size: 18, color: Colors.grey),
-              const SizedBox(width: 6),
+
               Expanded(
                 child: Text(
                   'Airport Istanbul-Atatürk (ISL)  →  Airport Munich (MUC)',
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black87,
+                  style:  GoogleFonts.dmSans(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w400,
+                    color: Color(0xff64666B),
                   ),
                 ),
               ),
@@ -49,12 +48,15 @@ class BookRideTripInfoSection extends StatelessWidget {
           /// Estimated arrival + Distance
           Row(
             children: [
-              const Icon(Icons.access_time, size: 18, color: Colors.grey),
-              const SizedBox(width: 6),
+
               Expanded(
                 child: Text(
                   'Estimated arrival at 12:35 PM (GMT+3)  •  1914 km',
-                  style: const TextStyle(fontSize: 14, color: Colors.black54),
+                  style:  GoogleFonts.dmSans(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w400,
+                    color: Color(0xff64666B),
+                  ),
                 ),
               ),
             ],

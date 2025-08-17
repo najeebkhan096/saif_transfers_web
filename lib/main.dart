@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:saif_transfers_web/pages/landing/landing_page.dart';
 import 'package:saif_transfers_web/providers/navigation.dart';
 import 'package:saif_transfers_web/providers/stepper_provider.dart';
 import 'core/routes.dart';

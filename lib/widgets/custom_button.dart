@@ -1,3 +1,4 @@
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../theme/theme_helper.dart';
@@ -35,7 +36,7 @@ class CustomButton extends StatelessWidget {
   final double? borderRadius;
   final FontWeight? fontWeight;
   final bool? isEnabled;
-  final EdgeInsets? margin;
+  final EdgeInsetsGeometry? margin;
 
   bool get _isIconVariant => iconPath?.isNotEmpty ?? false;
 
@@ -44,7 +45,7 @@ class CustomButton extends StatelessWidget {
     final enabled = isEnabled ?? true;
 
     return Padding(
-      padding: margin ?? const EdgeInsets.symmetric(horizontal: 10),
+      padding: margin ?? EdgeInsets.all(0),
       child: SizedBox(
         width: width,
         height: height,
@@ -84,9 +85,10 @@ class CustomButton extends StatelessWidget {
     return _isIconVariant
         ? Row(
       mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            CustomImageView(imagePath: iconPath!, height: 24, width: 24),
-            SizedBox(width: 20  ,),
+            CustomImageView(imagePath: iconPath!, height: 12, width: 12),
+            SizedBox(width: 10  ,),
             Text(
               text ?? '',
               style: GoogleFonts.dmSans(
@@ -105,5 +107,58 @@ class CustomButton extends StatelessWidget {
               fontWeight: fontWeight,
             ),
           );
+  }
+}
+
+
+class DottedCustomButton extends StatelessWidget {
+  final String text;
+  final VoidCallback onPressed;
+  final Color color;
+  final Color textColor;
+  final double borderRadius;
+  final double fontSize;
+  final FontWeight fontWeight;
+  final EdgeInsetsGeometry padding;
+
+  const DottedCustomButton({
+    super.key,
+    required this.text,
+    required this.onPressed,
+    this.color = Colors.black,
+    this.textColor = Colors.black,
+    this.borderRadius = 10, // 👈 default 20
+    this.fontSize = 16,
+    this.fontWeight = FontWeight.w500,
+    this.padding = const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return DottedBorder(
+      options: RoundedRectDottedBorderOptions(
+        radius: Radius.circular(borderRadius),
+        dashPattern: const [3, 2], // smaller dash, smaller gap
+        color: color,
+        strokeWidth: 0.5,
+        padding: EdgeInsets.zero, // ensures no extra padding
+      ),
+      child: InkWell(
+        onTap: onPressed,
+        borderRadius: BorderRadius.circular(borderRadius),
+        child: Container(
+          padding: padding,
+          alignment: Alignment.center,
+          child: Text(
+            text,
+            style: TextStyle(
+              fontSize: fontSize,
+              fontWeight: fontWeight,
+              color: textColor,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

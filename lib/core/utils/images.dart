@@ -4,7 +4,28 @@ class ImageConstants {
   static const String _navPath = 'images/nav';
   static const String _carPath = 'images/cars';
 
-  static String imgImageNotFound = '${_basePath}image_not_found.png';
+  static String imgImageNotFound = '$_basePath/image_not_found.png';
+  static String captcha = '$_basePath/captcha.png';
+  static String doneIcon = '$_basePath/done.png';
+
+
+  static String facebook = '$_basePath/facebook.png';
+  static String instagram = '$_basePath/instagram.png';
+  static String linkedin = '$_basePath/linkedin.png';
+  static String twitter = '$_basePath/twitter.png';
+  static String skype = '$_basePath/skype.png';
+
+ static String yellowBox = '$_basePath/yellow_folder-open.png';
+  static String redBox = '$_basePath/red_folder-open.png';
+  static String blueBox = '$_basePath/blue_folder-open.png';
+  static String farwardIcon = '$_basePath/farward_Icon.png';
+
+
+
+
+  static String safety = '$_basePath/safety.png';
+  static String call = '$_basePath/call.png';
+  static String arrowButton = '$_basePath/arrow_button.png';
   static const String sprinter = '$_landingBasePath/sprinter.png';
   static const String showcase = '$_landingBasePath/showcase.png';
   static const String luxuryClass = '$_landingBasePath/luxury_class.png';
@@ -21,6 +42,7 @@ class ImageConstants {
   static const String passenger = '$_landingBasePath/passenger.png';
   static const String luggage = '$_landingBasePath/luggage.png';
   static const String authBanner = '$_basePath/auth_banner.png';
+  static const String registerBanner = '$_basePath/register_banner.png';
   static const String google = '$_basePath/google.png';
   static const String masterCard = '$_basePath/mastercard.png';
   static const String visaCard = '$_basePath/visacard.png';

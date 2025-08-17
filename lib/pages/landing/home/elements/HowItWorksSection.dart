@@ -6,7 +6,6 @@ import 'package:saif_transfers_web/widgets/custom_image_view.dart';
 
 import '../../../../core/responsive.dart';
 
-
 class HowItWorksSection extends StatelessWidget {
   const HowItWorksSection({super.key});
 
@@ -33,34 +32,45 @@ class HowItWorksSection extends StatelessWidget {
           ),
           const SizedBox(height: 30),
           Flex(
-            direction: mobile ? Axis.vertical : Axis.horizontal,
+            direction: (mobile || tablet) ? Axis.vertical : Axis.horizontal,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               _buildStep(
                 context,
                 iconPath: ImageConstants.route,
                 title: "Create Your Route",
                 desc:
-                "Enter your pickup & dropoff locations or the number of hours you wish to book a car and driver for.",
+                    "Enter your pickup & dropoff locations or the number of hours you wish to book a car and driver for.",
                 mobile: mobile,
                 tablet: tablet,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: (mobile || tablet) ? 20 : 0,
+                ),
+                child: CustomImageView(
+                  imagePath: ImageConstants.arrowButton,
+                  width: 50,
+                ),
               ),
               _buildStep(
                 context,
                 iconPath: ImageConstants.vehicle,
                 title: "Meet Your Driver",
                 desc:
-                "You can easily make a reservation through our website, mobile app, or by contacting our customer service team.",
+                    "You can easily make a reservation through our website, mobile app, or by contacting our customer service team.",
                 mobile: mobile,
                 tablet: tablet,
               ),
+
+              CustomImageView(imagePath: ImageConstants.arrowButton, width: 50),
               _buildStep(
                 context,
                 iconPath: ImageConstants.like,
                 title: "Receive a Confirmation",
                 desc:
-                "Once your booking is received, you'll get a confirmation email or notification with all the details of your reservation.",
+                    "Once your booking is received, you'll get a confirmation email or notification with all the details of your reservation.",
                 mobile: mobile,
                 tablet: tablet,
               ),
@@ -72,13 +82,13 @@ class HowItWorksSection extends StatelessWidget {
   }
 
   Widget _buildStep(
-      BuildContext context, {
-        required String iconPath,
-        required String title,
-        required String desc,
-        required bool mobile,
-        required bool tablet,
-      }) {
+    BuildContext context, {
+    required String iconPath,
+    required String title,
+    required String desc,
+    required bool mobile,
+    required bool tablet,
+  }) {
     return SizedBox(
       width: mobile
           ? double.infinity
@@ -99,11 +109,7 @@ class HowItWorksSection extends StatelessWidget {
                 ),
               ],
             ),
-            child: CustomImageView(
-              imagePath: iconPath,
-              width: 50,
-              height: 50,
-            ),
+            child: CustomImageView(imagePath: iconPath, width: 50, height: 50),
           ),
           const SizedBox(height: 15),
           Text(

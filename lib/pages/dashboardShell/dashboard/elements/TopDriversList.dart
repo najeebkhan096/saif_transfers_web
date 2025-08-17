@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:saif_transfers_web/model/driver.dart';
+import 'package:saif_transfers_web/theme/theme_helper.dart';
 
 import 'DriverListItem.dart';
 import 'section_title.dart';
@@ -20,19 +21,7 @@ class TopDriversList extends StatelessWidget {
         maxWidth: 380,
         maxHeight: 580,
       ),
-      padding: const EdgeInsets.only(left: 24, top: 8,right: 24),
-      decoration: BoxDecoration(
-        color: Colors.grey.shade50,
-        borderRadius: BorderRadius.circular(14),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.shade300,
-            blurRadius: 12,
-            offset: const Offset(0, 6),
-          ),
-        ],
-      ),
-      child: Column(
+     child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SectionTitle(title: 'Top Drivers'),

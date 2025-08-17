@@ -381,6 +381,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const BookingsTableHeader(),
                       const SizedBox(height: 10),
@@ -424,6 +425,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const BookingsTableHeader(),
                         const SizedBox(height: 10),
@@ -468,6 +470,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const BookingsTableHeader(),
                         const SizedBox(height: 10),

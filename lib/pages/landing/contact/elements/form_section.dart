@@ -34,21 +34,23 @@ class FormSectionState extends State<FormSection> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Leave us your info',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontSize: isMobile
-                          ? 22
-                          : isTablet
-                          ? 26
-                          : 28,
-                      fontWeight: FontWeight.w700,
+                  Center(
+                    child: Text(
+                      'Leave us your info',
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontSize: isMobile
+                            ? 22
+                            : isTablet
+                            ? 26
+                            : 28,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 26),
                   SizedBox(
-                    height: 500,
+                    height: 600,
                     child: Form(
                       key: _formKey,
                       child: Column(
@@ -136,33 +138,43 @@ class _LabeledField extends StatelessWidget {
     final fill = const Color(0xFFF3F3F3);
     final isMobile = MediaQuery.of(context).size.width < 600;
 
-    return TextFormField(
-      maxLines: maxLines,
-      textAlignVertical: TextAlignVertical.top,
-      decoration: InputDecoration(
-        alignLabelWithHint: true,
-        labelText: label,
-        hintTextDirection: TextDirection.ltr,
-        labelStyle: Theme.of(
-          context,
-        ).textTheme.bodySmall?.copyWith(fontSize: isMobile ? 12 : 14),
-        hintText: hint,
-        hintStyle: TextStyle(fontSize: isMobile ? 13 : 14),
-        filled: true,
-        fillColor: fill,
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 14,
-          vertical: 14,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            fontWeight: FontWeight.w600,
+            fontSize: isMobile ? 13 : 15,
+          ),
         ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(6),
-          borderSide: BorderSide.none,
+        const SizedBox(height: 6),
+        TextFormField(
+          maxLines: maxLines,
+          textAlignVertical: TextAlignVertical.top,
+          decoration: InputDecoration(
+            alignLabelWithHint: true,
+            hintTextDirection: TextDirection.ltr,
+            hintText: hint,
+            hintStyle: TextStyle(fontSize: isMobile ? 13 : 14),
+            filled: true,
+            fillColor: fill,
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 14,
+              vertical: 14,
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(6),
+              borderSide: BorderSide.none,
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(6),
+              borderSide: const BorderSide(color: Colors.black87),
+            ),
+          ),
         ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(6),
-          borderSide: const BorderSide(color: Colors.black87),
-        ),
-      ),
+      ],
     );
   }
 }
+

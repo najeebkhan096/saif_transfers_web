@@ -30,83 +30,81 @@ class BookingRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      physics: NeverScrollableScrollPhysics(),
-      child: Row(
-        children: [
-          SizedBox(
-            width: BookingTableConfig.checkbox,
-            child: Checkbox(
-              value: isSelected,
-              onChanged: (value) => onSelected(value ?? false),
-              activeColor: const Color(0xffcda316),
-            ),
-          ),
-          SizedBox(
-            width: BookingTableConfig.customer,
-            child: Row(
-              children: [
-                CircleAvatar(
-                  backgroundImage: NetworkImage(booking.avatarUrl),
-                  radius: 18,
-                ),
-                const SizedBox(width: 10),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      booking.name,
-                      style: GoogleFonts.dmSans(fontWeight: FontWeight.w600),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    Text(
-                      booking.phone,
-                      style: GoogleFonts.dmSans(
-                        fontSize: 12,
-                        color: Colors.grey.shade600,
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          _buildCell(booking.car, BookingTableConfig.car),
-          _buildCell(
-            "${booking.date}\n${booking.time}",
-            BookingTableConfig.dateTime,
-          ),
-          _buildCell(booking.start, BookingTableConfig.start),
-          _buildCell(booking.end, BookingTableConfig.end),
-          // _buildCell(
-          //   booking.income,
-          //   BookingTableConfig.income,
-          //   style: GoogleFonts.dmSans(
-          //     color: Colors.green,
-          //     fontWeight: FontWeight.bold,
-          //   ),
-          // ),
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 10),
-
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Color(0xff24C18F).withOpacity(0.11),
-            ),
-            padding: EdgeInsets.symmetric(horizontal: 7, vertical: 3),
-            child: Text(
-              booking.income,
-              style: GoogleFonts.dmSans(
-                color: Colors.green,
-                fontWeight: FontWeight.bold,
+    return Container(
+      padding: const EdgeInsets.all(12),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        physics: NeverScrollableScrollPhysics(),
+        child: Row(
+          children: [
+            SizedBox(
+              width: BookingTableConfig.checkbox,
+              child: Checkbox(
+                value: isSelected,
+                onChanged: (value) => onSelected(value ?? false),
+                activeColor: const Color(0xffcda316),
               ),
-              overflow: TextOverflow.ellipsis,
-              maxLines: 2,
             ),
-          ),
-        ],
+            SizedBox(
+              width: BookingTableConfig.customer,
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: BookingTableConfig.checkbox,
+                    child: CircleAvatar(
+                      backgroundImage: NetworkImage(booking.avatarUrl),
+                      radius: 18,
+                    ),
+                  ),
+
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        booking.name,
+                        style: GoogleFonts.dmSans(fontWeight: FontWeight.w600),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Text(
+                        booking.phone,
+                        style: GoogleFonts.dmSans(
+                          fontSize: 12,
+                          color: Colors.grey.shade600,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            _buildCell(booking.car, BookingTableConfig.car),
+            _buildCell(
+              "${booking.date}\n${booking.time}",
+              BookingTableConfig.dateTime,
+            ),
+            _buildCell(booking.start, BookingTableConfig.start),
+            _buildCell(booking.end, BookingTableConfig.end),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 10),
+
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Color(0xff24C18F).withOpacity(0.11),
+              ),
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 3),
+              child: Text(
+                booking.income,
+                style: GoogleFonts.dmSans(
+                  color: Colors.green,
+                  fontWeight: FontWeight.bold,
+                ),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

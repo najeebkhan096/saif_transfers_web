@@ -30,12 +30,22 @@ class BookingsTableHeader extends StatelessWidget {
         physics: NeverScrollableScrollPhysics(),
         child: Row(
           children: [
-            SizedBox(width: BookingTableConfig.checkbox), // Checkbox placeholder
-            _buildHeaderCell("User", BookingTableConfig.customer),
-            _buildHeaderCell("Car", BookingTableConfig.car),
-            _buildHeaderCell("Date & Time", BookingTableConfig.dateTime),
+            SizedBox(
+              width: BookingTableConfig.checkbox,
+              child: Checkbox(
+                value: false,
+                onChanged: (value) {},
+                activeColor: const Color(0xffcda316),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left:12.0),
+              child: _buildHeaderCell("User", BookingTableConfig.customer,),
+            ),
+            _buildHeaderCell("Car Comfort", BookingTableConfig.car),
+            _buildHeaderCell("Ordered Time", BookingTableConfig.dateTime),
             _buildHeaderCell("Start Location", BookingTableConfig.start),
-            _buildHeaderCell("End Location", BookingTableConfig.end),
+            _buildHeaderCell("Finish Location", BookingTableConfig.end),
             _buildHeaderCell("Income", BookingTableConfig.income),
           ],
         ),

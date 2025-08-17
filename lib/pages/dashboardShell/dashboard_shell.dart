@@ -51,6 +51,7 @@ class _DashboardShellState extends State<DashboardShell> {
         bool isMobile = constraints.maxWidth < 800;
 
         return Scaffold(
+          backgroundColor: appTheme.whiteCustom,
           drawer: isMobile
               ? Drawer(
                   child: Sidebar(
@@ -87,11 +88,8 @@ class _DashboardShellState extends State<DashboardShell> {
                       ),
                     ),
                     Expanded(
-                      child: Container(
-                        color: Colors.grey.shade100,
-                        child: SingleChildScrollView(
-                          child: pages[_selectedIndex],
-                        ),
+                      child: SingleChildScrollView(
+                        child: pages[_selectedIndex],
                       ),
                     ),
                   ],
@@ -248,8 +246,8 @@ class TopBar extends StatelessWidget {
       ),
       child: Row(
         children: [
-          if (showMenuButton)
-            IconButton(icon: const Icon(Icons.menu), onPressed: onMenuPressed),
+          // if (showMenuButton)
+          IconButton(icon: const Icon(Icons.menu), onPressed: onMenuPressed),
           if (!showMenuButton)
             const Icon(Icons.menu, color: Colors.transparent),
           const SizedBox(width: 10),

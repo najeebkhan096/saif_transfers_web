@@ -20,6 +20,7 @@ class PaymentSection extends StatelessWidget {
         CustomButton(
           text: 'Add new card',
           iconPath: ImageConstants.addIcon,
+          fontWeight: FontWeight.w600,
           borderRadius: 10,
           height: 50,
           backgroundColor: appTheme.whiteCustom,

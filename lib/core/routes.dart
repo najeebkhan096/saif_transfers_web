@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:saif_transfers_web/pages/auth/login/login_page.dart';
+import 'package:saif_transfers_web/pages/admin/login/login_page.dart';
 import 'package:saif_transfers_web/pages/auth/register/register_page.dart';
 import 'package:saif_transfers_web/pages/dashboardShell/dashboard_shell.dart';
 import 'package:saif_transfers_web/pages/landing/landing_page.dart';
@@ -7,10 +8,11 @@ import 'package:saif_transfers_web/pages/landing/landing_page.dart';
 
 class AppRoutes {
   // Route names
-  static const String landing = '/landing';
+  static const String landing = '/';
   static const String dashboard = '/dashboard';
   static const String login = '/login';
   static const String register = '/register';
+  static const String adminLoginPage = '/adminLoginPage';
 
   // Route generator with animation
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -23,6 +25,8 @@ class AppRoutes {
         return _animatedRoute(const LoginPage(), settings);
       case register:
         return _animatedRoute(const RegisterPage(), settings);
+        case adminLoginPage:
+        return _animatedRoute(const AdminLoginPage(), settings);
       default:
         return _errorRoute(settings.name);
     }

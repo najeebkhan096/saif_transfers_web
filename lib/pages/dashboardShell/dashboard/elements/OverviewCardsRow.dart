@@ -1,7 +1,11 @@
 // ignore_for_file: file_names
 
-import 'package:flutter/material.dart' show BuildContext, Colors, Column, EdgeInsets, Expanded, LayoutBuilder, MainAxisAlignment, Padding, Row, SizedBox, StatelessWidget, Widget, Wrap;
+import 'package:flutter/material.dart'
+    show BuildContext, Colors, Column, EdgeInsets, Expanded, LayoutBuilder, MainAxisAlignment, Padding, Row, SizedBox, StatelessWidget, Widget, Wrap, Color;
 import 'package:saif_transfers_web/pages/dashboardShell/dashboard/elements/OverviewCard.dart';
+
+import '../../../../core/utils/images.dart';
+
 /// Overview Cards Row (Responsive)
 class OverviewCardsRow extends StatelessWidget {
   const OverviewCardsRow({super.key});
@@ -9,9 +13,24 @@ class OverviewCardsRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cards = [
-      OverviewCard(title: 'Total Orders', value: '20', color: Colors.blue.shade700),
-      OverviewCard(title: 'Total Transfers', value: '15', color: Colors.red.shade700),
-      OverviewCard(title: 'Total Drivers', value: '8', color: Colors.orange.shade700),
+      OverviewCard(
+        title: 'Total Orders',
+        value: '20',
+        color: Color(0xff3366FF),
+        imagePath: ImageConstants.blueBox,
+      ),
+      OverviewCard(
+        title: 'Total Earnings',
+        value: '15',
+        color: Color(0xffFF333F),
+        imagePath: ImageConstants.redBox,
+      ),
+      OverviewCard(
+        title: 'Profit',
+        value: '8',
+        color: Color(0xffFF9533),
+        imagePath: ImageConstants.yellowBox,
+      ),
     ];
 
     return LayoutBuilder(
@@ -25,12 +44,12 @@ class OverviewCardsRow extends StatelessWidget {
             children: cards
                 .map(
                   (card) => Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: card,
-                ),
-              ),
-            )
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: card,
+                    ),
+                  ),
+                )
                 .toList(),
           );
         } else if (width >= 400) {
@@ -39,12 +58,7 @@ class OverviewCardsRow extends StatelessWidget {
             spacing: 16,
             runSpacing: 16,
             children: cards
-                .map(
-                  (card) => SizedBox(
-                width: (width / 2) - 16,
-                child: card,
-              ),
-            )
+                .map((card) => SizedBox(width: (width / 2) - 16, child: card))
                 .toList(),
           );
         } else {
@@ -53,10 +67,10 @@ class OverviewCardsRow extends StatelessWidget {
             children: cards
                 .map(
                   (card) => Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8),
-                child: card,
-              ),
-            )
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: card,
+                  ),
+                )
                 .toList(),
           );
         }

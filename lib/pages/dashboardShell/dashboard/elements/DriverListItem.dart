@@ -1,5 +1,3 @@
-// ignore_for_file: file_names
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:saif_transfers_web/model/driver.dart';
@@ -13,64 +11,103 @@ class DriverListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(14),
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(color: Colors.grey.shade200, blurRadius: 6, offset: const Offset(0, 2)),
-        ],
+        color: const Color(0xFFF7F9FC), // light grey background
+        borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          CircleAvatar(
-            radius: 26,
-            backgroundImage: NetworkImage(driver.avatar),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  driver.firstName,
-                  style: GoogleFonts.dmSans(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 16,
-                    color: Colors.black87,
-                  ),
+          /// Left: Avatar + Info
+          Row(
+            children: [
+              // With this:
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: driver.avatar.isNotEmpty
+                    ? Image.network(
+                  driver.avatar,
+                  width: 44,
+                  height: 44,
+                  fit: BoxFit.cover,
+                )
+                    : Image.asset(
+                  'assets/images/default_avatar.png',
+                  width: 44,
+                  height: 44,
+                  fit: BoxFit.cover,
                 ),
-                const SizedBox(height: 6),
-                Text(
-                  driver.phone!,
+              ),
+              const SizedBox(width: 12),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    driver.firstName,
+                    style: GoogleFonts.dmSans(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 15,
+                      color: const Color(0xFF2E3A59), // dark text
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    driver.phone ?? 'No phone',
+                    style: GoogleFonts.dmSans(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 13,
+                      color: Colors.grey.shade500,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+
+          /// Right: Orders + Income
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              RichText(
+                text: TextSpan(
+                  text: 'Orders: ',
                   style: GoogleFonts.dmSans(
                     fontWeight: FontWeight.w500,
                     fontSize: 13,
                     color: Colors.grey.shade600,
-                    letterSpacing: 0.2,
                   ),
-                ),
-              ],
-            ),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                'Orders: ${driver.orders}',
-                style: GoogleFonts.dmSans(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 14,
-                  color: Colors.black87,
+                  children: [
+                    TextSpan(
+                      text: '${driver.orders}',
+                      style: GoogleFonts.dmSans(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 13,
+                        color: const Color(0xFF2E3A59), // dark blue text
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 4),
-              Text(
-                'Income: \$${driver.income?.toStringAsFixed(0)}',
-                style: GoogleFonts.dmSans(
-                  fontWeight: FontWeight.w800,
-                  fontSize: 16,
-                  color: Colors.green.shade700,
+              const SizedBox(height: 6),
+              RichText(
+                text: TextSpan(
+                  text: 'Income: ',
+                  style: GoogleFonts.dmSans(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 13,
+                    color: Colors.grey.shade600,
+                  ),
+                  children: [
+                    TextSpan(
+                      text: '\$${driver.income?.toStringAsFixed(0) ?? "0"}',
+                      style: GoogleFonts.dmSans(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 15,
+                        color: const Color(0xFF1B2B6B), // navy blue
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],

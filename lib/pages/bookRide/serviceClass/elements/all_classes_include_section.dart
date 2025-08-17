@@ -23,12 +23,8 @@ class AllClassesIncludeSection extends StatelessWidget {
         const double gap = 16;
         final width = MediaQuery.of(context).size.width;
 
-        // Responsive content max-width
-        final contentMaxWidth = width > 1200 ? 760.0 : width * 0.68;
-
         return Container(
-          width: double.infinity,
-          constraints: BoxConstraints(maxWidth: contentMaxWidth),
+
           padding: const EdgeInsets.fromLTRB(16, 16, 16, 14),
           decoration: BoxDecoration(
             color: appTheme.whiteCustom,

@@ -1,8 +1,6 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:saif_transfers_web/theme/theme_helper.dart';
 import 'drivers_tab_config.dart';
 import '../../../../model/driver.dart';
 
@@ -60,13 +58,14 @@ class DriverRow extends StatelessWidget {
     final cellTextStyle = GoogleFonts.dmSans(fontSize: 14);
     final Color randomGeneratedColor = getRandomColor();
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10),
+      margin: const EdgeInsets.symmetric(vertical: 12),
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(color: Colors.grey.shade300, width: 0.8),
         ),
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SizedBox(
             width: DriversTableConfig.checkbox,
@@ -117,7 +116,7 @@ class DriverRow extends StatelessWidget {
             DriversTableConfig.homeLocation,
             style: cellTextStyle,
           ),
-          // _buildCell(driver.workLocation, DriversTableConfig.workLocation, style: cellTextStyle),
+
           Container(
             margin: EdgeInsets.symmetric(vertical: 10),
 
@@ -128,7 +127,10 @@ class DriverRow extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 3),
             child: Text(
               driver.workLocation,
-              style: cellTextStyle.copyWith(color: randomGeneratedColor,fontWeight: FontWeight.bold),
+              style: cellTextStyle.copyWith(
+                color: randomGeneratedColor,
+                fontWeight: FontWeight.bold,
+              ),
               overflow: TextOverflow.ellipsis,
               maxLines: 2,
             ),

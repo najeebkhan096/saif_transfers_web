@@ -3,170 +3,214 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:saif_transfers_web/core/utils/images.dart';
 import 'package:saif_transfers_web/widgets/custom_image_view.dart';
 
+import '../../../theme/theme_helper.dart';
+import '../elements/triple_section.dart';
+
 class PaymentFormSection extends StatelessWidget {
   const PaymentFormSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final borderRadius = BorderRadius.circular(8);
-    final border = OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.grey.shade300),
-      borderRadius: borderRadius,
-    );
-
-    return Container(
-      margin: EdgeInsets.all(12),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 20),
-          Text(
-            "Add credit card",
-            style: GoogleFonts.inter(fontWeight: FontWeight.bold, fontSize: 24),
-          ),
-          const SizedBox(height: 20),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+    return Center(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 700),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const SizedBox(height: 20),
+              BookRideTripInfoSection(),
+              const SizedBox(height: 40),
+
+              /// Title
+              Text(
+                "Add credit card",
+                style: GoogleFonts.dmSans(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 24,
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
               /// Card Details Form
               Container(
-                width: 500,
-                padding: const EdgeInsets.all(16),
+                width: double.infinity,
                 decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: borderRadius,
-                border: Border.all(color: Colors.grey.shade300),
+                  border: Border.all(color: const Color(0xffE3E5EA)),
+                  borderRadius: BorderRadius.circular(10),
                 ),
+                padding: const EdgeInsets.all(16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     /// Name on Card
-                    TextField(
-                      decoration: InputDecoration(
-                        labelText: 'Name on Card*',
-                        border: border,
-                        enabledBorder: border,
-                        focusedBorder: border,
-                        filled: true,
-                        fillColor: Colors.grey.shade100,
-                      ),
+                    _PaymentInputField(
+                      label: "Name on Card*",
+                      hint: "Enter name as shown on card",
                     ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 20),
 
-                    /// Card Number + Logos
-                    TextField(
-                      decoration: InputDecoration(
-                        labelText: 'Card Number*',
-                        border: border,
-                        enabledBorder: border,
-                        focusedBorder: border,
-                        filled: true,
-                        fillColor: Colors.grey.shade100,
-                        suffixIcon: SizedBox(
-                          width: 100,
-                          child: Row(
-                            children: [
-                              CustomImageView(
-                                imagePath: ImageConstants.masterCard,
-                              ),
-                              SizedBox(width: 4),
-                              CustomImageView(imagePath: ImageConstants.visaCard),
-                              SizedBox(width: 4),
-                              CustomImageView(
-                                imagePath: ImageConstants.americanCard,
-                              ),
-                            ],
+                    /// Card Number with logos
+                    _PaymentInputField(
+                      label: "Card Number*",
+                      hint: "1234 5678 9101 1121",
+                      suffix: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          CustomImageView(imagePath: ImageConstants.masterCard),
+                          const SizedBox(width: 6),
+                          CustomImageView(imagePath: ImageConstants.visaCard),
+                          const SizedBox(width: 6),
+                          CustomImageView(
+                            imagePath: ImageConstants.americanCard,
                           ),
-                        ),
+                        ],
                       ),
                     ),
-
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 20),
 
                     /// Expiration + CVV
                     Row(
                       children: [
                         Expanded(
-                          child: TextField(
-                            decoration: InputDecoration(
-                              labelText: 'Expiration date*',
-                              hintText: 'MM / YY',
-                              border: border,
-                              enabledBorder: border,
-                              focusedBorder: border,
-                              filled: true,
-                              fillColor: Colors.grey.shade100,
-                            ),
+                          child: _PaymentInputField(
+                            label: "Expiration date*",
+                            hint: "MM / YY",
                           ),
                         ),
                         const SizedBox(width: 12),
                         Expanded(
-                          child: TextField(
-                            decoration: InputDecoration(
-                              labelText: 'CVV*',
-                              border: border,
-                              enabledBorder: border,
-                              focusedBorder: border,
-                              filled: true,
-                              fillColor: Colors.grey.shade100,
-                            ),
-                          ),
+                          child: _PaymentInputField(label: "CVV*", hint: "123"),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 12),
+
+                    const SizedBox(height: 20),
 
                     /// Save Card Checkbox
                     Row(
                       children: [
-                        Checkbox(value: false, onChanged: (value) {}),
-                        const Text("Save card to your list"),
+                        Checkbox(value: false, onChanged: (val) {}),
+                        Text(
+                          "Save card to your list",
+                          style: GoogleFonts.dmSans(fontSize: 12),
+                        ),
                       ],
                     ),
                   ],
                 ),
               ),
-              const SizedBox(height: 12),
 
-              /// Info Sections
-              _infoBox(
-                Icons.info_outline,
-                "It will appear on your driver's pickup sign when they meet you.",
+              const SizedBox(height: 20),
+
+
+            Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                border: Border.all(color: const Color(0xffE3E5EA)),
+                borderRadius: BorderRadius.circular(10),
               ),
-              const SizedBox(height: 8),
-              _infoBox(
-                Icons.warning_amber_rounded,
-                "It will appear on your driver's pickup sign when they meet you.",
+              // padding: const EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  /// Info Sections
+                  _InfoBox(
+                    icon: ImageConstants.doneIcon,
+                    text:
+                    "Your card details are securely processed and never stored.",
+                  ),
+                  const SizedBox(height: 4),
+                  Divider(color: Color(0xffE3E5EA),),
+                  const SizedBox(height: 4),
+                  _InfoBox(
+                    icon: ImageConstants.safety,
+                    text:
+                    "We use industry-standard encryption to protect your information.",
+                  ),
+                ],
               ),
+            ),
+
+              const SizedBox(height: 100),
             ],
           ),
-
-          const SizedBox(height: 80),
-        ],
+        ),
       ),
     );
   }
+}
 
-  /// Helper for info boxes
-  Widget _infoBox(IconData icon, String text) {
-    return Container(
-      width: 500,
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.grey.shade300),
+/// Styled InputField for Payment
+class _PaymentInputField extends StatelessWidget {
+  final String label;
+  final String hint;
+  final Widget? suffix;
+
+  const _PaymentInputField({
+    required this.label,
+    required this.hint,
+    this.suffix,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      decoration: InputDecoration(
+        hintText: label,
+        hintStyle: GoogleFonts.dmSans(
+          color: appTheme.black,
+          fontWeight: FontWeight.w300,
+          fontSize: 12,
+        ),
+        filled: true,
+        fillColor: const Color(0xffF6F6F6),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: const BorderSide(color: Color(0xffF6F6F6)),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: const BorderSide(color: Color(0xffF6F6F6)),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: const BorderSide(color: Color(0xffF6F6F6)),
+        ),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 12,
+          vertical: 12,
+        ),
+        suffixIcon: suffix,
       ),
+    );
+  }
+}
+
+/// Styled Info Box
+class _InfoBox extends StatelessWidget {
+  final String icon;
+  final String text;
+
+  const _InfoBox({required this.icon, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(12),
+
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon, size: 20, color: Colors.grey.shade700),
+          CustomImageView(imagePath: icon,width: 18,height: 18,),
           const SizedBox(width: 8),
           Expanded(
             child: Text(
               text,
-              style: TextStyle(color: Colors.grey.shade800, fontSize: 14),
+              style: GoogleFonts.dmSans(fontSize: 12, color: appTheme.black),
             ),
           ),
         ],

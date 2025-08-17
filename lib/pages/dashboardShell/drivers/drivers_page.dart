@@ -147,6 +147,7 @@ class _DriversPageState extends State<DriversPage> {
               const DriversTableHeader(),
               const SizedBox(height: 10),
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: List.generate(drivers.length, (index) {
                   return DriverRow(
                     driver: drivers[index],
@@ -239,19 +240,19 @@ class DriversHeaderRow extends StatelessWidget {
                   color: Color(0xFF94A3B8),
                   fontSize: 14,
                 ),
-                contentPadding: const EdgeInsets.symmetric(vertical: 10),
+                contentPadding: const EdgeInsets.symmetric(vertical: 10,horizontal: 20),
                 filled: true,
                 fillColor: Colors.white,
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(40),
                   borderSide: const BorderSide(color: Color(0xFFE2E8F0)),
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(40),
                   borderSide: const BorderSide(color: Color(0xFFE2E8F0)),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(40),
                   borderSide: const BorderSide(color: Color(0xFF3B82F6)),
                 ),
               ),

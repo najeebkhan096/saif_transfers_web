@@ -48,41 +48,59 @@ class _SettingsPageState extends State<SettingsPage> {
     return Container(
       padding: EdgeInsets.all(12),
       width: double.infinity,
-      child: _buildCard(
-        title: 'General',
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            final isNarrow = constraints.maxWidth < 720;
-            final fields = _buildFields();
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: 20),
+          Text(
+            'Settings',
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              color: Color(0xFF0F172A),
+            ),
+          ),
+          SizedBox(height: 20),
+          SectionHeader(title: "General Settings"),
 
-            if (isNarrow) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: fields
-                    .map(
-                      (f) => Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: f,
-                      ),
-                    )
-                    .toList(),
-              );
-            }
+          SizedBox(height: 20),
+          _buildCard(
+            title: 'General',
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final isNarrow = constraints.maxWidth < 720;
+                final fields = _buildFields();
 
-            return Wrap(
-              spacing: 36,
-              runSpacing: 20,
-              children: fields
-                  .map(
-                    (f) => SizedBox(
-                      width: (constraints.maxWidth - 36) / 2,
-                      child: f,
-                    ),
-                  )
-                  .toList(),
-            );
-          },
-        ),
+                if (isNarrow) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: fields
+                        .map(
+                          (f) => Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                            child: f,
+                          ),
+                        )
+                        .toList(),
+                  );
+                }
+
+                return Wrap(
+                  spacing: 36,
+                  runSpacing: 20,
+                  children: fields
+                      .map(
+                        (f) => SizedBox(
+                          width: (constraints.maxWidth - 36) / 2,
+                          child: f,
+                        ),
+                      )
+                      .toList(),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -327,3 +345,113 @@ class _AccentToggleState extends State<AccentToggle> {
     );
   }
 }
+
+class SectionHeader extends StatelessWidget {
+  final String title;
+  final double progress; // 0.0 -> 1.0
+
+  const SectionHeader({
+    super.key,
+    required this.title,
+    this.progress = 0.18, // default full
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final gradient = const LinearGradient(
+      colors: [Color(0xffEFBF04), Color(0xff896D02)],
+      begin: Alignment.centerLeft,
+      end: Alignment.centerRight,
+    );
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          /// Gradient Text
+          ShaderMask(
+            shaderCallback: (bounds) => gradient.createShader(
+              Rect.fromLTWH(0, 0, bounds.width, bounds.height),
+            ),
+            child: Text(
+              title,
+              style: const TextStyle(
+                color: Colors.white, // <- needed for ShaderMask
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 2),
+
+          /// Gradient Progress Bar
+          GradientProgressBar(
+            progress: 0.13, // 60%
+            height: 3,
+            gradient:gradient,
+            backgroundColor: Colors.grey.shade300,
+
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+class GradientProgressBar extends StatelessWidget {
+  final double progress; // 0.0 - 1.0
+  final double height;
+  final Gradient gradient;
+  final Color backgroundColor;
+
+  const GradientProgressBar({
+    super.key,
+    required this.progress,
+    this.height = 4,
+    required this.gradient,
+    this.backgroundColor = Colors.grey,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final safeProgress = progress.clamp(0.0, 1.0);
+
+    return SizedBox(
+      height: height,
+      child: Row(
+        children: [
+          /// Filled (gradient) part
+          Container(
+            width: 110,
+            decoration: BoxDecoration(
+              gradient: gradient,
+              borderRadius: BorderRadius.horizontal(
+                left: Radius.circular(height),
+                right: safeProgress == 1.0 ? Radius.circular(height) : Radius.zero,
+              ),
+            ),
+          ),
+
+          /// Remaining (grey) part
+          Expanded(
+            flex: ((1 - safeProgress) * 1000).toInt(),
+            child: Container(
+              decoration: BoxDecoration(
+                color: backgroundColor,
+                borderRadius: BorderRadius.horizontal(
+                  right: Radius.circular(height),
+                  left: safeProgress == 0.0 ? Radius.circular(height) : Radius.zero,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+

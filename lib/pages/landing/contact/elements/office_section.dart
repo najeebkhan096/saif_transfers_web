@@ -44,7 +44,7 @@ class OfficesSection extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 60),
       child: Wrap(
-        alignment: WrapAlignment.start,
+        alignment: WrapAlignment.center,
         children: List.generate(offices.length, (index) {
           return _OfficeCard(data: offices[index]);
         }),

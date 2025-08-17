@@ -6,6 +6,9 @@ import 'package:saif_transfers_web/pages/bookRide/serviceClass/service_class_pag
 import 'package:saif_transfers_web/theme/theme_helper.dart';
 import 'package:saif_transfers_web/widgets/custom_button.dart';
 
+import '../../core/routes.dart';
+import '../../core/utils/images.dart';
+import '../../providers/navigation.dart';
 import '../../providers/stepper_provider.dart';
 import 'carSummary/car_summary_section_page.dart';
 import 'elements/header_section.dart';
@@ -32,11 +35,54 @@ class BookRidePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final navigationProvider = context.watch<NavigationProvider>();
+
+    // Find the current page index
+    int currentIndex = [
+      'Home',
+      'Book a Ride',
+      'My Account',
+      'Contact',
+    ].indexOf(navigationProvider.activeItem);
+    if (currentIndex == -1) currentIndex = 0;
+
     return ChangeNotifierProvider(
       create: (_) => CheckoutStepperProvider(),
       child: Consumer<CheckoutStepperProvider>(
         builder: (context, stepper, _) {
           return Scaffold(
+            endDrawer: Drawer(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  DrawerHeader(child: Image.asset(ImageConstants.logo)),
+                  for (var title in [
+                    'Home',
+                    'Book a Ride',
+                    'My Account',
+                    'Contact',
+                    'Admin Side',
+                  ])
+                    ListTile(
+                      title: Text(title),
+                      selected: navigationProvider.activeItem == title,
+                      selectedColor: Colors.blue,
+                      onTap: () {
+                        if (title == 'Admin Side') {
+                          Navigator.of(context).pop(); // close drawer first
+                          Navigator.pushNamed(
+                            context,
+                            AppRoutes.adminLoginPage,
+                          );
+                        } else {
+                          navigationProvider.setActiveItem(title);
+                          Navigator.of(context).pop(); // close drawer
+                        }
+                      },
+                    ),
+                ],
+              ),
+            ),
             backgroundColor: appTheme.whiteCustom,
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
@@ -74,8 +120,8 @@ class BookRidePage extends StatelessWidget {
                     borderColor: appTheme.coloF6F6F6,
                     text: stepper.currentStep < 2
                         ? 'Continue'
-                        : stepper.currentStep == 3
-                        ? 'Proceed too Checkout'
+                        : stepper.currentStep == 2
+                        ? 'Proceed to Checkout'
                         : 'Confirm Booking',
                     textColor: appTheme.whiteCustom,
                     fontWeight: FontWeight.bold,
@@ -90,9 +136,6 @@ class BookRidePage extends StatelessWidget {
             body: Column(
               children: [
                 BookRideHeaderSection(),
-                SizedBox(height: 20),
-                if (stepper.currentStep != 2) Center(child: BookRideTripInfoSection()),
-                SizedBox(height: 20),
 
                 /// Step Content
                 Expanded(child: _buildStepContent(stepper.currentStep)),

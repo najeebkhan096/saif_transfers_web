@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:saif_transfers_web/core/utils/images.dart';
 import 'package:saif_transfers_web/pages/bookRide/serviceClass/service_list_section.dart';
 import 'package:saif_transfers_web/theme/theme_helper.dart';
 import 'package:saif_transfers_web/widgets/custom_button.dart';
+import '../../../core/routes.dart';
 import '../../../model/service_class_info.dart';
+import '../../../providers/navigation.dart';
+import '../elements/triple_section.dart';
 import 'elements/all_classes_include_section.dart';
 
 // Entry point widget
@@ -52,65 +56,36 @@ class _ServiceClassPageState extends State<ServiceClassPage> {
       imageUrl: ImageConstants.serviceFirstClassCar,
     ),
   ];
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        decoration: BoxDecoration(
-          color: appTheme.whiteCustom,
-          boxShadow: [
-            BoxShadow(
-              // ignore: deprecated_member_use
-              color: Colors.black.withOpacity(0.05),
-              blurRadius: 6,
-              offset: const Offset(0, -2),
-            ),
-          ],
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'View terms and conditions',
-              style: TextStyle(
-                fontSize: 14,
-                color: appTheme.black,
-                decoration: TextDecoration.underline,
-              ),
-              overflow: TextOverflow.ellipsis,
-            ),
-            const SizedBox(width: 30),
-            CustomButton(
-              width: 160,
-              margin: EdgeInsets.zero,
-              height: 36,
-              borderRadius: 10,
-              borderColor: appTheme.coloF6F6F6,
-              backgroundColor: appTheme.coloF6F6F6,
-              text: 'Continue',
-              textColor: appTheme.whiteCustom,
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-              onPressed: () {},
-            ),
-          ],
-        ),
-      ),
+    final width = MediaQuery.of(context).size.width;
 
-      body: SafeArea(
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            return Container(
+    final isMobile = width < 700;
+
+    final contentMaxWidth = isMobile
+        ? 500.0
+        : width > 1200
+        ? 500.0
+        : width * 0.58;
+    return SafeArea(
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          return Center(
+            child: Container(
+              constraints: BoxConstraints(maxWidth: contentMaxWidth),
               width: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 12,
+              ),
               color: appTheme.whiteCustom,
               child: SingleChildScrollView(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(height: 20),
+                    BookRideTripInfoSection(),
+                    SizedBox(height: 20),
+
                     ServicesListSection(services: serviceClasses),
                     const SizedBox(height: 20),
                     AllClassesIncludeSection(),
@@ -118,9 +93,9 @@ class _ServiceClassPageState extends State<ServiceClassPage> {
                   ],
                 ),
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }

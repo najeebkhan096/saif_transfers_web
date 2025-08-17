@@ -100,15 +100,16 @@ class _ClientsPageState extends State<ClientsPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Container(
         color: appTheme.whiteCustom,
+        margin: const EdgeInsets.symmetric(horizontal: 12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ClientsHeaderRow( title: 'Clients list',
+            ClientsHeaderRow(
+              title: 'Clients list',
               onSearchChanged: (query) {
                 print("Searching for $query");
               },
@@ -117,7 +118,8 @@ class _ClientsPageState extends State<ClientsPage> {
                 print("Dropdown changed to $value");
               },
               dropdownItems: const ['All driver', 'Active', 'Created'],
-            ), const SizedBox(height: 10),
+            ),
+            const SizedBox(height: 10),
             const ClientsTableHeader(),
             const SizedBox(height: 10),
             Column(
@@ -158,6 +160,7 @@ class _ClientsPageState extends State<ClientsPage> {
     );
   }
 }
+
 class ClientsHeaderRow extends StatelessWidget {
   final String title;
   final ValueChanged<String> onSearchChanged;
@@ -202,7 +205,7 @@ class ClientsHeaderRow extends StatelessWidget {
               style: const TextStyle(fontSize: 14),
               decoration: InputDecoration(
                 hintText: 'Search by Name',
-                prefixIcon: const Icon(
+                suffixIcon: const Icon(
                   Icons.search,
                   size: 18,
                   color: Color(0xFF94A3B8),
@@ -211,25 +214,27 @@ class ClientsHeaderRow extends StatelessWidget {
                   color: Color(0xFF94A3B8),
                   fontSize: 14,
                 ),
-                contentPadding: const EdgeInsets.symmetric(vertical: 10),
+                contentPadding: const EdgeInsets.symmetric(
+                  vertical: 10,
+                  horizontal: 20,
+                ),
                 filled: true,
                 fillColor: Colors.white,
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(40),
                   borderSide: const BorderSide(color: Color(0xFFE2E8F0)),
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(40),
                   borderSide: const BorderSide(color: Color(0xFFE2E8F0)),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(40),
                   borderSide: const BorderSide(color: Color(0xFF3B82F6)),
                 ),
               ),
             ),
           ),
-
         ],
       ),
     );
@@ -304,7 +309,7 @@ class ClientFooter extends StatelessWidget {
                 onTap: onPrevious,
                 isDisabled: currentPage == 1,
               ),
-              CustomButton(text: currentPage.toString(),width: 40,height: 40,),
+              CustomButton(text: currentPage.toString(), width: 40, height: 40),
               const SizedBox(width: 8),
               _paginationButton(
                 icon: Icons.chevron_right,

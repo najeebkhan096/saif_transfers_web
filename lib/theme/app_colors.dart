@@ -13,7 +13,7 @@ class AppColor {
   Color get whiteCustom => Colors.white;
   Color get transparentCustom => Colors.transparent;
   Color get blueCustom => Colors.blue;
-  Color get greyCustom => Colors.grey;
+  Color get greyCustom => Color(0xff9B9B9B);
 
   // Custom Theme Colors
   Color get colorFF2A2A => const Color(0xFF2A2A2A);

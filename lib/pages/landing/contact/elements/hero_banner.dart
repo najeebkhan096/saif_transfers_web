@@ -11,7 +11,7 @@ class HeroBanner extends StatelessWidget {
       color: Colors.black,
       height: 200,
       width: double.infinity,
-      padding: const EdgeInsets.only(left: 40),
+      padding: const EdgeInsets.only(left: 80),
       child: ConstrainedBox(
         constraints: BoxConstraints(maxWidth: maxW),
         child: Column(
@@ -21,7 +21,7 @@ class HeroBanner extends StatelessWidget {
             Text(
               'Contact',
               style: GoogleFonts.dmSans(
-                fontSize: 42,
+                fontSize: 35,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
                 height: 1.2,
@@ -31,7 +31,7 @@ class HeroBanner extends StatelessWidget {
             Text(
               'Home  >  Contact',
               style: GoogleFonts.dmSans(
-                fontSize: 16,
+                fontSize: 14,
                 fontWeight: FontWeight.w400,
                 color: Colors.white70,
                 height: 1.4,

@@ -32,7 +32,7 @@ class DriversTableHeader extends StatelessWidget {
     final headerPadding = const EdgeInsets.symmetric(vertical: 0, horizontal: 0);
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
+      margin: const EdgeInsets.symmetric(vertical: 12),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
         color: appTheme.colorF7F8FA,
@@ -43,32 +43,22 @@ class DriversTableHeader extends StatelessWidget {
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(width: DriversTableConfig.checkbox),
-            Padding(
-              padding: headerPadding,
-              child: _buildHeaderCell("First Name", DriversTableConfig.firstName),
+            SizedBox(
+              width: DriversTableConfig.checkbox,
+              child: Checkbox(
+                value: false,
+                onChanged: (value) {},
+                activeColor: const Color(0xffcda316),
+              ),
             ),
-            Padding(
-              padding: headerPadding,
-              child: _buildHeaderCell("Last Name", DriversTableConfig.lastName),
-            ),
-            Padding(
-              padding: headerPadding,
-              child: _buildHeaderCell("Birthdate", DriversTableConfig.birthDate),
-            ),
-            Padding(
-              padding: headerPadding,
-              child: _buildHeaderCell("State", DriversTableConfig.state),
-            ),
-            Padding(
-              padding: headerPadding,
-              child: _buildHeaderCell("Home Location", DriversTableConfig.homeLocation),
-            ),
-            Padding(
-              padding: headerPadding,
-              child: _buildHeaderCell("Work Location", DriversTableConfig.workLocation),
-            ),
+            _buildHeaderCell("First Name", DriversTableConfig.firstName),
+            _buildHeaderCell("Last Name", DriversTableConfig.lastName),
+            _buildHeaderCell("Birthdate", DriversTableConfig.birthDate),
+            _buildHeaderCell("State", DriversTableConfig.state),
+            _buildHeaderCell("Home Location", DriversTableConfig.homeLocation),
+            _buildHeaderCell("Work Location", DriversTableConfig.workLocation),
           ],
         ),
       ),

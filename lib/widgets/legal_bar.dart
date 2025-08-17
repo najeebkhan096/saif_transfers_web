@@ -10,7 +10,7 @@ class LegalBar extends StatelessWidget {
     const maxW = 1180.0;
 
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 18),
+      padding: const EdgeInsets.symmetric(vertical: 18,horizontal: 20),
       decoration: const BoxDecoration(
         border: Border(top: BorderSide(color: Color(0xFFE9E9E9))),
       ),
