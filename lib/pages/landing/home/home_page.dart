@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:saif_transfers_web/core/styling.dart';
+import 'package:saif_transfers_web/pages/landing/contact/elements/mid_footer_bar.dart';
 import 'package:saif_transfers_web/widgets/big_footer.dart';
 import 'package:saif_transfers_web/widgets/legal_bar.dart';
 import 'elements/HowItWorksSection.dart';
@@ -22,7 +24,7 @@ class HomePage extends StatelessWidget {
         padding: appPaddingHorizontal,
         child: Column(
           children: [
-            SizedBox(height: 20,),
+            SizedBox(height: 20.h,),
             const HeroSection(),
             const HowItWorksSection(),
             const ServicesSection(),
@@ -31,42 +33,53 @@ class HomePage extends StatelessWidget {
             TestimonialsSection(),
             PartnersSection(),
              DownloadAppSection(),
-            ResponsiveFooter(
-              sections: [
-                FooterSection(
-                  title: 'Company',
-                  items: const [
-                    'About us',
-                    'Our offerings',
-                    'Newsroom',
-                    'Investors',
-                    'Blog',
-                    'Careers',
-                    'Gift cards',
-                  ],
-                ),
-                 FooterSection(
-                  title: 'Top cities',
-                  items: ['New York', 'London', 'Berlin', 'Los Angeles', 'Paris'],
-                ),
-                 FooterSection(
-                  title: 'Explore',
-                  items: [
-                    'Intercity rides',
-                    'Limousine service',
-                    'Chauffeur service',
-                    'Private car service',
-                    'Ground transportation',
-                    'Airport transfer',
-                  ],
-                ),
-                 FooterSection(
-                  title: 'Classes',
-                  items: ['Business', 'First', 'XL', 'Assistant'],
-                ),
-              ],
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 60),
+              child: MidFooterBar(),
             ),
-            const LegalBar(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 60),
+
+              child: ResponsiveFooter(
+                sections: [
+                  FooterSection(
+                    title: 'Company',
+                    items: const [
+                      'About us',
+                      'Our offerings',
+                      'Newsroom',
+                      'Investors',
+                      'Blog',
+                      'Careers',
+                      'Gift cards',
+                    ],
+                  ),
+                   FooterSection(
+                    title: 'Top cities',
+                    items: ['New York', 'London', 'Berlin', 'Los Angeles', 'Paris'],
+                  ),
+                   FooterSection(
+                    title: 'Explore',
+                    items: [
+                      'Intercity rides',
+                      'Limousine service',
+                      'Chauffeur service',
+                      'Private car service',
+                      'Ground transportation',
+                      'Airport transfer',
+                    ],
+                  ),
+                   FooterSection(
+                    title: 'Classes',
+                    items: ['Business', 'First', 'XL', 'Assistant'],
+                  ),
+                ],
+              ),
+            ),
+            const LegalBar(
+              margin:  EdgeInsets.symmetric(horizontal: 60),
+
+            ),
 
             // FooterSection(),
           ],

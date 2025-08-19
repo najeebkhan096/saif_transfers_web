@@ -8,7 +8,6 @@ import 'package:saif_transfers_web/widgets/custom_image_view.dart';
 
 import '../../../../core/responsive.dart';
 
-
 /// =================== FLEET ===================
 class FleetSection extends StatelessWidget {
   const FleetSection({super.key});
@@ -20,7 +19,7 @@ class FleetSection extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: appTheme.coloF6F6F6,
+        color: Color(0xffE8EDED),
         borderRadius: BorderRadius.circular(20),
       ),
       margin: EdgeInsets.symmetric(
@@ -28,9 +27,10 @@ class FleetSection extends StatelessWidget {
         horizontal: mobile ? 16 : 40,
       ),
       padding: EdgeInsets.symmetric(
-        vertical: mobile ? 12 : 16,
-        horizontal: mobile ? 12 : 16,
+        vertical: mobile ? 12 : 40,
+        horizontal: mobile ? 12 : 40,
       ),
+      // height: mobile ? 1320 : 560,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -66,17 +66,7 @@ class FleetSection extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 10),
 
-          /// Subtitle
-          Text(
-            "Choose from our range of premium vehicles to suit your needs.",
-            style: GoogleFonts.dmSans(
-              fontSize: mobile ? 14 : 16,
-              color: Colors.black54,
-              height: 1.4,
-            ),
-          ),
           const SizedBox(height: 40),
 
           /// Fleet Cards
@@ -128,23 +118,16 @@ class FleetSection extends StatelessWidget {
     required bool mobile,
     required bool tablet,
   }) {
-    double cardWidth = mobile ? double.infinity : (tablet ? 240 : 300);
-
+    double cardWidth = 440;
     return Container(
       width: cardWidth,
+      height: 372,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.08),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-        border: Border.all(color: Colors.grey.shade200),
+        border: Border.all(color: Colors.grey.shade400),
       ),
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(32),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -153,32 +136,32 @@ class FleetSection extends StatelessWidget {
             title,
             style: GoogleFonts.dmSans(
               fontWeight: FontWeight.bold,
-              fontSize: 14,
+              fontSize: 20,
               color: appTheme.black,
             ),
           ),
-          const SizedBox(height: 5),
+          const SizedBox(height: 10),
 
           /// Subtitle
           Text(
             subtitle,
             style: GoogleFonts.dmSans(
               fontWeight: FontWeight.w500,
-              fontSize: 10,
+              fontSize: 14,
               color: appTheme.black,
             ),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 20),
 
           /// Vehicle Image
           Center(
             child: CustomImageView(
               imagePath: imagePath,
               fit: BoxFit.cover,
-              width: 200,
+              height: 144,
             ),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 20),
 
           /// Passengers & Luggage Row
           Row(
@@ -201,10 +184,7 @@ class FleetSection extends StatelessWidget {
         const SizedBox(width: 4),
         Text(
           text,
-          style: GoogleFonts.dmSans(
-            fontSize: 10,
-            color: Colors.black54,
-          ),
+          style: GoogleFonts.dmSans(fontSize: 10, color: Colors.black54),
         ),
       ],
     );

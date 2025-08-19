@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:saif_transfers_web/core/utils/images.dart';
+import 'package:saif_transfers_web/theme/app_colors.dart';
 import 'package:saif_transfers_web/theme/theme_helper.dart';
 import 'package:saif_transfers_web/widgets/custom_button.dart';
 import '../../../../core/responsive.dart';
@@ -18,23 +20,15 @@ class LandingHeaderSection extends StatelessWidget {
     final bool isTablet = Responsive.isTablet(context);
 
     return Container(
+      height: 82.h,
       padding: EdgeInsets.symmetric(
         vertical: isMobile ? 12 : 18,
         horizontal: 20
       ),
       decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border(
-          bottom: BorderSide(color: Colors.grey.shade300, width: 1),
-        ),
-        boxShadow: [
-          BoxShadow(
-            // ignore: deprecated_member_use
-            color: Colors.black.withOpacity(0.02),
-            blurRadius: 4,
-            offset: const Offset(0, 2),
-          ),
-        ],
+        color: AppColor().coloF6F6F6,
+
+
       ),
       child: Row(
         // crossAxisAlignment: CrossAxisAlignment.center,
@@ -70,7 +64,7 @@ class LandingHeaderSection extends StatelessWidget {
                 Text(
                   "+1800 000 122",
                   style: GoogleFonts.inter(
-                    fontSize: isTablet ? 12 : 14,
+                    fontSize:  15.sp,
                     fontWeight: FontWeight.w500,
                     color: Colors.black87,
                   ),
@@ -79,14 +73,14 @@ class LandingHeaderSection extends StatelessWidget {
                 CustomButton(
                   width: isTablet ? 60 : 80,
                   margin: EdgeInsets.all(0),
-                  height: 36,
+                  height: 36.h,
                   borderRadius: 5,
                   borderColor: appTheme.coloF6F6F6,
                   backgroundColor: appTheme.coloF6F6F6,
                   text: 'Login',
                   textColor: appTheme.black,
                   fontWeight: FontWeight.bold,
-                  fontSize: isTablet ? 12 : 14,
+                  fontSize: 15.sp,
                   onPressed: () {
                     Navigator.pushNamed(context, AppRoutes.login);
 
@@ -96,9 +90,9 @@ class LandingHeaderSection extends StatelessWidget {
                 CustomButton(
                   margin: EdgeInsets.all(0),
                   width: isTablet ? 60 : 90,
-                  height: 36,
+                  height: 36.h,
                   borderRadius: 5,
-                  fontSize: isTablet ? 12 : 14,
+                  fontSize:  15.sp,
                   borderColor: appTheme.black,
                   backgroundColor: appTheme.black,
                   text: 'Sign Up',
@@ -150,7 +144,7 @@ class _NavItem extends StatelessWidget {
           child: Text(
             title,
             style: GoogleFonts.inter(
-              fontSize: isTablet ? 12 : 14,
+              fontSize: 15.sp,
               fontWeight: FontWeight.w600,
               color: isActive ? Colors.blue : Colors.black87,
             ),

@@ -19,38 +19,33 @@ class ResponsiveFooter extends StatelessWidget {
 
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 28),
-      margin: EdgeInsets.symmetric(horizontal: 20),
+      margin: EdgeInsets.symmetric(horizontal: 0),
       decoration: const BoxDecoration(
         border: Border(top: BorderSide(color: Color(0xFFE9E9E9))),
       ),
-      child: Center(
-        child: ConstrainedBox(
-          constraints: BoxConstraints(maxWidth: maxWidth),
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              int columns = _getColumnCount(breakpoint);
-              double spacing = breakpoint == FooterBreakpoint.mobile ? 14 : 30;
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          int columns = _getColumnCount(breakpoint);
+          double spacing = breakpoint == FooterBreakpoint.mobile ? 14 : 30;
 
-              double itemWidth =
-                  (constraints.maxWidth - (spacing * (columns - 1))) / columns;
+          double itemWidth =
+              (constraints.maxWidth - (spacing * (columns - 1))) / columns;
 
-              return Wrap(
-                spacing: spacing,
-                runSpacing: 14,
-                children: sections.map((section) {
-                  return SizedBox(
-                    width: itemWidth,
-                    child: FooterColumn(
-                      section: section,
-                      titleSize: _getTitleFontSize(breakpoint),
-                      itemSize: _getItemFontSize(breakpoint),
-                    ),
-                  );
-                }).toList(),
+          return Wrap(
+            spacing: spacing,
+            runSpacing: 14,
+            children: sections.map((section) {
+              return SizedBox(
+                width: itemWidth,
+                child: FooterColumn(
+                  section: section,
+                  titleSize: _getTitleFontSize(breakpoint),
+                  itemSize: _getItemFontSize(breakpoint),
+                ),
               );
-            },
-          ),
-        ),
+            }).toList(),
+          );
+        },
       ),
     );
   }

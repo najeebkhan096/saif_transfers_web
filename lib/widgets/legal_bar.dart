@@ -3,74 +3,77 @@ import 'package:saif_transfers_web/core/utils/images.dart';
 import 'package:saif_transfers_web/widgets/custom_image_view.dart';
 
 class LegalBar extends StatelessWidget {
-  const LegalBar({super.key});
+  final EdgeInsetsGeometry? margin;
+  final EdgeInsetsGeometry? padding;
+  const LegalBar({super.key,this.margin,this.padding});
 
   @override
   Widget build(BuildContext context) {
-    const maxW = 1180.0;
+
 
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 18,horizontal: 20),
+     padding: padding,
+      margin: margin,
+
       decoration: const BoxDecoration(
         border: Border(top: BorderSide(color: Color(0xFFE9E9E9))),
       ),
-      child: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: maxW),
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              final isSmallScreen = constraints.maxWidth < 600;
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final isSmallScreen = constraints.maxWidth < 600;
 
-              if (isSmallScreen) {
-                // Stack vertically for small screens
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+          if (isSmallScreen) {
+            // ---------- MOBILE VIEW ----------
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Wrap(
+                  spacing: 0,
+                  runSpacing: 10,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  alignment: WrapAlignment.center,
                   children: [
-                    Wrap(
-                      spacing: 0,
-                      runSpacing: 10,
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      alignment: WrapAlignment.center,
-                      children: [
-                        CustomImageView(
-                          imagePath: ImageConstants.logo,
-                          width: 60,
-                          height: 60,
-                        ),
-                        const SizedBox(width: 20),
-                        ..._links.map((link) => _DotSeparatedText(text: link)),
-                      ],
+                    CustomImageView(
+                      imagePath: ImageConstants.logo,
+                      width: 50,
+                      height: 50,
                     ),
-                    const SizedBox(height: 10),
-                    const LanguageSelector(),
+                    const SizedBox(width: 12),
+                    ..._links.map((link) => _DotSeparatedText(text: link)),
                   ],
-                );
-              }
+                ),
+                const SizedBox(height: 12),
+                const LanguageSelector(),
+              ],
+            );
+          }
 
-              // Row for larger screens
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          // ---------- DESKTOP / TABLET VIEW ----------
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
                 children: [
+                  CustomImageView(
+                    imagePath: ImageConstants.logo,
+                    width: 60,
+                    height: 60,
+                  ),
+                  const SizedBox(width: 20),
                   Wrap(
                     spacing: 0,
                     runSpacing: 10,
                     crossAxisAlignment: WrapCrossAlignment.center,
                     children: [
-                      CustomImageView(
-                        imagePath: ImageConstants.logo,
-                        width: 60,
-                        height: 60,
-                      ),
-                      const SizedBox(width: 20),
                       ..._links.map((link) => _DotSeparatedText(text: link)),
                     ],
                   ),
-                  const LanguageSelector(),
                 ],
-              );
-            },
-          ),
-        ),
+              ),
+              const LanguageSelector(),
+            ],
+          );
+        },
       ),
     );
   }

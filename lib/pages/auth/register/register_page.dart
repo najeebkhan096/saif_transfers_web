@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:saif_transfers_web/core/utils/images.dart';
 import 'package:saif_transfers_web/theme/theme_helper.dart';
@@ -27,13 +28,13 @@ class RegisterPage extends StatelessWidget {
                 Expanded(
                   child: SingleChildScrollView(
                     padding: EdgeInsets.symmetric(
-                      horizontal: isMobile ? 24 : 40,
+                      horizontal: isMobile ? 24.h : 40.h,
                       vertical: 20,
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(height: 30),
+                         SizedBox(height: 30.h),
                         CustomImageView(
                           imagePath: ImageConstants.logo,
                           width: 100,
@@ -67,7 +68,7 @@ class RegisterPage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        const SizedBox(height: 10),
+                         SizedBox(height: 10.h),
 
                         // Description
                         Text(
@@ -77,12 +78,12 @@ class RegisterPage extends StatelessWidget {
                             color: Color(0xff9B9B9B),
                           ),
                         ),
-                        const SizedBox(height: 30),
+                        SizedBox(height: 30.h),
 
 
                         // Email
                         _buildTextField("Enter your email"),
-                        const SizedBox(height: 20),
+                        SizedBox(height: 20.h),
 
                         // Password
                         _buildTextField(
@@ -90,7 +91,7 @@ class RegisterPage extends StatelessWidget {
                           obscure: true,
                           suffixIcon: Icons.visibility_off,
                         ),
-                        const SizedBox(height: 20),
+                        SizedBox(height: 20.h),
 
                         // Confirm Password
                         _buildTextField(
@@ -98,7 +99,7 @@ class RegisterPage extends StatelessWidget {
                           obscure: true,
                           suffixIcon: Icons.visibility_off,
                         ),
-                        const SizedBox(height: 30),
+                        SizedBox(height: 20.h),
 
                         // Register Button
                         CustomButton(
@@ -110,15 +111,15 @@ class RegisterPage extends StatelessWidget {
                             Navigator.pushNamed(context, AppRoutes.dashboard);
                           },
                         ),
-                        const SizedBox(height: 30),
+                        SizedBox(height: 30.h),
 
                         // Divider
                         _buildDividerWithText("OR"),
-                        const SizedBox(height: 30),
+                        SizedBox(height: 30.h),
 
                         // Google Button
                         _buildGoogleButton(context),
-                        const SizedBox(height: 30),
+                        SizedBox(height: 30.h),
 
                         // Already have an account
                         Row(
@@ -144,7 +145,7 @@ class RegisterPage extends StatelessWidget {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 30),
+                        SizedBox(height: 30.h),
                         FakeCaptcha(),
                       ],
                     ),
@@ -204,12 +205,13 @@ class RegisterPage extends StatelessWidget {
 
   static Widget _buildGoogleButton(context) {
     return Container(
-      height: 48,
+      height: 50,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
           color: Colors.white,
           border: Border.all(color: appTheme.greyCustom,width: 0.15)
       ),
+      padding: EdgeInsets.symmetric(vertical: 5),
       child: InkWell(
         onTap: () {
           Navigator.pushNamed(context, AppRoutes.dashboard);

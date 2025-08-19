@@ -16,23 +16,25 @@ class HowItWorksSection extends StatelessWidget {
 
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: mobile ? 20 : 40,
-        vertical: mobile ? 30 : 60,
+        vertical: mobile ? 30 : 0,
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "How It Works",
-            style: TextStyle(
-              fontSize: mobile ? 22 : 28,
-              fontWeight: FontWeight.bold,
-              color: Colors.black87,
+          Center(
+            child: Text(
+              "How It Works",
+              style: TextStyle(
+                fontSize: mobile ? 22 : 28,
+                fontWeight: FontWeight.bold,
+                color: Colors.black87,
+              ),
             ),
           ),
           const SizedBox(height: 30),
           Flex(
-            direction: (mobile || tablet) ? Axis.vertical : Axis.horizontal,
+             direction: (mobile || tablet) ? Axis.vertical : Axis.horizontal,
+            //
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -45,6 +47,7 @@ class HowItWorksSection extends StatelessWidget {
                 mobile: mobile,
                 tablet: tablet,
               ),
+
               Padding(
                 padding: EdgeInsets.symmetric(
                   vertical: (mobile || tablet) ? 20 : 0,
@@ -94,7 +97,8 @@ class HowItWorksSection extends StatelessWidget {
           ? double.infinity
           : (tablet ? MediaQuery.of(context).size.width / 3.5 : 280),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
             padding: const EdgeInsets.all(12),

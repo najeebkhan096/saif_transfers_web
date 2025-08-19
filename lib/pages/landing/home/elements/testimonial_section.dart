@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:saif_transfers_web/widgets/custom_button.dart';
 
 /// =================== TESTIMONIALS ===================
@@ -57,8 +58,13 @@ class _TestimonialsSectionState extends State<TestimonialsSection> {
         bool isMobile = constraints.maxWidth < 800;
 
         return Container(
-          padding: const EdgeInsets.all(40),
-          color: Colors.red.shade50,
+          padding: const EdgeInsets.symmetric(vertical: 120,horizontal: 80),
+          margin: EdgeInsets.symmetric(vertical: 20),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: Color(0xffFDEEEC)
+          ),
+
           child: isMobile
               ? Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,8 +93,8 @@ class _TestimonialsSectionState extends State<TestimonialsSection> {
       children: [
         Text(
           "Hear what our amazing customers say",
-          style: TextStyle(
-            fontSize: isMobile ? 20 : 24,
+              style: GoogleFonts.dmSans(
+            fontSize: isMobile ? 20 : 44,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -96,7 +102,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection> {
         Text(
           "Sad ipscing elitrsed diamnonu myeir mod, sadipscing elitrsed dia morem ipsum dolor situamet consetetur loutrytru.",
           textAlign: isMobile ? TextAlign.start : TextAlign.start,
-          style: TextStyle(fontSize: isMobile ? 14 : 16),
+              style: GoogleFonts.dmSans(fontSize: isMobile ? 14 : 16),
         ),
         const SizedBox(height: 20),
         CustomButton(
@@ -148,7 +154,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection> {
                           Expanded(
                             child: Text(
                               t["name"],
-                              style: TextStyle(
+                                  style: GoogleFonts.dmSans(
                                 fontWeight: FontWeight.bold,
                                 fontSize: isMobile ? 14 : 16,
                               ),
@@ -172,8 +178,8 @@ class _TestimonialsSectionState extends State<TestimonialsSection> {
                         child: SingleChildScrollView(
                           child: Text(
                             t["description"],
-                            style: TextStyle(
-                              fontSize: isMobile ? 13 : 14,
+                                style: GoogleFonts.dmSans(
+                              fontSize: isMobile ? 13 : 18,
                               color: Colors.black87,
                             ),
                           ),

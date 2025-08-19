@@ -8,9 +8,10 @@ class DownloadAppSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 416,
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-      padding: const EdgeInsets.all(40),
+      padding: const EdgeInsets.only(left: 50),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         image: DecorationImage(
@@ -21,15 +22,16 @@ class DownloadAppSection extends StatelessWidget {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Text(
             "Download the app",
-            style: TextStyle(color: Colors.white, fontSize: 24),
+            style: TextStyle(color: Colors.white, fontSize: 44),
           ),
           const SizedBox(height: 20),
           const Text(
             "Have a personal driver at your fingertips no matter where you are with our easy-to-use smartphone app.",
-            style: TextStyle(color: Colors.white, fontSize: 12),
+            style: TextStyle(color: Colors.white, fontSize: 16),
           ),
           const SizedBox(height: 20),
           Wrap(
@@ -38,46 +40,105 @@ class DownloadAppSection extends StatelessWidget {
             alignment: WrapAlignment.start,
             children: [
               // App Store button
-              ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  // ignore: deprecated_member_use
-                  backgroundColor: Color(0xffFFFFFF).withOpacity(0.11),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 12,
+              SizedBox(
+                height: 69,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xffFFFFFF).withOpacity(0.11),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 12,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                   ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+                  onPressed: () {},
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(
+                        Icons.apple,
+                        color: Colors.white,
+                        size: 32,
+                      ),
+                      const SizedBox(width: 10),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Text(
+                            "Download on",
+                            style: TextStyle(
+                              color: Colors.white70,
+                              fontSize: 12,
+                            ),
+                          ),
+                          Text(
+                            "App Store",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-                icon: const Icon(Icons.apple, color: Colors.white),
-                label: const Text(
-                  "App Store",
-                  style: TextStyle(color: Colors.white),
-                ),
-                onPressed: () {},
               ),
 
-              // Play Store button
-              ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  // ignore: deprecated_member_use
-                  backgroundColor: Color(0xffFFFFFF).withOpacity(0.11),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 12,
+
+              SizedBox(
+                height: 69,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xffFFFFFF).withOpacity(0.11),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 12,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                   ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+                  onPressed: () {},
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(
+                        Icons.apple,
+                        color: Colors.white,
+                        size: 32,
+                      ),
+                      const SizedBox(width: 10),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Text(
+                            "Download on",
+                            style: TextStyle(
+                              color: Colors.white70,
+                              fontSize: 12,
+                            ),
+                          ),
+                          Text(
+                            "Google Store",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-                icon: const Icon(Icons.play_arrow, color: Colors.white),
-                label: const Text(
-                  "Play Store",
-                  style: TextStyle(color: Colors.white),
-                ),
-                onPressed: () {},
-              ),
+              )
+
             ],
           ),
         ],

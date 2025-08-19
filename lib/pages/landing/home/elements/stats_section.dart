@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:saif_transfers_web/core/utils/images.dart';
 import 'package:saif_transfers_web/theme/theme_helper.dart';
+import 'package:saif_transfers_web/widgets/custom_button.dart';
 import 'package:saif_transfers_web/widgets/custom_image_view.dart';
 
 class ShowcaseSection extends StatelessWidget {
@@ -11,7 +13,7 @@ class ShowcaseSection extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     final isMobile = width < 800;
 
-    final titleSize = isMobile ? 20.0 : 32.0;
+    final titleSize = isMobile ? 20.0 : 44.0;
     final bodySize = isMobile ? 14.0 : 16.0;
     final statValueSize = isMobile ? 14.0 : 16.0;
     final statLabelSize = isMobile ? 10.0 : 12.0;
@@ -23,14 +25,24 @@ class ShowcaseSection extends StatelessWidget {
       padding: const EdgeInsets.all(20),
       child: Flex(
         direction: isMobile ? Axis.vertical : Axis.horizontal,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: isMobile
+            ? CrossAxisAlignment.center
+            : CrossAxisAlignment.start,
+        mainAxisAlignment: isMobile
+            ? MainAxisAlignment.center
+            : MainAxisAlignment.start,
         children: [
+          // Gap between image and text for mobile
+          if (!isMobile) const SizedBox(width: 120),
           Flexible(
             flex: isMobile ? 0 : 1,
             child: Stack(
               children: [
-                CustomImageView(imagePath: ImageConstants.showcaseBanner),
+                CustomImageView(
+                  imagePath: ImageConstants.showcaseBanner,
+                  width: 448,
+                  height: 524,
+                ),
                 Positioned(
                   left: 12,
                   bottom: 12,
@@ -39,7 +51,9 @@ class ShowcaseSection extends StatelessWidget {
                       backgroundColor: Colors.white,
                       foregroundColor: Colors.black,
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 8),
+                        horizontal: 12,
+                        vertical: 8,
+                      ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(6),
                       ),
@@ -48,9 +62,10 @@ class ShowcaseSection extends StatelessWidget {
                     icon: const Icon(Icons.play_arrow, size: 18),
                     label: Text(
                       "Play Video",
-                      style: TextStyle(
-                          fontSize: isMobile ? 12 : 14,
-                          fontWeight: FontWeight.w500),
+                          style: GoogleFonts.dmSans(
+                        fontSize: isMobile ? 12 : 14,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                 ),
@@ -70,19 +85,18 @@ class ShowcaseSection extends StatelessWidget {
                 children: [
                   Text(
                     "Showcase some\nimpressive numbers.",
-                    style: TextStyle(
+                        style: GoogleFonts.dmSans(
                       fontSize: titleSize,
                       fontWeight: FontWeight.w700,
                       color: const Color(0xFF1B1B1B),
-                      height: 1.2,
                     ),
                   ),
                   const SizedBox(height: 16),
                   Text(
                     "We boast a remarkable 98% customer satisfaction rate, demonstrating our\n"
-                        "commitment to delivering exceptional service and exceeding our clients’\n"
-                        "expectations.",
-                    style: TextStyle(
+                    "commitment to delivering exceptional service and exceeding our clients’\n"
+                    "expectations.",
+                        style: GoogleFonts.dmSans(
                       fontSize: bodySize,
                       fontWeight: FontWeight.w400,
                       color: const Color(0xFF5C5C5C),
@@ -96,44 +110,63 @@ class ShowcaseSection extends StatelessWidget {
                     runSpacing: 16,
                     children: [
                       StatCard(
-                          value: "285",
-                          label: "Vehicles",
-                          width: isMobile ? 120 : 160,
-                          valueSize: statValueSize,
-                          labelSize: statLabelSize),
+                        value: "285",
+                        label: "Vehicles",
+                        width: isMobile ? 120 : 160,
+                        valueSize: statValueSize,
+                        labelSize: statLabelSize,
+                      ),
                       StatCard(
-                          value: "97",
-                          label: "Awards",
-                          width: isMobile ? 120 : 160,
-                          valueSize: statValueSize,
-                          labelSize: statLabelSize),
+                        value: "97",
+                        label: "Awards",
+                        width: isMobile ? 120 : 160,
+                        valueSize: statValueSize,
+                        labelSize: statLabelSize,
+                      ),
                       StatCard(
-                          value: "13 k",
-                          label: "Happy Customer",
-                          width: isMobile ? 150 : 200,
-                          valueSize: statValueSize,
-                          labelSize: statLabelSize),
+                        value: "13 k",
+                        label: "Happy Customer",
+                        width: isMobile ? 150 : 200,
+                        valueSize: statValueSize,
+                        labelSize: statLabelSize,
+                      ),
                     ],
                   ),
                   const SizedBox(height: 32),
-
-                  ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFE94D35),
-                      padding: buttonPadding,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(color: Colors.white),
+                      gradient: LinearGradient(
+                        colors: [Color(0xffEFBF04), Color(0xff896D02)],
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
                       ),
                     ),
-                    onPressed: () {},
-                    icon: Icon(Icons.arrow_outward,
-                        size: isMobile ? 16 : 18, color: appTheme.whiteCustom),
-                    label: Text(
-                      "Learn More",
-                      style: TextStyle(
-                          fontSize: isMobile ? 14 : 16,
-                          fontWeight: FontWeight.w600,
-                          color: appTheme.whiteCustom),
+                    height: 40,
+                    width: 120,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 5,
+                    ),
+                    child: Row(
+                      children: [
+                        Text(
+                          'Learn More',
+                          style: GoogleFonts.dmSans(
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        CustomImageView(
+                          imagePath: ImageConstants.learnMore,
+                          width: 12,
+                          height: 12,
+                          color: Colors.white,
+                        ),
+                      ],
                     ),
                   ),
                 ],
@@ -153,21 +186,22 @@ class StatCard extends StatelessWidget {
   final double valueSize;
   final double labelSize;
 
-  const StatCard(
-      {super.key,
-        required this.value,
-        required this.label,
-        required this.width,
-        required this.valueSize,
-        required this.labelSize});
+  const StatCard({
+    super.key,
+    required this.value,
+    required this.label,
+    required this.width,
+    required this.valueSize,
+    required this.labelSize,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: width,
-      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
-      decoration: BoxDecoration(
-        border: Border.all(color: appTheme.formBackgroundColor),
+      height: 81,
+     decoration: BoxDecoration(
+        border: Border.all(color: appTheme.gray400),
         borderRadius: BorderRadius.circular(6),
       ),
       child: Row(
@@ -175,7 +209,7 @@ class StatCard extends StatelessWidget {
         children: [
           Text(
             value,
-            style: TextStyle(
+            style: GoogleFonts.dmSans(
               fontSize: valueSize,
               fontWeight: FontWeight.w700,
               color: Colors.black,
@@ -184,10 +218,10 @@ class StatCard extends StatelessWidget {
           const SizedBox(width: 4),
           Text(
             label,
-            style: TextStyle(
+                style: GoogleFonts.dmSans(
               fontSize: labelSize,
               fontWeight: FontWeight.w400,
-              color: Colors.black45,
+              color:appTheme.black
             ),
           ),
         ],

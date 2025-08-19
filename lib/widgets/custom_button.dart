@@ -148,6 +148,7 @@ class DottedCustomButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(borderRadius),
         child: Container(
           padding: padding,
+          height: 52,
           alignment: Alignment.center,
           child: Text(
             text,

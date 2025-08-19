@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:saif_transfers_web/core/routes.dart';
 import 'package:saif_transfers_web/core/styling.dart';
@@ -29,21 +30,21 @@ class LoginPage extends StatelessWidget {
                   flex: isMobile ? 1 : 1,
                   child: SingleChildScrollView(
                     padding: EdgeInsets.symmetric(
-                      horizontal: isMobile ? 24 : 40,
+                      horizontal: isMobile ? 24.h : 40.h,
                       vertical: 20,
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        const SizedBox(height: 30),
+                         SizedBox(height: 30.h),
                         // Logo
                         CustomImageView(
                           imagePath: ImageConstants.logo,
                           width: 100,
                           fit: BoxFit.fill,
                         ),
-                        const SizedBox(height: 40),
+                         SizedBox(height: 40.h),
 
                         // Welcome
                         RichText(
@@ -65,7 +66,7 @@ class LoginPage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        const SizedBox(height: 10),
+                         SizedBox(height: 10.h),
 
                         // Description
                         Text(
@@ -75,33 +76,39 @@ class LoginPage extends StatelessWidget {
                             color: appTheme.greyCustom,
                           ),
                         ),
-                        const SizedBox(height: 30),
+                         SizedBox(height: 30.h),
 
                         // Email
                         TextField(
                           decoration: InputDecoration(
                             hintText: "Enter your email",
-                            hintStyle: GoogleFonts.poppins(fontSize: 14,color: appTheme.greyCustom),
+                            hintStyle: GoogleFonts.poppins(
+                              fontSize: 14,
+                              color: appTheme.greyCustom,
+                            ),
                             border: const UnderlineInputBorder(),
                           ),
                         ),
-                        const SizedBox(height: 20),
+                         SizedBox(height: 20.h),
 
                         // Password
                         TextField(
                           obscureText: true,
                           decoration: InputDecoration(
                             hintText: "Enter your password",
-                            hintStyle: GoogleFonts.poppins(fontSize: 14,color: appTheme.greyCustom),
+                            hintStyle: GoogleFonts.poppins(
+                              fontSize: 14,
+                              color: appTheme.greyCustom,
+                            ),
                             border: const UnderlineInputBorder(),
-                            suffixIcon:  Icon(
+                            suffixIcon: Icon(
                               Icons.visibility_off,
                               size: 18,
                               color: appTheme.greyCustom,
                             ),
                           ),
                         ),
-                        const SizedBox(height: 30),
+                         SizedBox(height: 30.h),
 
                         // Forgot password
                         Align(
@@ -111,11 +118,11 @@ class LoginPage extends StatelessWidget {
                             style: GoogleFonts.poppins(
                               fontSize: 12,
                               color: const Color(0xffb58a00),
-                              decoration: TextDecoration.underline
+                              decoration: TextDecoration.underline,
                             ),
                           ),
                         ),
-                        const SizedBox(height: 30),
+                         SizedBox(height: 30.h),
 
                         // Login Button
                         CustomButton(
@@ -126,15 +133,15 @@ class LoginPage extends StatelessWidget {
                             Navigator.pushNamed(context, AppRoutes.dashboard);
                           },
                         ),
-                        const SizedBox(height: 30),
+                         SizedBox(height: 30.h),
 
                         // Divider
                         _buildDividerWithText("OR"),
-                        const SizedBox(height: 30),
+                         SizedBox(height: 30.h),
 
                         // Google Button
                         _buildGoogleButton(context),
-                        const SizedBox(height: 30),
+                         SizedBox(height: 30.h),
 
                         // Already have an account
                         Row(
@@ -142,12 +149,18 @@ class LoginPage extends StatelessWidget {
                           children: [
                             Text(
                               "Don't have an account yet?",
-                              style: GoogleFonts.poppins(fontSize: 12,color: appTheme.greyCustom),
+                              style: GoogleFonts.poppins(
+                                fontSize: 12,
+                                color: appTheme.greyCustom,
+                              ),
                             ),
                             const SizedBox(width: 4),
                             InkWell(
                               onTap: () {
-                                Navigator.pushNamed(context, AppRoutes.register);
+                                Navigator.pushNamed(
+                                  context,
+                                  AppRoutes.register,
+                                );
                               },
                               child: Text(
                                 "Sign Up",
@@ -160,7 +173,7 @@ class LoginPage extends StatelessWidget {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 30),
+                         SizedBox(height: 30.h),
                         FakeCaptcha(),
                       ],
                     ),
@@ -174,10 +187,11 @@ class LoginPage extends StatelessWidget {
                       margin: EdgeInsets.symmetric(vertical: 20),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        image: DecorationImage(image: AssetImage(ImageConstants.authBanner),fit: BoxFit.cover),
-
+                        image: DecorationImage(
+                          image: AssetImage(ImageConstants.authBanner),
+                          fit: BoxFit.cover,
+                        ),
                       ),
-
                     ),
                   ),
               ],
@@ -187,13 +201,20 @@ class LoginPage extends StatelessWidget {
       ),
     );
   }
+
   static Widget _buildDividerWithText(String text) {
     return Row(
       children: [
         Expanded(child: Divider(color: appTheme.greyCustom)),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: Text(text, style: GoogleFonts.poppins(fontSize: 12,color: appTheme.greyCustom)),
+          child: Text(
+            text,
+            style: GoogleFonts.poppins(
+              fontSize: 12,
+              color: appTheme.greyCustom,
+            ),
+          ),
         ),
         Expanded(child: Divider(color: appTheme.greyCustom)),
       ],
@@ -206,8 +227,9 @@ class LoginPage extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
         color: Colors.white,
-        border: Border.all(color: appTheme.greyCustom,width: 0.15)
+        border: Border.all(color: appTheme.greyCustom, width: 0.15),
       ),
+      padding: EdgeInsets.symmetric(vertical: 5),
       child: InkWell(
         onTap: () {
           Navigator.pushNamed(context, AppRoutes.dashboard);
@@ -217,17 +239,14 @@ class LoginPage extends StatelessWidget {
           children: [
             CustomImageView(imagePath: ImageConstants.google),
             const SizedBox(width: 8),
-            Text(
-              "Login with Google",
-              style: GoogleFonts.poppins(fontSize: 14),
-            ),
+            Text("Login with Google", style: GoogleFonts.poppins(fontSize: 14)),
           ],
         ),
       ),
     );
   }
-
 }
+
 class FakeCaptcha extends StatefulWidget {
   const FakeCaptcha({super.key});
 
@@ -241,19 +260,16 @@ class _FakeCaptchaState extends State<FakeCaptcha> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 350,
+      width: 350.h,
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(6),
-          color: Color(0xffF3F3F3)
+        borderRadius: BorderRadius.circular(6),
+        color: Color(0xffF3F3F3),
       ),
       child: Row(
         children: [
-          CustomImageView(
-            imagePath: ImageConstants.captcha,
-            width: 40,
-          ),
-          SizedBox(width: 10,),
+          CustomImageView(imagePath: ImageConstants.captcha, width: 40),
+          SizedBox(width: 10),
 
           Transform.scale(
             scale: 1.4, // increase size (1.0 = default)
@@ -265,14 +281,12 @@ class _FakeCaptchaState extends State<FakeCaptcha> {
                 });
               },
               checkColor: Colors.white, // color of the tick
-              fillColor: WidgetStateProperty.resolveWith<Color>(
-                    (states) {
-                  if (states.contains(WidgetState.selected)) {
-                    return const Color(0xff4285F4); // Google blue when checked
-                  }
-                  return Colors.white; // background when unchecked
-                },
-              ),
+              fillColor: WidgetStateProperty.resolveWith<Color>((states) {
+                if (states.contains(WidgetState.selected)) {
+                  return const Color(0xff4285F4); // Google blue when checked
+                }
+                return Colors.white; // background when unchecked
+              }),
               side: const BorderSide(
                 color: Colors.white, // visible border
                 width: 1.5,
@@ -281,15 +295,13 @@ class _FakeCaptchaState extends State<FakeCaptcha> {
                 borderRadius: BorderRadius.circular(4), // square-like look
               ),
             ),
-          )
-          ,
+          ),
 
           const SizedBox(width: 8),
           const Text(
             "I'm not a robot",
             style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
           ),
-
         ],
       ),
     );

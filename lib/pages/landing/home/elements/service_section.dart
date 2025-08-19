@@ -76,12 +76,9 @@ class ServicesSection extends StatelessWidget {
     required bool mobile,
     required bool tablet,
   }) {
-    double cardWidth = mobile
-        ? double.infinity
-        : (tablet ? MediaQuery.of(context).size.width / 3.5 : 280);
 
     return SizedBox(
-      width: cardWidth,
+      width: 450,
       child: Align(
         alignment: Alignment.bottomLeft,
         child: Container(
@@ -91,7 +88,7 @@ class ServicesSection extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              CustomImageView(imagePath: imagePath),
+              CustomImageView(imagePath: imagePath,height: 350,),
               const SizedBox(height: 10),
               Text(
                 title,

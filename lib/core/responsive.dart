@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Responsive {
   static bool isMobile(BuildContext context) =>
@@ -17,3 +18,16 @@ class Responsive {
   static double screenHeight(BuildContext context) =>
       MediaQuery.of(context).size.height;
 }
+
+class ResponsiveFont {
+  /// Clamped responsive font size
+  static double of(double max, {double min = 12}) {
+    double scaled = max.sp;
+
+    if (scaled > max) scaled = max;
+    if (scaled < min) scaled = min;
+
+    return scaled;
+  }
+}
+

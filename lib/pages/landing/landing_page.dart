@@ -5,6 +5,7 @@ import 'package:saif_transfers_web/core/styling.dart';
 import 'package:saif_transfers_web/pages/bookRide/book_ride_page.dart';
 import 'package:saif_transfers_web/pages/landing/contact/contact_page.dart';
 import 'package:saif_transfers_web/pages/landing/home/home_page.dart';
+import 'package:saif_transfers_web/theme/app_colors.dart';
 import 'package:saif_transfers_web/theme/theme_helper.dart';
 import '../../core/utils/images.dart';
 import '../../providers/navigation.dart';
@@ -38,7 +39,7 @@ class LandingPage extends StatelessWidget {
     if (currentIndex == -1) currentIndex = 0;
 
     return Scaffold(
-      backgroundColor: appTheme.whiteCustom,
+      backgroundColor: AppColor().coloF6F6F6,
       endDrawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -62,11 +63,14 @@ class LandingPage extends StatelessWidget {
           ],
         ),
       ),
-      body: Column(
-        children: [
-          if (currentIndex != 1) const LandingHeaderSection(),
-          Expanded(child: pages[currentIndex]),
-        ],
+      body: Padding(
+        padding: appPaddingHorizontal,
+        child: Column(
+          children: [
+            if (currentIndex != 1) const LandingHeaderSection(),
+            Expanded(child: pages[currentIndex]),
+          ],
+        ),
       ),
     );
   }

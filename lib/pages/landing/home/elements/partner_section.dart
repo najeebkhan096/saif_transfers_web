@@ -33,11 +33,14 @@ class PartnersSection extends StatelessWidget {
               alignment: WrapAlignment.start,
               children: [
                 // Heading
-                Text(
-                  "The partners who continuous travel with us",
-                  style: TextStyle(
-                    fontSize: isMobile ? 18 : 20,
-                    fontWeight: FontWeight.bold,
+                SizedBox(
+                  width: 300,
+                  child: Text(
+                    "The partners who continuous travel with us",
+                    style: TextStyle(
+                      fontSize: isMobile ? 18 : 20,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 SizedBox(width: 50,),
@@ -45,11 +48,14 @@ class PartnersSection extends StatelessWidget {
                 // Partner logos
                 ...List.generate(
                   mparteners.length,
-                      (index) => Image.asset(
-                    mparteners[index],
-                    width: imageWidth,
-                    fit: BoxFit.contain,
-                  ),
+                      (index) => Container(
+                        margin: EdgeInsets.symmetric(horizontal: 20),
+                        child: Image.asset(
+                                            mparteners[index],
+                                            width: imageWidth,
+                                            fit: BoxFit.contain,
+                                          ),
+                      ),
                 ),
               ],
             ),
