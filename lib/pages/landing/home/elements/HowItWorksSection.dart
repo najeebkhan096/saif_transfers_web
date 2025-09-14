@@ -1,6 +1,8 @@
 // ignore_for_file: deprecated_member_use, file_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:saif_transfers_web/core/utils/images.dart';
 import 'package:saif_transfers_web/widgets/custom_image_view.dart';
 
@@ -11,79 +13,82 @@ class HowItWorksSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool mobile = Responsive.isMobile(context);
-    final bool tablet = Responsive.isTablet(context);
+    final bool isMobile = Responsive.isMobile(context);
+    final bool isTablet = Responsive.isTablet(context);
 
     return Padding(
-      padding: EdgeInsets.symmetric(
-        vertical: mobile ? 30 : 0,
-      ),
+      padding: EdgeInsets.symmetric(vertical: isMobile ? 30.h : 40.h),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Center(
-            child: Text(
-              "How It Works",
-              style: TextStyle(
-                fontSize: mobile ? 22 : 28,
-                fontWeight: FontWeight.bold,
-                color: Colors.black87,
-              ),
+          Text(
+            "How It Works",
+            style: TextStyle(
+              fontSize: isMobile ? 22 : 28,
+              fontWeight: FontWeight.bold,
+              color: Colors.black87,
             ),
+            textAlign: TextAlign.center,
           ),
           const SizedBox(height: 30),
-          Flex(
-             direction: (mobile || tablet) ? Axis.vertical : Axis.horizontal,
-            //
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              _buildStep(
-                context,
-                iconPath: ImageConstants.route,
-                title: "Create Your Route",
-                desc:
-                    "Enter your pickup & dropoff locations or the number of hours you wish to book a car and driver for.",
-                mobile: mobile,
-                tablet: tablet,
-              ),
-
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: (mobile || tablet) ? 20 : 0,
+          Center(
+            child: Wrap(
+              alignment: WrapAlignment.center,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              spacing: 30.w, // space between items horizontally
+              runSpacing: 30.h, // space between rows
+              children: [
+                _buildStep(
+                  context,
+                  iconPath: ImageConstants.route,
+                  title: "Create Your Route",
+                  desc:
+                      "Enter your pickup & dropoff locations or the number of hours you wish to book a car and driver for.",
+                  mobile: isMobile,
+                  tablet: isTablet,
                 ),
-                child: CustomImageView(
-                  imagePath: ImageConstants.arrowButton,
-                  width: 50,
+                _buildArrow(isMobile),
+                _buildStep(
+                  context,
+                  iconPath: ImageConstants.vehicle,
+                  title: "Meet Your Driver",
+                  desc:
+                      "You can easily make a reservation through our website, mobile app, or by contacting our customer service team.",
+                  mobile: isMobile,
+                  tablet: isTablet,
                 ),
-              ),
-              _buildStep(
-                context,
-                iconPath: ImageConstants.vehicle,
-                title: "Meet Your Driver",
-                desc:
-                    "You can easily make a reservation through our website, mobile app, or by contacting our customer service team.",
-                mobile: mobile,
-                tablet: tablet,
-              ),
-
-              CustomImageView(imagePath: ImageConstants.arrowButton, width: 50),
-              _buildStep(
-                context,
-                iconPath: ImageConstants.like,
-                title: "Receive a Confirmation",
-                desc:
-                    "Once your booking is received, you'll get a confirmation email or notification with all the details of your reservation.",
-                mobile: mobile,
-                tablet: tablet,
-              ),
-            ],
+                _buildArrow(isMobile),
+                _buildStep(
+                  context,
+                  iconPath: ImageConstants.like,
+                  title: "Receive a Confirmation",
+                  desc:
+                      "Once your booking is received, you'll get a confirmation email or notification with all the details of your reservation.",
+                  mobile: isMobile,
+                  tablet: isTablet,
+                ),
+              ],
+            ),
           ),
         ],
       ),
     );
   }
 
+  /// Arrow Widget (hidden on mobile for cleaner layout)
+  Widget _buildArrow(bool mobile) {
+    if (mobile) return const SizedBox.shrink();
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: CustomImageView(
+        imagePath: ImageConstants.arrowButton,
+        width: 72.w,
+        height: 72.w,
+      ),
+    );
+  }
+
+  /// Step Card Widget
   Widget _buildStep(
     BuildContext context, {
     required String iconPath,
@@ -92,16 +97,18 @@ class HowItWorksSection extends StatelessWidget {
     required bool mobile,
     required bool tablet,
   }) {
+    double cardWidth = 283;
+
     return SizedBox(
-      width: mobile
-          ? double.infinity
-          : (tablet ? MediaQuery.of(context).size.width / 3.5 : 280),
+      width: cardWidth,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: mobile
+            ? CrossAxisAlignment.center
+            : CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            padding: const EdgeInsets.all(12),
+            padding: EdgeInsets.all(12),
             decoration: BoxDecoration(
               color: Colors.grey.shade100,
               borderRadius: BorderRadius.circular(50),
@@ -113,12 +120,16 @@ class HowItWorksSection extends StatelessWidget {
                 ),
               ],
             ),
-            child: CustomImageView(imagePath: iconPath, width: 50, height: 50),
+            child: CustomImageView(
+              imagePath: iconPath,
+              width: 50,
+              height: 50,
+            ),
           ),
           const SizedBox(height: 15),
           Text(
             title,
-            style: TextStyle(
+            style: GoogleFonts.dmSans(
               fontWeight: FontWeight.bold,
               fontSize: mobile ? 16 : 18,
               color: Colors.black87,
@@ -128,12 +139,14 @@ class HowItWorksSection extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             desc,
-            style: TextStyle(
+            style: GoogleFonts.dmSans(
               fontSize: mobile ? 13 : 14,
               height: 1.5,
               color: Colors.black54,
             ),
             textAlign: TextAlign.center,
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
           ),
         ],
       ),

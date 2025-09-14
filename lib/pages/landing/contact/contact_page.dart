@@ -13,6 +13,8 @@ class ContactPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isMobile = MediaQuery.of(context).size.width < 900;
+
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -25,42 +27,54 @@ class ContactPage extends StatelessWidget {
           ),
           const FormSection(),
           const MidFooterBar(),
-          ResponsiveFooter(
-            sections: [
-              FooterSection(
-                title: 'Company',
-                items: [
-                  'About us',
-                  'Our offerings',
-                  'Newsroom',
-                  'Investors',
-                  'Blog',
-                  'Careers',
-                  'Gift cards',
-                ],
-              ),
-              FooterSection(
-                title: 'Top cities',
-                items: ['New York', 'London', 'Berlin', 'Los Angeles', 'Paris'],
-              ),
-              FooterSection(
-                title: 'Explore',
-                items: [
-                  'Intercity rides',
-                  'Limousine service',
-                  'Chauffeur service',
-                  'Private car service',
-                  'Ground transportation',
-                  'Airport transfer',
-                ],
-              ),
-              FooterSection(
-                title: 'Classes',
-                items: ['Business', 'First', 'XL', 'Assistant'],
-              ),
-            ],
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: ResponsiveFooter(
+              sections: [
+                FooterSection(
+                  title: 'Company',
+                  items: [
+                    'About us',
+                    'Our offerings',
+                    'Newsroom',
+                    'Investors',
+                    'Blog',
+                    'Careers',
+                    'Gift cards',
+                  ],
+                ),
+                FooterSection(
+                  title: 'Top cities',
+                  items: [
+                    'New York',
+                    'London',
+                    'Berlin',
+                    'Los Angeles',
+                    'Paris',
+                  ],
+                ),
+                FooterSection(
+                  title: 'Explore',
+                  items: [
+                    'Intercity rides',
+                    'Limousine service',
+                    'Chauffeur service',
+                    'Private car service',
+                    'Ground transportation',
+                    'Airport transfer',
+                  ],
+                ),
+                FooterSection(
+                  title: 'Classes',
+                  items: ['Business', 'First', 'XL', 'Assistant'],
+                ),
+              ],
+            ),
           ),
-           const LegalBar(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: LegalBar(),
+          ),
         ],
       ),
     );

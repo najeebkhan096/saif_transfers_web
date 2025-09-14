@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:saif_transfers_web/core/utils/images.dart';
 import 'package:saif_transfers_web/theme/theme_helper.dart';
@@ -17,12 +18,9 @@ class ShowcaseSection extends StatelessWidget {
     final bodySize = isMobile ? 14.0 : 16.0;
     final statValueSize = isMobile ? 14.0 : 16.0;
     final statLabelSize = isMobile ? 10.0 : 12.0;
-    final buttonPadding = isMobile
-        ? const EdgeInsets.symmetric(horizontal: 16, vertical: 10)
-        : const EdgeInsets.symmetric(horizontal: 24, vertical: 16);
 
     return Padding(
-      padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(isMobile ? 0 : 20),
       child: Flex(
         direction: isMobile ? Axis.vertical : Axis.horizontal,
         crossAxisAlignment: isMobile
@@ -40,8 +38,8 @@ class ShowcaseSection extends StatelessWidget {
               children: [
                 CustomImageView(
                   imagePath: ImageConstants.showcaseBanner,
-                  width: 448,
-                  height: 524,
+                  width: 448.w,
+                  height: 524.w,
                 ),
                 Positioned(
                   left: 12,
@@ -62,7 +60,7 @@ class ShowcaseSection extends StatelessWidget {
                     icon: const Icon(Icons.play_arrow, size: 18),
                     label: Text(
                       "Play Video",
-                          style: GoogleFonts.dmSans(
+                      style: GoogleFonts.dmSans(
                         fontSize: isMobile ? 12 : 14,
                         fontWeight: FontWeight.w500,
                       ),
@@ -79,14 +77,16 @@ class ShowcaseSection extends StatelessWidget {
           Flexible(
             flex: isMobile ? 0 : 2,
             child: Padding(
-              padding: EdgeInsets.only(left: isMobile ? 0 : 40),
+              padding: EdgeInsets.only(left: isMobile ? 30 : 40),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     "Showcase some\nimpressive numbers.",
-                        style: GoogleFonts.dmSans(
-                      fontSize: titleSize,
+                    style: GoogleFonts.dmSans(
+                      fontSize:
+                      isMobile?
+                      titleSize:titleSize.sp,
                       fontWeight: FontWeight.w700,
                       color: const Color(0xFF1B1B1B),
                     ),
@@ -96,7 +96,7 @@ class ShowcaseSection extends StatelessWidget {
                     "We boast a remarkable 98% customer satisfaction rate, demonstrating our\n"
                     "commitment to delivering exceptional service and exceeding our clients’\n"
                     "expectations.",
-                        style: GoogleFonts.dmSans(
+                    style: GoogleFonts.dmSans(
                       fontSize: bodySize,
                       fontWeight: FontWeight.w400,
                       color: const Color(0xFF5C5C5C),
@@ -200,7 +200,7 @@ class StatCard extends StatelessWidget {
     return Container(
       width: width,
       height: 81,
-     decoration: BoxDecoration(
+      decoration: BoxDecoration(
         border: Border.all(color: appTheme.gray400),
         borderRadius: BorderRadius.circular(6),
       ),
@@ -218,10 +218,10 @@ class StatCard extends StatelessWidget {
           const SizedBox(width: 4),
           Text(
             label,
-                style: GoogleFonts.dmSans(
+            style: GoogleFonts.dmSans(
               fontSize: labelSize,
               fontWeight: FontWeight.w400,
-              color:appTheme.black
+              color: appTheme.black,
             ),
           ),
         ],

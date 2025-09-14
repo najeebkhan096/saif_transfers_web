@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:saif_transfers_web/theme/theme_helper.dart';
 
 class AllClassesIncludeSection extends StatelessWidget {
@@ -17,39 +18,46 @@ class AllClassesIncludeSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isMobile = MediaQuery.of(context).size.width < 720;
+
     return LayoutBuilder(
       builder: (context, constraints) {
-        final bool isWide = constraints.maxWidth >= 720;
-        const double gap = 16;
-        final width = MediaQuery.of(context).size.width;
+        final bool isWide = constraints.maxWidth >= (isMobile ? 720 : 720.w);
+        final double gap = isMobile ? 16 : 16.w;
 
         return Container(
-
-          padding: const EdgeInsets.fromLTRB(16, 16, 16, 14),
+          padding: EdgeInsets.fromLTRB(
+            isMobile ? 16 : 16.w,
+            isMobile ? 16 : 16.h,
+            isMobile ? 16 : 16.w,
+            isMobile ? 14 : 14.h,
+          ),
           decoration: BoxDecoration(
             color: appTheme.whiteCustom,
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(isMobile ? 10 : 10.r),
             border: Border.all(
               color: const Color(0xFFE5E7EB),
-            ), // light gray border
+              width: isMobile ? 1 : 1.w,
+            ),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 "All classes include:",
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: isMobile ? 14 : 14.sp,
                   height: 1.2,
                   fontWeight: FontWeight.w600,
-                  color: Color(0xFF111827), // dark gray text
+                  color: const Color(0xFF111827),
                 ),
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: isMobile ? 12 : 12.h),
 
+              /// Features
               Wrap(
                 spacing: gap,
-                runSpacing: 12,
+                runSpacing: isMobile ? 12 : 12.h,
                 children: features.map((t) {
                   final double w = isWide
                       ? (constraints.maxWidth - gap) / 2
@@ -59,30 +67,29 @@ class AllClassesIncludeSection extends StatelessWidget {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Ring bullet
+                        /// Ring bullet
                         Container(
-                          margin: const EdgeInsets.only(top: 2.5),
-                          width: 16,
-                          height: 16,
+                          margin: EdgeInsets.only(top: isMobile ? 2.5 : 2.5.h),
+                          width: isMobile ? 16 : 16.w,
+                          height: isMobile ? 16 : 16.w,
                           decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                             color: Color(0xff64666B),
                           ),
-                          child: const Icon(
+                          child: Icon(
                             Icons.check,
-                            size: 10, // smaller so it fits neatly inside the circle
-                            color: Colors.white, // matches the design
+                            size: isMobile ? 10 : 10.sp,
+                            color: Colors.white,
                           ),
-                        )
-,
-                        const SizedBox(width: 10),
+                        ),
+                        SizedBox(width: isMobile ? 10 : 10.w),
                         Expanded(
                           child: Text(
                             t,
-                            style: const TextStyle(
-                              fontSize: 13,
+                            style: TextStyle(
+                              fontSize: isMobile ? 13 : 13.sp,
                               height: 1.35,
-                              color: Color(0xFF4B5563),
+                              color: const Color(0xFF4B5563),
                             ),
                           ),
                         ),
@@ -92,21 +99,23 @@ class AllClassesIncludeSection extends StatelessWidget {
                 }).toList(),
               ),
 
-              const SizedBox(height: 20),
-              const Text(
+              SizedBox(height: isMobile ? 20 : 20.h),
+
+              Text(
                 "Please note:",
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: isMobile ? 14 : 14.sp,
                   height: 1.2,
                   fontWeight: FontWeight.w600,
-                  color: Color(0xFF111827), // dark gray text
+                  color: const Color(0xFF111827),
                 ),
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: isMobile ? 12 : 12.h),
 
+              /// Notes
               Wrap(
                 spacing: gap,
-                runSpacing: 12,
+                runSpacing: isMobile ? 12 : 12.h,
                 children: notes.map((t) {
                   final double w = isWide
                       ? (constraints.maxWidth - gap) / 2
@@ -116,22 +125,19 @@ class AllClassesIncludeSection extends StatelessWidget {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Ring bullet
-                        const Icon(
+                        Icon(
                           Icons.info,
-
-                          size: 20, // smaller so it fits neatly inside the circle
-                          color: Color(0xff64666B),
+                          size: isMobile ? 20 : 20.sp,
+                          color: const Color(0xff64666B),
                         ),
-
-                        const SizedBox(width: 10),
+                        SizedBox(width: isMobile ? 10 : 10.w),
                         Expanded(
                           child: Text(
                             t,
-                            style: const TextStyle(
-                              fontSize: 13,
+                            style: TextStyle(
+                              fontSize: isMobile ? 13 : 13.sp,
                               height: 1.35,
-                              color: Color(0xFF4B5563),
+                              color: const Color(0xFF4B5563),
                             ),
                           ),
                         ),

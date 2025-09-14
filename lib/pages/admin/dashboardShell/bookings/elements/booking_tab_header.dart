@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../../theme/theme_helper.dart';
+import '../../../../../theme/theme_helper.dart';
 import 'booking_tab_configs.dart';
 
 class BookingsTableHeader extends StatelessWidget {

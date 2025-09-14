@@ -18,21 +18,22 @@ class LandingHeaderSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isMobile = Responsive.isMobile(context);
     final bool isTablet = Responsive.isTablet(context);
+    final navigationProvider = context.watch<NavigationProvider>();
 
     return Container(
-      height: 82.h,
+      height: 82,
       padding: EdgeInsets.symmetric(
         vertical: isMobile ? 12 : 18,
-        horizontal: 20
+        horizontal: 20,
       ),
       decoration: BoxDecoration(
-        color: AppColor().coloF6F6F6,
-
-
+        color: navigationProvider.activeItem == 'Home'
+            ? AppColor().whiteCustom
+            : AppColor().coloF6F6F6,
       ),
       child: Row(
         // crossAxisAlignment: CrossAxisAlignment.center,
-       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Image.asset(ImageConstants.logo, height: isMobile ? 32 : 42),
           SizedBox(width: isMobile ? 12 : 32),
@@ -64,7 +65,7 @@ class LandingHeaderSection extends StatelessWidget {
                 Text(
                   "+1800 000 122",
                   style: GoogleFonts.inter(
-                    fontSize:  15.sp,
+                    fontSize: 15.sp,
                     fontWeight: FontWeight.w500,
                     color: Colors.black87,
                   ),
@@ -83,7 +84,6 @@ class LandingHeaderSection extends StatelessWidget {
                   fontSize: 15.sp,
                   onPressed: () {
                     Navigator.pushNamed(context, AppRoutes.login);
-
                   },
                 ),
                 const SizedBox(width: 10),
@@ -92,7 +92,7 @@ class LandingHeaderSection extends StatelessWidget {
                   width: isTablet ? 60 : 90,
                   height: 36.h,
                   borderRadius: 5,
-                  fontSize:  15.sp,
+                  fontSize: 15.sp,
                   borderColor: appTheme.black,
                   backgroundColor: appTheme.black,
                   text: 'Sign Up',
@@ -100,7 +100,6 @@ class LandingHeaderSection extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                   onPressed: () {
                     Navigator.pushNamed(context, AppRoutes.register);
-
                   },
                 ),
               ],

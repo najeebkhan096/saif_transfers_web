@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:saif_transfers_web/core/utils/images.dart';
 import 'package:saif_transfers_web/widgets/custom_image_view.dart';
-import '../../../../model/client.dart';
+import '../../../../../model/client.dart';
 import 'clients_tab_configs.dart';
 
 class ClientRow extends StatelessWidget {

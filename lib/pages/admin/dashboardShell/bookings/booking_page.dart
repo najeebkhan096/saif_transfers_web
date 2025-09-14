@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../model/booking.dart';
-import '../../../theme/theme_helper.dart';
+import '../../../../model/booking.dart';
+import '../../../../theme/theme_helper.dart';
 import 'elements/booking_row.dart';
 import 'elements/booking_tab_header.dart';
 import 'elements/booking_tabs.dart';

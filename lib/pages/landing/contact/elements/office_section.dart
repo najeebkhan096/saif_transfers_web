@@ -1,6 +1,7 @@
 /* --------------------------- OFFICES GRID --------------------------- */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/utils/images.dart';
 import '../../../../widgets/custom_image_view.dart';
@@ -76,19 +77,19 @@ class _OfficeCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CustomImageView(imagePath: data.icon),
-          const SizedBox(height: 20),
+          CustomImageView(imagePath: data.icon,width: 120.w,),
+             SizedBox(height: 20.h),
           Text(
             data.city,
             style: Theme.of(
               context,
             ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
           ),
-          const SizedBox(height: 8),
+           SizedBox(height: 8.h),
           Text(data.address, style: Theme.of(context).textTheme.bodyMedium),
-          const SizedBox(height: 8),
+           SizedBox(height: 8.h),
           Text(data.phone, style: Theme.of(context).textTheme.bodyMedium),
-          const SizedBox(height: 8),
+           SizedBox(height: 8.h),
           Text(data.email, style: Theme.of(context).textTheme.bodyMedium),
         ],
       ),

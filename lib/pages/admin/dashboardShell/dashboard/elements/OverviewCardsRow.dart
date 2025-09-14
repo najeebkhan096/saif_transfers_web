@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart'
     show BuildContext, Colors, Column, EdgeInsets, Expanded, LayoutBuilder, MainAxisAlignment, Padding, Row, SizedBox, StatelessWidget, Widget, Wrap, Color;
-import 'package:saif_transfers_web/pages/dashboardShell/dashboard/elements/OverviewCard.dart';
 
-import '../../../../core/utils/images.dart';
+import '../../../../../core/utils/images.dart';
+import 'OverviewCard.dart';
 
 /// Overview Cards Row (Responsive)
 class OverviewCardsRow extends StatelessWidget {

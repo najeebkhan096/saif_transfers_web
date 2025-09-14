@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:saif_transfers_web/core/styling.dart';
 import 'package:saif_transfers_web/core/utils/images.dart';
 import 'package:saif_transfers_web/theme/app_colors.dart';
 import 'package:saif_transfers_web/widgets/custom_image_view.dart';
@@ -21,132 +22,279 @@ class _HeroSectionState extends State<HeroSection> {
   Widget build(BuildContext context) {
     final bool isMobile = MediaQuery.of(context).size.width < 900;
 
-    return SizedBox(
-      height: isMobile ? 1040 : 768,
-      child: Stack(
-        alignment: Alignment.topCenter,
-        children: [
-          // Background Image
-          CustomImageView(
-            imagePath: ImageConstants.bgCar,
-            fit: BoxFit.cover,
-            width: double.infinity,
-            height: isMobile ? 300 : 717,
-            radius: BorderRadius.circular(20),
-          ),
-
-          // Text Content
-          Positioned(
-            left: isMobile ? 20 : 100,
-            top: isMobile ? 100 : 220,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return isMobile
+        ? Padding(
+          padding: appPaddingHorizontal,
+          child: Column(
               children: [
-                Text(
-                  "Where Would You Like To Go?",
-                  style: GoogleFonts.inter(
-                    fontSize: 18,
-                    color: Colors.white,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                RichText(
-                  text: TextSpan(
-                    style: GoogleFonts.dmSans(
-                      fontSize: isMobile ? 28.sp : 50.sp,
-                      fontWeight: FontWeight.w600,
-                      height: 1.3,
-                    ),
+                SizedBox(
+                  height: 300,
+                  child: Stack(
+                    alignment: Alignment.center,
                     children: [
-                      TextSpan(
-                        text: "A New Class Of ",
-                        style: const TextStyle(color: Colors.white),
+                      // Background Image
+                      CustomImageView(
+                        imagePath: ImageConstants.bgCar,
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                        height: isMobile ? 300 : 717,
+                        radius: BorderRadius.circular(20),
                       ),
-                      TextSpan(
-                        text: "Luxury",
-                        style: TextStyle(color: appTheme.primaryColor),
-                      ),
-                      TextSpan(
-                        text: "\nAirport Travel Service",
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(color: Colors.white),
-                  ),
-                  height: 40,
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  child: Row(
-                    children: [
-                      Text(
-                        'View More Fleet',
-                        style: GoogleFonts.dmSans(
-                          color: Colors.white,
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
+
+                      // Text Content
+                      Positioned(
+                        left: isMobile ? 20 : 100,
+                        top: isMobile ? 100 : 220,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Where Would You Like To Go?",
+                              style: GoogleFonts.inter(
+                                fontSize: 18,
+                                color: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            RichText(
+                              text: TextSpan(
+                                style: GoogleFonts.dmSans(
+                                  fontSize: isMobile ? 28.sp : 50.sp,
+                                  fontWeight: FontWeight.w600,
+                                  height: 1.3,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: "A New Class Of ",
+                                    style: const TextStyle(color: Colors.white),
+                                  ),
+                                  TextSpan(
+                                    text: "Luxury",
+                                    style: TextStyle(
+                                      color: appTheme.primaryColor,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: "\nAirport Travel Service",
+                                    style: const TextStyle(color: Colors.white),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                border: Border.all(color: Colors.white),
+                              ),
+                              height: 40,
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 5,
+                              ),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    'View More Fleet',
+                                    style: GoogleFonts.dmSans(
+                                      color: Colors.white,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 10),
+                                  CustomImageView(
+                                    imagePath: ImageConstants.learnMore,
+                                    width: 12,
+                                    height: 12,
+                                    color: Colors.white,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      const SizedBox(width: 10),
-                      CustomImageView(
-                        imagePath: ImageConstants.learnMore,
-                        width: 12,
-                        height: 12,
-                        color: Colors.white,
-                      ),
                     ],
+                  ),
+                ),
+                SizedBox(height: 20),
+                Card(
+                  color: appTheme.whiteCustom,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Container(
+                    height: 664,
+                    width: 420,
+                    padding: const EdgeInsets.all(20),
+                    child: DefaultTabController(
+                      length: 2,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          TabBar(
+                            indicatorColor: appTheme.black,
+                            indicatorWeight: 3,
+                            labelColor: appTheme.black,
+                            unselectedLabelColor: appTheme.gray400,
+                            indicatorSize: TabBarIndicatorSize.label,
+                            tabs: const [
+                              Tab(text: "One Way"),
+                              Tab(text: "Hourly"),
+                            ],
+                          ),
+                          SizedBox(height: 40),
+                          Expanded(
+                            child: TabBarView(
+                              children: const [_BookingForm(), _BookingForm()],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ],
             ),
-          ),
+        )
+        : Padding(
+          padding: appPaddingHorizontal,
+          child: SizedBox(
+              height: isMobile ? 1040 : 768,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  // Background Image
+                  CustomImageView(
+                    imagePath: ImageConstants.bgCar,
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    height: isMobile ? 300 : 717,
+                    radius: BorderRadius.circular(20),
+                  ),
 
-          // Booking Form Card
-          Positioned(
-            top: isMobile ? 320 : 104,
-            right: isMobile ? null : 100,
-            child: Card(
-              color: appTheme.whiteCustom,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-              child: Container(
-                height: 664,
-                width: 420,
-                padding: const EdgeInsets.all(20),
-                child: DefaultTabController(
-                  length: 2,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      TabBar(
-                        indicatorColor: appTheme.black,
-                        indicatorWeight: 3,
-                        labelColor: appTheme.black,
-                        unselectedLabelColor: appTheme.gray400,
-                        indicatorSize: TabBarIndicatorSize.label,
-                        tabs: const [
-                          Tab(text: "One Way"),
-                          Tab(text: "Hourly"),
-                        ],
+                  // Text Content
+                  Positioned(
+                    left: isMobile ? 20 : 100,
+                    top: isMobile ? 100 : 220,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Where Would You Like To Go?",
+                          style: GoogleFonts.inter(
+                            fontSize: 18,
+                            color: Colors.white,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        RichText(
+                          text: TextSpan(
+                            style: GoogleFonts.dmSans(
+                              fontSize: isMobile ? 28.sp : 50.sp,
+                              fontWeight: FontWeight.w600,
+                              height: 1.3,
+                            ),
+                            children: [
+                              TextSpan(
+                                text: "A New Class Of ",
+                                style: const TextStyle(color: Colors.white),
+                              ),
+                              TextSpan(
+                                text: "Luxury",
+                                style: TextStyle(color: appTheme.primaryColor),
+                              ),
+                              TextSpan(
+                                text: "\nAirport Travel Service",
+                                style: const TextStyle(color: Colors.white),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            border: Border.all(color: Colors.white),
+                          ),
+                          height: 40,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 5,
+                          ),
+                          child: Row(
+                            children: [
+                              Text(
+                                'View More Fleet',
+                                style: GoogleFonts.dmSans(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(width: 10),
+                              CustomImageView(
+                                imagePath: ImageConstants.learnMore,
+                                width: 12,
+                                height: 12,
+                                color: Colors.white,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  // Booking Form Card
+                  Positioned(
+                    top: isMobile ? 320 : 104,
+                    right: isMobile ? null : 100,
+                    child: Card(
+                      color: appTheme.whiteCustom,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      SizedBox(height: 40),
-                      Expanded(
-                        child: TabBarView(
-                          children: const [_BookingForm(), _BookingForm()],
+                      child: Container(
+                        height: 664,
+                        width: 420,
+                        padding: const EdgeInsets.all(20),
+                        child: DefaultTabController(
+                          length: 2,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              TabBar(
+                                indicatorColor: appTheme.black,
+                                indicatorWeight: 3,
+                                labelColor: appTheme.black,
+                                unselectedLabelColor: appTheme.gray400,
+                                indicatorSize: TabBarIndicatorSize.label,
+                                tabs: const [
+                                  Tab(text: "One Way"),
+                                  Tab(text: "Hourly"),
+                                ],
+                              ),
+                              SizedBox(height: 40),
+                              Expanded(
+                                child: TabBarView(
+                                  children: const [
+                                    _BookingForm(),
+                                    _BookingForm(),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ],
+                    ),
                   ),
-                ),
+                ],
               ),
             ),
-          ),
-        ],
-      ),
-    );
+        );
   }
 }
 
@@ -231,7 +379,9 @@ class _BookingTextField extends StatelessWidget {
               color: appTheme.white,
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Center(child: CustomImageView(imagePath: icon, height: 20, width: 20)),
+            child: Center(
+              child: CustomImageView(imagePath: icon, height: 20, width: 20),
+            ),
           ),
           const SizedBox(width: 12),
           Expanded(

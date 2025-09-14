@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:saif_transfers_web/core/styling.dart';
 import 'package:saif_transfers_web/core/utils/images.dart';
 import 'package:saif_transfers_web/widgets/custom_image_view.dart';
 
@@ -11,131 +13,135 @@ class PaymentFormSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isMobile = MediaQuery.of(context).size.width < 900;
+
     return Center(
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 700),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 20),
-              BookRideTripInfoSection(),
-              const SizedBox(height: 40),
+      child: Container(
+        constraints: const BoxConstraints(maxWidth: 700),
+        margin: appPaddingHorizontal,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: isMobile ? 20 : 20.h),
+            BookRideTripInfoSection(),
+            SizedBox(height: isMobile ? 40 : 40.h),
 
-              /// Title
-              Text(
-                "Add credit card",
-                style: GoogleFonts.dmSans(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 24,
-                ),
+            /// Title
+            Text(
+              "Add credit card",
+              style: GoogleFonts.dmSans(
+                fontWeight: FontWeight.w600,
+                fontSize: isMobile ? 24 : 24.sp,
               ),
+            ),
 
-              const SizedBox(height: 20),
+            SizedBox(height: isMobile ? 20 : 20.h),
 
-              /// Card Details Form
-              Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  border: Border.all(color: const Color(0xffE3E5EA)),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    /// Name on Card
-                    _PaymentInputField(
-                      label: "Name on Card*",
-                      hint: "Enter name as shown on card",
-                    ),
-                    const SizedBox(height: 20),
-
-                    /// Card Number with logos
-                    _PaymentInputField(
-                      label: "Card Number*",
-                      hint: "1234 5678 9101 1121",
-                      suffix: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          CustomImageView(imagePath: ImageConstants.masterCard),
-                          const SizedBox(width: 6),
-                          CustomImageView(imagePath: ImageConstants.visaCard),
-                          const SizedBox(width: 6),
-                          CustomImageView(
-                            imagePath: ImageConstants.americanCard,
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-
-                    /// Expiration + CVV
-                    Row(
-                      children: [
-                        Expanded(
-                          child: _PaymentInputField(
-                            label: "Expiration date*",
-                            hint: "MM / YY",
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: _PaymentInputField(label: "CVV*", hint: "123"),
-                        ),
-                      ],
-                    ),
-
-                    const SizedBox(height: 20),
-
-                    /// Save Card Checkbox
-                    Row(
-                      children: [
-                        Checkbox(value: false, onChanged: (val) {}),
-                        Text(
-                          "Save card to your list",
-                          style: GoogleFonts.dmSans(fontSize: 12),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-
-              const SizedBox(height: 20),
-
-
+            /// Card Details Form
             Container(
               width: double.infinity,
               decoration: BoxDecoration(
                 border: Border.all(color: const Color(0xffE3E5EA)),
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(isMobile ? 10 : 10.r),
               ),
-              // padding: const EdgeInsets.all(16),
+              padding: EdgeInsets.all(isMobile ? 16 : 16.w),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  /// Info Sections
-                  _InfoBox(
-                    icon: ImageConstants.doneIcon,
-                    text:
-                    "Your card details are securely processed and never stored.",
+                  _PaymentInputField(
+                    label: "Name on Card*",
+                    hint: "Enter name as shown on card",
+                    isMobile: isMobile,
                   ),
-                  const SizedBox(height: 4),
-                  Divider(color: Color(0xffE3E5EA),),
-                  const SizedBox(height: 4),
-                  _InfoBox(
-                    icon: ImageConstants.safety,
-                    text:
-                    "We use industry-standard encryption to protect your information.",
+                  SizedBox(height: isMobile ? 20 : 20.h),
+
+                  _PaymentInputField(
+                    label: "Card Number*",
+                    hint: "1234 5678 9101 1121",
+                    isMobile: isMobile,
+                    suffix: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        CustomImageView(imagePath: ImageConstants.masterCard),
+                        SizedBox(width: isMobile ? 6 : 6.w),
+                        CustomImageView(imagePath: ImageConstants.visaCard),
+                        SizedBox(width: isMobile ? 6 : 6.w),
+                        CustomImageView(
+                          imagePath: ImageConstants.americanCard,
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: isMobile ? 20 : 20.h),
+
+                  Row(
+                    children: [
+                      Expanded(
+                        child: _PaymentInputField(
+                          label: "Expiration date*",
+                          hint: "MM / YY",
+                          isMobile: isMobile,
+                        ),
+                      ),
+                      SizedBox(width: isMobile ? 12 : 12.w),
+                      Expanded(
+                        child: _PaymentInputField(
+                          label: "CVV*",
+                          hint: "123",
+                          isMobile: isMobile,
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  SizedBox(height: isMobile ? 20 : 20.h),
+
+                  Row(
+                    children: [
+                      Checkbox(value: false, onChanged: (val) {}),
+                      Text(
+                        "Save card to your list",
+                        style: GoogleFonts.dmSans(
+                          fontSize: isMobile ? 12 : 12.sp,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
             ),
 
-              const SizedBox(height: 100),
-            ],
-          ),
+            SizedBox(height: isMobile ? 20 : 20.h),
+
+            Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                border: Border.all(color: const Color(0xffE3E5EA)),
+                borderRadius: BorderRadius.circular(isMobile ? 10 : 10.r),
+              ),
+              child: Column(
+                children: [
+                  _InfoBox(
+                    icon: ImageConstants.doneIcon,
+                    text:
+                    "Your card details are securely processed and never stored.",
+                    isMobile: isMobile,
+                  ),
+                  SizedBox(height: isMobile ? 4 : 4.h),
+                  Divider(color: const Color(0xffE3E5EA)),
+                  SizedBox(height: isMobile ? 4 : 4.h),
+                  _InfoBox(
+                    icon: ImageConstants.safety,
+                    text:
+                    "We use industry-standard encryption to protect your information.",
+                    isMobile: isMobile,
+                  ),
+                ],
+              ),
+            ),
+
+            SizedBox(height: isMobile ? 100 : 100.h),
+          ],
         ),
       ),
     );
@@ -147,10 +153,12 @@ class _PaymentInputField extends StatelessWidget {
   final String label;
   final String hint;
   final Widget? suffix;
+  final bool isMobile;
 
   const _PaymentInputField({
     required this.label,
     required this.hint,
+    required this.isMobile,
     this.suffix,
   });
 
@@ -158,29 +166,29 @@ class _PaymentInputField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       decoration: InputDecoration(
-        hintText: label,
+        hintText: hint,
         hintStyle: GoogleFonts.dmSans(
           color: appTheme.black,
           fontWeight: FontWeight.w300,
-          fontSize: 12,
+          fontSize: isMobile ? 12 : 12.sp,
         ),
         filled: true,
         fillColor: const Color(0xffF6F6F6),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(isMobile ? 10 : 10.r),
           borderSide: const BorderSide(color: Color(0xffF6F6F6)),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(isMobile ? 10 : 10.r),
           borderSide: const BorderSide(color: Color(0xffF6F6F6)),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(isMobile ? 10 : 10.r),
           borderSide: const BorderSide(color: Color(0xffF6F6F6)),
         ),
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 12,
-          vertical: 12,
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: isMobile ? 12 : 12.w,
+          vertical: isMobile ? 12 : 12.h,
         ),
         suffixIcon: suffix,
       ),
@@ -192,25 +200,35 @@ class _PaymentInputField extends StatelessWidget {
 class _InfoBox extends StatelessWidget {
   final String icon;
   final String text;
+  final bool isMobile;
 
-  const _InfoBox({required this.icon, required this.text});
+  const _InfoBox({
+    required this.icon,
+    required this.text,
+    required this.isMobile,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(12),
-
+      padding: EdgeInsets.all(isMobile ? 12 : 12.w),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CustomImageView(imagePath: icon,width: 18,height: 18,),
-          const SizedBox(width: 8),
+          CustomImageView(
+            imagePath: icon,
+            width: isMobile ? 18 : 18.w,
+            height: isMobile ? 18 : 18.h,
+          ),
+          SizedBox(width: isMobile ? 8 : 8.w),
           Expanded(
             child: Text(
               text,
-              style: GoogleFonts.dmSans(fontSize: 12, color: appTheme.black),
+              style: GoogleFonts.dmSans(
+                fontSize: isMobile ? 12 : 12.sp,
+                color: appTheme.black,
+              ),
             ),
           ),
         ],

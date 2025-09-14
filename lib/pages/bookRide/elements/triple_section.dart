@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class BookRideTripInfoSection extends StatelessWidget {
@@ -6,13 +7,17 @@ class BookRideTripInfoSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isMobile = MediaQuery.of(context).size.width < 900;
+
     return Container(
-
-      padding: const EdgeInsets.all(12),
-
+      padding: EdgeInsets.all(
+        isMobile ? 12 : 12.w,
+      ),
       decoration: BoxDecoration(
         color: const Color(0xFFFF0F2F7),
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(
+          isMobile ? 10 : 10.r,
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -20,42 +25,40 @@ class BookRideTripInfoSection extends StatelessWidget {
           /// Date & Time
           Text(
             'Sun, Apr 27, 2025 at 05:21 PM (GMT+3)',
-            style: const TextStyle(
-              fontSize: 15,
+            style: TextStyle(
+              fontSize: isMobile ? 15 : 15.sp,
               color: Colors.black,
             ),
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: isMobile ? 8 : 8.h),
 
           /// Departure → Arrival
           Row(
             children: [
-
               Expanded(
                 child: Text(
                   'Airport Istanbul-Atatürk (ISL)  →  Airport Munich (MUC)',
-                  style:  GoogleFonts.dmSans(
-                    fontSize: 13,
+                  style: GoogleFonts.dmSans(
+                    fontSize: isMobile ? 13 : 13.sp,
                     fontWeight: FontWeight.w400,
-                    color: Color(0xff64666B),
+                    color: const Color(0xff64666B),
                   ),
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 6),
+          SizedBox(height: isMobile ? 6 : 6.h),
 
           /// Estimated arrival + Distance
           Row(
             children: [
-
               Expanded(
                 child: Text(
                   'Estimated arrival at 12:35 PM (GMT+3)  •  1914 km',
-                  style:  GoogleFonts.dmSans(
-                    fontSize: 13,
+                  style: GoogleFonts.dmSans(
+                    fontSize: isMobile ? 13 : 13.sp,
                     fontWeight: FontWeight.w400,
-                    color: Color(0xff64666B),
+                    color: const Color(0xff64666B),
                   ),
                 ),
               ),

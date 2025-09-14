@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:saif_transfers_web/core/routes.dart';
 import 'package:saif_transfers_web/core/styling.dart';
@@ -29,21 +30,21 @@ class AdminLoginPage extends StatelessWidget {
                   flex: isMobile ? 1 : 1,
                   child: SingleChildScrollView(
                     padding: EdgeInsets.symmetric(
-                      horizontal: isMobile ? 24 : 40,
+                      horizontal: isMobile ? 24.h : 40.h,
                       vertical: 20,
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        const SizedBox(height: 30),
+                        SizedBox(height: 30.h),
                         // Logo
                         CustomImageView(
                           imagePath: ImageConstants.logo,
                           width: 100,
                           fit: BoxFit.fill,
                         ),
-                        const SizedBox(height: 40),
+                        SizedBox(height: 40.h),
 
                         // Welcome
                         RichText(
@@ -65,43 +66,48 @@ class AdminLoginPage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        const SizedBox(height: 10),
+                        SizedBox(height: 10.h),
 
                         // Description
                         Text(
-                          "You'll be able to easily book and manage rides, and get ride status updates on the day of travel.",
-                          style: GoogleFonts.poppins(
+                         'You\'ll be able to easily book and manage rides, and get ride status updates on the day of travel.', style: GoogleFonts.poppins(
                             fontSize: 12,
                             color: appTheme.greyCustom,
                           ),
                         ),
-                        const SizedBox(height: 30),
+                        SizedBox(height: 30.h),
 
                         // Email
                         TextField(
                           decoration: InputDecoration(
                             hintText: "Enter your email",
-                            hintStyle: GoogleFonts.poppins(fontSize: 14,color: appTheme.greyCustom),
+                            hintStyle: GoogleFonts.poppins(
+                              fontSize: 14,
+                              color: appTheme.greyCustom,
+                            ),
                             border: const UnderlineInputBorder(),
                           ),
                         ),
-                        const SizedBox(height: 20),
+                        SizedBox(height: 20.h),
 
                         // Password
                         TextField(
                           obscureText: true,
                           decoration: InputDecoration(
                             hintText: "Enter your password",
-                            hintStyle: GoogleFonts.poppins(fontSize: 14,color: appTheme.greyCustom),
+                            hintStyle: GoogleFonts.poppins(
+                              fontSize: 14,
+                              color: appTheme.greyCustom,
+                            ),
                             border: const UnderlineInputBorder(),
-                            suffixIcon:  Icon(
+                            suffixIcon: Icon(
                               Icons.visibility_off,
                               size: 18,
                               color: appTheme.greyCustom,
                             ),
                           ),
                         ),
-                        const SizedBox(height: 30),
+                        SizedBox(height: 30.h),
 
                         // Forgot password
                         Align(
@@ -109,13 +115,13 @@ class AdminLoginPage extends StatelessWidget {
                           child: Text(
                             "Forgot your password?",
                             style: GoogleFonts.poppins(
-                                fontSize: 12,
-                                color: const Color(0xffb58a00),
-                                decoration: TextDecoration.underline
+                              fontSize: 12,
+                              color: const Color(0xffb58a00),
+                              decoration: TextDecoration.underline,
                             ),
                           ),
                         ),
-                        const SizedBox(height: 30),
+                        SizedBox(height: 30.h),
 
                         // Login Button
                         CustomButton(
@@ -126,16 +132,47 @@ class AdminLoginPage extends StatelessWidget {
                             Navigator.pushNamed(context, AppRoutes.dashboard);
                           },
                         ),
-                        const SizedBox(height: 30),
+                        SizedBox(height: 30.h),
 
                         // Divider
                         _buildDividerWithText("OR"),
-                        const SizedBox(height: 30),
+                        SizedBox(height: 30.h),
 
                         // Google Button
                         _buildGoogleButton(context),
+                        SizedBox(height: 30.h),
 
-                        const SizedBox(height: 30),
+                        // Already have an account
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Don't have an account yet?",
+                              style: GoogleFonts.poppins(
+                                fontSize: 12,
+                                color: appTheme.greyCustom,
+                              ),
+                            ),
+                            const SizedBox(width: 4),
+                            InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  AppRoutes.register,
+                                );
+                              },
+                              child: Text(
+                                "Sign Up",
+                                style: GoogleFonts.poppins(
+                                  fontSize: 12,
+                                  color: const Color(0xffb58a00),
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 30.h),
                         FakeCaptcha(),
                       ],
                     ),
@@ -149,10 +186,11 @@ class AdminLoginPage extends StatelessWidget {
                       margin: EdgeInsets.symmetric(vertical: 20),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        image: DecorationImage(image: AssetImage(ImageConstants.authBanner),fit: BoxFit.cover),
-
+                        image: DecorationImage(
+                          image: AssetImage(ImageConstants.authBanner),
+                          fit: BoxFit.cover,
+                        ),
                       ),
-
                     ),
                   ),
               ],

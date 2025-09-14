@@ -32,6 +32,8 @@ class LandingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isMobile = MediaQuery.of(context).size.width < 900;
+
     final navigationProvider = context.watch<NavigationProvider>();
 
     // Find the current page index
@@ -39,7 +41,9 @@ class LandingPage extends StatelessWidget {
     if (currentIndex == -1) currentIndex = 0;
 
     return Scaffold(
-      backgroundColor: AppColor().coloF6F6F6,
+      backgroundColor: currentIndex == 0
+          ? AppColor().coloF6F6F6
+          : AppColor().whiteCustom,
       endDrawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -63,14 +67,11 @@ class LandingPage extends StatelessWidget {
           ],
         ),
       ),
-      body: Padding(
-        padding: appPaddingHorizontal,
-        child: Column(
-          children: [
-            if (currentIndex != 1) const LandingHeaderSection(),
-            Expanded(child: pages[currentIndex]),
-          ],
-        ),
+      body: Column(
+        children: [
+          if (currentIndex != 1) const LandingHeaderSection(),
+          Expanded(child: pages[currentIndex]),
+        ],
       ),
     );
   }

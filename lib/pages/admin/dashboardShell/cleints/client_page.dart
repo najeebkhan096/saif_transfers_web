@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../theme/theme_helper.dart';
 import '../../../../model/client.dart';
-import '../../../widgets/custom_button.dart';
+import '../../../../theme/theme_helper.dart';
+import '../../../../widgets/custom_button.dart';
 import 'elements/clients_row.dart';
 import 'elements/clients_tab_header.dart';
 

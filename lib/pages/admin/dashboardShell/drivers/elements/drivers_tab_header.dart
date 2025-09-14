@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../../theme/theme_helper.dart';
+import '../../../../../theme/theme_helper.dart';
 import 'drivers_tab_config.dart';
 
 class DriversTableHeader extends StatelessWidget {

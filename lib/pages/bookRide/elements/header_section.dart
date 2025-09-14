@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:saif_transfers_web/core/utils/images.dart';
+import 'package:saif_transfers_web/widgets/custom_image_view.dart';
 
 import '../../../providers/stepper_provider.dart';
 
@@ -30,107 +33,95 @@ class BookRideHeaderSection extends StatelessWidget {
             ),
           ),
           padding: EdgeInsets.symmetric(
-            vertical: isMobile ? 12 : 16,
-            horizontal: isMobile ? 12 : 24,
+            vertical:  16,
+            horizontal:  24,
           ),
           child: isMobile
               ? Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    // Top row → Logo + Menu
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          height: 32,
-                          width: 100,
-                          color: Colors.grey.shade300,
-                          alignment: Alignment.center,
-                          child: const Text(
-                            "LOGO HERE",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            Scaffold.of(context).openEndDrawer();
-                          },
-                          icon: const Icon(Icons.menu_rounded, size: 22),
-                          splashRadius: 20,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Top row → Logo + Menu
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CustomImageView(
+                    imagePath: ImageConstants.logo,
+                    width: 100.w,
+                    fit: BoxFit.fill,
+                  ),
 
-                    // Stepper below in horizontal scroll
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: StepperHeader(
-                        steps: const [
-                          'Service Class',
-                          'Pickup Info',
-                          'Payment',
-                          'Checkout',
-                        ],
-                        activeStep: activeStep,
-                        isMobile: true,
-                      ),
+                  IconButton(
+                    onPressed: () {
+                      Scaffold.of(context).openEndDrawer();
+                    },
+                    icon: Icon(
+                      Icons.menu_rounded,
+                      size: isMobile ? 22 : 22.sp,
                     ),
+                    splashRadius: isMobile ? 20 : 20.r,
+                  ),
+                ],
+              ),
+              SizedBox(height: isMobile ? 16 : 16.h),
+
+              // Stepper below in horizontal scroll
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: StepperHeader(
+                  steps: const [
+                    'Service Class',
+                    'Pickup Info',
+                    'Payment',
+                    'Checkout',
                   ],
-                )
-              : Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    // Logo
-                    Container(
-                      height: 36,
-                      width: 120,
-                      color: Colors.grey.shade300,
-                      alignment: Alignment.center,
-                      child: const Text(
-                        "LOGO HERE",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black87,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 40),
-
-                    // Stepper Center
-                    Expanded(
-                      child: Center(
-                        child: ConstrainedBox(
-                          constraints: BoxConstraints(
-                            maxWidth: width > 1200 ? 800 : width * 0.7,
-                          ),
-                          child: StepperHeader(
-                            steps: const [
-                              'Service Class',
-                              'Pickup Info',
-                              'Payment',
-                              'Checkout',
-                            ],
-                            activeStep: activeStep,
-                            isMobile: false,
-                          ),
-                        ),
-                      ),
-                    ),
-
-                    // Menu button
-                    IconButton(
-                      onPressed: () {
-                        Scaffold.of(context).openEndDrawer();
-                      },
-                      icon: const Icon(Icons.menu_rounded, size: 22),
-                      splashRadius: 22,
-                    ),
-                  ],
+                  activeStep: activeStep,
+                  isMobile: true,
                 ),
+              ),
+            ],
+          )
+              : Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Logo
+              CustomImageView(
+                imagePath: ImageConstants.logo,
+                width: 100.w,
+                fit: BoxFit.fill,
+              ),
+              SizedBox(width: 40.w),
+
+              // Stepper Center
+              Expanded(
+                child: Center(
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      maxWidth: width > 1200 ? 800.w : width * 0.7,
+                    ),
+                    child: StepperHeader(
+                      steps: const [
+                        'Service Class',
+                        'Pickup Info',
+                        'Payment',
+                        'Checkout',
+                      ],
+                      activeStep: activeStep,
+                      isMobile: false,
+                    ),
+                  ),
+                ),
+              ),
+
+              // Menu button
+              IconButton(
+                onPressed: () {
+                  Scaffold.of(context).openEndDrawer();
+                },
+                icon: Icon(Icons.menu_rounded, size: 22.sp),
+                splashRadius: 22.r,
+              ),
+            ],
+          ),
         );
       },
     );
@@ -151,8 +142,8 @@ class StepperHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double circleSize = isMobile ? 12 : 16;
-    final double fontSize = isMobile ? 11 : 13;
+    final double circleSize = isMobile?14:16;
+    final double fontSize = isMobile?11:13;
 
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -161,10 +152,10 @@ class StepperHeader extends StatelessWidget {
           _buildStep(steps[i], i, circleSize, fontSize),
           if (i != steps.length - 1)
             Container(
-              width: isMobile ? 40 : 60,
-              height: 1.5,
+              width:  60,
+              height:  1.5,
               color: i < activeStep ? Colors.black : Colors.grey.shade300,
-              margin: const EdgeInsets.symmetric(horizontal: 6),
+              margin: EdgeInsets.symmetric(horizontal: 6),
             ),
         ],
       ],
@@ -188,21 +179,25 @@ class StepperHeader extends StatelessWidget {
           style: TextStyle(
             fontSize: fontSize,
             fontWeight: isActive ? FontWeight.w700 : FontWeight.w500,
-            color: isActive || isCompleted ? Colors.black87 : Colors.grey.shade400,
+            color: isActive || isCompleted
+                ? Colors.black87
+                : Colors.grey.shade400,
           ),
         ),
-        const SizedBox(height: 6),
+        SizedBox(height: isMobile ? 6 : 6.h),
         Container(
           width: circleSize,
           height: circleSize,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: isCompleted ? Colors.black : (isActive ? Colors.white : Colors.white),
+            color: isCompleted
+                ? Colors.black
+                : (isActive ? Colors.white : Colors.white),
             border: Border.all(
-              color:
-              isCompleted ? Colors.black :
-              isActive ? Colors.black : Colors.grey.shade300,
-              width: 1.5,
+              color: isCompleted
+                  ? Colors.black
+                  : (isActive ? Colors.black : Colors.grey.shade300),
+              width:  1.5,
             ),
           ),
         ),
@@ -210,4 +205,3 @@ class StepperHeader extends StatelessWidget {
     );
   }
 }
-

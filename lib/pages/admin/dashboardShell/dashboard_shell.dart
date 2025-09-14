@@ -2,12 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:saif_transfers_web/pages/dashboardShell/dashboard/dashboard_page.dart';
-import 'package:saif_transfers_web/pages/dashboardShell/settings/settings_page.dart';
-import 'package:saif_transfers_web/theme/theme_helper.dart';
-import '../../core/utils/images.dart';
+import 'package:saif_transfers_web/pages/admin/dashboardShell/settings/settings_page.dart';
+import '../../../core/utils/images.dart';
+import '../../../theme/theme_helper.dart';
 import 'bookings/booking_page.dart';
 import 'cleints/client_page.dart';
+import 'dashboard/dashboard_page.dart';
 import 'drivers/drivers_page.dart';
 
 class DashboardShell extends StatefulWidget {

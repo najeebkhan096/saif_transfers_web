@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:saif_transfers_web/model/driver.dart';
 import 'package:saif_transfers_web/theme/theme_helper.dart';
-
-import '../../../model/booking.dart';
+import '../../../../model/booking.dart';
 import '../bookings/elements/booking_row.dart';
 import '../bookings/elements/booking_tab_header.dart';
 import 'elements/OverviewCardsRow.dart';

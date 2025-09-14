@@ -27,37 +27,42 @@ class PartnersSection extends StatelessWidget {
 
           return Container(
             padding: const EdgeInsets.only(left: 20),
-            child: Wrap(
-              spacing: 20,
-              runSpacing: 20,
-              alignment: WrapAlignment.start,
-              children: [
-                // Heading
-                SizedBox(
-                  width: 300,
-                  child: Text(
-                    "The partners who continuous travel with us",
-                    style: TextStyle(
-                      fontSize: isMobile ? 18 : 20,
-                      fontWeight: FontWeight.bold,
+            child: Center(
+              child: Wrap(
+                spacing:
+                isMobile?10:
+                20,
+                runSpacing: isMobile?10:20,
+                alignment: WrapAlignment.start,
+                children: [
+                  // Heading
+                  SizedBox(
+                    width: 300,
+                    child: Text(
+                      "The partners who continuous travel with us",
+                      style: TextStyle(
+                        fontSize: isMobile ? 18 : 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(width: 50,),
+                  if(!isMobile)
+                  SizedBox(width: 50,),
 
-                // Partner logos
-                ...List.generate(
-                  mparteners.length,
-                      (index) => Container(
-                        margin: EdgeInsets.symmetric(horizontal: 20),
-                        child: Image.asset(
-                                            mparteners[index],
-                                            width: imageWidth,
-                                            fit: BoxFit.contain,
-                                          ),
-                      ),
-                ),
-              ],
+                  // Partner logos
+                  ...List.generate(
+                    mparteners.length,
+                        (index) => Container(
+                          margin: EdgeInsets.symmetric(horizontal: 20),
+                          child: Image.asset(
+                                              mparteners[index],
+                                              width: imageWidth,
+                                              fit: BoxFit.contain,
+                                            ),
+                        ),
+                  ),
+                ],
+              ),
             ),
           );
         },

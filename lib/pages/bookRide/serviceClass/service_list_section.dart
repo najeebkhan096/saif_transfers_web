@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:saif_transfers_web/theme/theme_helper.dart';
 
 import '../../../model/service_class_info.dart';
 import '../../../widgets/custom_image_view.dart';
-import '../elements/triple_section.dart';
-import 'elements/all_classes_include_section.dart';
 
 class ServicesListSection extends StatefulWidget {
   final List<ServiceClassInfo> services;
@@ -27,31 +26,31 @@ class _ServicesListSectionState extends State<ServicesListSection> {
     final width = MediaQuery.of(context).size.width;
     final isMobile = width < 700;
 
-    final contentMaxWidth = width > 1200 ? 760.0 : width * 0.68;
-
-    final double titleSize = isMobile ? 14 : 16;
-    final double priceSize = isMobile ? 14 : 18;
-    final double descSize = isMobile ? 12 : 13;
-    final double iconSize = isMobile ? 14 : 16;
+    // Font sizes
+    final double titleSize = isMobile ? 14 : 16.sp;
+    final double priceSize = isMobile ? 14 : 18.sp;
+    final double descSize = isMobile ? 12 : 13.sp;
+    final double iconSize = isMobile ? 14 : 16.w;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-
+        /// Top Info
         Padding(
           padding: EdgeInsets.only(
-            left: isMobile ? 6 : 4,
-            bottom: isMobile ? 8 : 12,
+            left: isMobile ? 6 : 4.w,
+            bottom: isMobile ? 8 : 12.h,
           ),
           child: Text(
             'All prices include VAT, fees, and tolls',
             style: TextStyle(
-              fontSize: isMobile ? 12 : 13,
+              fontSize: isMobile ? 12 : 13.sp,
               color: Colors.black54,
             ),
           ),
         ),
 
+        /// Services List
         Column(
           children: List.generate(widget.services.length, (index) {
             final service = widget.services[index];
@@ -60,39 +59,38 @@ class _ServicesListSectionState extends State<ServicesListSection> {
             return GestureDetector(
               onTap: () => setState(() => selectedIndex = index),
               child: Container(
-                margin: const EdgeInsets.only(bottom: 12),
+                margin: EdgeInsets.only(bottom: isMobile ? 12 : 12.h),
                 decoration: BoxDecoration(
                   color: selected ? const Color(0xFFF2F4F6) : Colors.white,
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(isMobile ? 8 : 8.r),
                   border: Border.all(
                     color: selected ? Colors.black87 : Colors.grey.shade300,
-                    width: selected ? 2 : 1,
+                    width: selected ? (isMobile ? 2 : 2.w) : (isMobile ? 1 : 1.w),
                   ),
                   boxShadow: selected
                       ? [
                     BoxShadow(
-                      // ignore: deprecated_member_use
                       color: Colors.black.withOpacity(0.03),
-                      blurRadius: 6,
-                      offset: const Offset(0, 2),
+                      blurRadius: isMobile ? 6 : 6.r,
+                      offset: Offset(0, isMobile ? 2 : 2.h),
                     ),
                   ]
                       : null,
                 ),
                 child: Padding(
                   padding: EdgeInsets.symmetric(
-                    horizontal: isMobile ? 10 : 14,
-                    vertical: isMobile ? 10 : 14,
+                    horizontal: isMobile ? 10 : 14.w,
+                    vertical: isMobile ? 10 : 14.h,
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Car Image
+                      /// Car Image
                       CustomImageView(imagePath: service.imageUrl),
 
-                      SizedBox(width: isMobile ? 10 : 16),
+                      SizedBox(width: isMobile ? 10 : 16.w),
 
-                      // Details
+                      /// Details
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,12 +98,12 @@ class _ServicesListSectionState extends State<ServicesListSection> {
                             Text(
                               service.title,
                               style: GoogleFonts.dmSans(
-                                fontSize: 15,
+                                fontSize: titleSize,
                                 fontWeight: FontWeight.w400,
                                 color: appTheme.black,
                               ),
                             ),
-                            const SizedBox(height: 8),
+                            SizedBox(height: isMobile ? 8 : 8.h),
 
                             Row(
                               children: [
@@ -114,7 +112,7 @@ class _ServicesListSectionState extends State<ServicesListSection> {
                                   size: iconSize,
                                   color: Colors.black54,
                                 ),
-                                const SizedBox(width: 6),
+                                SizedBox(width: isMobile ? 6 : 6.w),
                                 Text(
                                   service.capacity.toString(),
                                   style: TextStyle(
@@ -122,13 +120,13 @@ class _ServicesListSectionState extends State<ServicesListSection> {
                                     color: Colors.black87,
                                   ),
                                 ),
-                                const SizedBox(width: 12),
+                                SizedBox(width: isMobile ? 12 : 12.w),
                                 Icon(
                                   Icons.card_travel,
                                   size: iconSize,
                                   color: Colors.black54,
                                 ),
-                                const SizedBox(width: 6),
+                                SizedBox(width: isMobile ? 6 : 6.w),
                                 Text(
                                   service.luggage.toString(),
                                   style: TextStyle(
@@ -138,24 +136,22 @@ class _ServicesListSectionState extends State<ServicesListSection> {
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 10),
+                            SizedBox(height: isMobile ? 10 : 10.h),
 
                             Text(
                               service.description,
                               style: GoogleFonts.dmSans(
-                                fontSize: 13,
+                                fontSize: isMobile ? 13 : 13.sp,
                                 fontWeight: FontWeight.w400,
                                 color: appTheme.black,
                               ),
-                              // maxLines: 2,
-                              // overflow: TextOverflow.ellipsis,
                             ),
                           ],
                         ),
                       ),
 
-                      // Price + Chevron
-                      SizedBox(width: isMobile ? 8 : 12),
+                      /// Price + Chevron
+                      SizedBox(width: isMobile ? 8 : 12.w),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
@@ -167,12 +163,10 @@ class _ServicesListSectionState extends State<ServicesListSection> {
                               color: Colors.black87,
                             ),
                           ),
-                          SizedBox(height: isMobile ? 8 : 12),
+                          SizedBox(height: isMobile ? 8 : 12.h),
                           Icon(
-                            selected
-                                ? Icons.expand_less
-                                : Icons.expand_more,
-                            size: isMobile ? 20 : 22,
+                            selected ? Icons.expand_less : Icons.expand_more,
+                            size: isMobile ? 20 : 22.w,
                             color: Colors.black54,
                           ),
                         ],
@@ -184,8 +178,6 @@ class _ServicesListSectionState extends State<ServicesListSection> {
             );
           }),
         ),
-
-
       ],
     );
   }

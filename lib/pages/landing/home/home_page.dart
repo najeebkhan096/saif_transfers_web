@@ -13,77 +13,82 @@ import 'elements/service_section.dart';
 import 'elements/stats_section.dart';
 import 'elements/testimonial_section.dart';
 
-
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final bool isMobile = MediaQuery.of(context).size.width < 900;
+
     return SingleChildScrollView(
-      child: Padding(
-        padding: appPaddingHorizontal,
-        child: Column(
-          children: [
-            SizedBox(height: 20.h,),
-            const HeroSection(),
-            const HowItWorksSection(),
-            const ServicesSection(),
-            const FleetSection(),
-             ShowcaseSection(),
-            TestimonialsSection(),
-            PartnersSection(),
-             DownloadAppSection(),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 60),
-              child: MidFooterBar(),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 60),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const HeroSection(),
+          SizedBox(height: 40),
+          const HowItWorksSection(),
+          SizedBox(height: 40),
+          const ServicesSection(),
+          const FleetSection(),
+          ShowcaseSection(),
+          TestimonialsSection(),
+          PartnersSection(),
+          DownloadAppSection(),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: isMobile ? 0 : 60),
+            child: MidFooterBar(),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: isMobile ? 10 : 60),
 
-              child: ResponsiveFooter(
-                sections: [
-                  FooterSection(
-                    title: 'Company',
-                    items: const [
-                      'About us',
-                      'Our offerings',
-                      'Newsroom',
-                      'Investors',
-                      'Blog',
-                      'Careers',
-                      'Gift cards',
-                    ],
-                  ),
-                   FooterSection(
-                    title: 'Top cities',
-                    items: ['New York', 'London', 'Berlin', 'Los Angeles', 'Paris'],
-                  ),
-                   FooterSection(
-                    title: 'Explore',
-                    items: [
-                      'Intercity rides',
-                      'Limousine service',
-                      'Chauffeur service',
-                      'Private car service',
-                      'Ground transportation',
-                      'Airport transfer',
-                    ],
-                  ),
-                   FooterSection(
-                    title: 'Classes',
-                    items: ['Business', 'First', 'XL', 'Assistant'],
-                  ),
-                ],
-              ),
+            child: ResponsiveFooter(
+              sections: [
+                FooterSection(
+                  title: 'Company',
+                  items: const [
+                    'About us',
+                    'Our offerings',
+                    'Newsroom',
+                    'Investors',
+                    'Blog',
+                    'Careers',
+                    'Gift cards',
+                  ],
+                ),
+                FooterSection(
+                  title: 'Top cities',
+                  items: [
+                    'New York',
+                    'London',
+                    'Berlin',
+                    'Los Angeles',
+                    'Paris',
+                  ],
+                ),
+                FooterSection(
+                  title: 'Explore',
+                  items: [
+                    'Intercity rides',
+                    'Limousine service',
+                    'Chauffeur service',
+                    'Private car service',
+                    'Ground transportation',
+                    'Airport transfer',
+                  ],
+                ),
+                FooterSection(
+                  title: 'Classes',
+                  items: ['Business', 'First', 'XL', 'Assistant'],
+                ),
+              ],
             ),
-            const LegalBar(
-              margin:  EdgeInsets.symmetric(horizontal: 60),
+          ),
+          LegalBar(
+            margin: EdgeInsets.symmetric(horizontal: isMobile ? 10 : 60),
+          ),
 
-            ),
-
-            // FooterSection(),
-          ],
-        ),
+          // FooterSection(),
+        ],
       ),
     );
   }

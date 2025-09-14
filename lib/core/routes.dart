@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:saif_transfers_web/pages/auth/login/login_page.dart';
 import 'package:saif_transfers_web/pages/admin/login/login_page.dart';
 import 'package:saif_transfers_web/pages/auth/register/register_page.dart';
-import 'package:saif_transfers_web/pages/dashboardShell/dashboard_shell.dart';
 import 'package:saif_transfers_web/pages/landing/landing_page.dart';
+
+import '../pages/admin/dashboardShell/dashboard_shell.dart';
 
 
 class AppRoutes {

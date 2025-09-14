@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:saif_transfers_web/widgets/custom_button.dart';
 
@@ -18,26 +19,26 @@ class _TestimonialsSectionState extends State<TestimonialsSection> {
     {
       "name": "John Doe",
       "image":
-      "https://corsproxy.io/?https://www.punjabkesari.com/wp-content/uploads/2025/07/aneet-padda-26.webp",
+          "https://corsproxy.io/?https://www.punjabkesari.com/wp-content/uploads/2025/07/aneet-padda-26.webp",
       "rating": 5,
       "description":
-      '''On the other hand denounce righteous indignation and dislike men who beguile and demoralize charms pleasure the moment blinded desire cannot foresee  pain and trouble that are bound to ensue'''
+          '''On the other hand denounce righteous indignation and dislike men who beguile and demoralize charms pleasure the moment blinded desire cannot foresee  pain and trouble that are bound to ensue''',
     },
     {
       "name": "Sarah Smith",
       "image":
-      "https://corsproxy.io/?https://pbs.twimg.com/media/GwOH6kVakAAt66Y?format=jpg&name=large",
+          "https://corsproxy.io/?https://pbs.twimg.com/media/GwOH6kVakAAt66Y?format=jpg&name=large",
       "rating": 4,
       "description":
-      '''On the other hand denounce righteous indignation and dislike men who beguile and demoralize charms pleasure the moment blinded desire cannot foresee  pain and trouble that are bound to ensue'''
+          '''On the other hand denounce righteous indignation and dislike men who beguile and demoralize charms pleasure the moment blinded desire cannot foresee  pain and trouble that are bound to ensue''',
     },
     {
       "name": "Michael Johnson",
       "image":
-      "https://corsproxy.io/?https://www.punjabkesari.com/wp-content/uploads/2025/07/aneet-padda-26.webp",
+          "https://corsproxy.io/?https://www.punjabkesari.com/wp-content/uploads/2025/07/aneet-padda-26.webp",
       "rating": 5,
       "description":
-      '''On the other hand denounce righteous indignation and dislike men who beguile and demoralize charms pleasure the moment blinded desire cannot foresee  pain and trouble that are bound to ensue'''
+          '''On the other hand denounce righteous indignation and dislike men who beguile and demoralize charms pleasure the moment blinded desire cannot foresee  pain and trouble that are bound to ensue''',
     },
   ];
 
@@ -58,30 +59,40 @@ class _TestimonialsSectionState extends State<TestimonialsSection> {
         bool isMobile = constraints.maxWidth < 800;
 
         return Container(
-          padding: const EdgeInsets.symmetric(vertical: 120,horizontal: 80),
-          margin: EdgeInsets.symmetric(vertical: 20),
+          padding: EdgeInsets.symmetric(
+            vertical: isMobile ? 30 : 120,
+            horizontal: isMobile ? 20 : 80,
+          ),
+          margin: EdgeInsets.symmetric(
+            vertical: 20,
+            horizontal: isMobile ? 20 : 20,
+          ),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: Color(0xffFDEEEC)
+            color: Color(0xffFDEEEC),
           ),
 
           child: isMobile
               ? Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildLeftSection(isMobile, constraints.maxWidth),
-              const SizedBox(height: 30),
-              _buildRightSection(isMobile, constraints.maxWidth),
-            ],
-          )
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildLeftSection(isMobile, constraints.maxWidth),
+                    const SizedBox(height: 30),
+                    _buildRightSection(isMobile, constraints.maxWidth),
+                  ],
+                )
               : Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(child: _buildLeftSection(isMobile, constraints.maxWidth)),
-              const SizedBox(width: 40),
-              Expanded(child: _buildRightSection(isMobile, constraints.maxWidth)),
-            ],
-          ),
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: _buildLeftSection(isMobile, constraints.maxWidth),
+                    ),
+                    const SizedBox(width: 40),
+                    Expanded(
+                      child: _buildRightSection(isMobile, constraints.maxWidth),
+                    ),
+                  ],
+                ),
         );
       },
     );
@@ -89,12 +100,14 @@ class _TestimonialsSectionState extends State<TestimonialsSection> {
 
   Widget _buildLeftSection(bool isMobile, double width) {
     return Column(
-      crossAxisAlignment: isMobile ? CrossAxisAlignment.start : CrossAxisAlignment.start,
+      crossAxisAlignment: isMobile
+          ? CrossAxisAlignment.start
+          : CrossAxisAlignment.start,
       children: [
         Text(
           "Hear what our amazing customers say",
-              style: GoogleFonts.dmSans(
-            fontSize: isMobile ? 20 : 44,
+          style: GoogleFonts.dmSans(
+            fontSize: isMobile ? 20 : 44.sp,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -102,7 +115,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection> {
         Text(
           "Sad ipscing elitrsed diamnonu myeir mod, sadipscing elitrsed dia morem ipsum dolor situamet consetetur loutrytru.",
           textAlign: isMobile ? TextAlign.start : TextAlign.start,
-              style: GoogleFonts.dmSans(fontSize: isMobile ? 14 : 16),
+          style: GoogleFonts.dmSans(fontSize: isMobile ? 14 : 16),
         ),
         const SizedBox(height: 20),
         CustomButton(
@@ -133,7 +146,10 @@ class _TestimonialsSectionState extends State<TestimonialsSection> {
               itemBuilder: (context, index) {
                 final t = testimonials[index];
                 return Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 8,
+                  ),
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -154,7 +170,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection> {
                           Expanded(
                             child: Text(
                               t["name"],
-                                  style: GoogleFonts.dmSans(
+                              style: GoogleFonts.dmSans(
                                 fontWeight: FontWeight.bold,
                                 fontSize: isMobile ? 14 : 16,
                               ),
@@ -168,8 +184,11 @@ class _TestimonialsSectionState extends State<TestimonialsSection> {
                       Row(
                         children: List.generate(
                           t["rating"],
-                              (starIndex) =>
-                              Icon(Icons.star, color: Colors.amber, size: isMobile ? 18 : 20),
+                          (starIndex) => Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                            size: isMobile ? 18 : 20,
+                          ),
                         ),
                       ),
                       const SizedBox(height: 12),
@@ -178,7 +197,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection> {
                         child: SingleChildScrollView(
                           child: Text(
                             t["description"],
-                                style: GoogleFonts.dmSans(
+                            style: GoogleFonts.dmSans(
                               fontSize: isMobile ? 13 : 18,
                               color: Colors.black87,
                             ),
@@ -198,14 +217,20 @@ class _TestimonialsSectionState extends State<TestimonialsSection> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              _circleButton(Icons.arrow_back, () => _goToPage(_currentPage - 1)),
+              _circleButton(
+                Icons.arrow_back,
+                () => _goToPage(_currentPage - 1),
+              ),
               const SizedBox(width: 16),
               Text(
                 "${_currentPage + 1} / ${testimonials.length}",
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               const SizedBox(width: 16),
-              _circleButton(Icons.arrow_forward, () => _goToPage(_currentPage + 1)),
+              _circleButton(
+                Icons.arrow_forward,
+                () => _goToPage(_currentPage + 1),
+              ),
             ],
           ),
         ],

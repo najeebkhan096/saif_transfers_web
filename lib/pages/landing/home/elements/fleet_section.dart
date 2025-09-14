@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:saif_transfers_web/core/utils/images.dart';
 import 'package:saif_transfers_web/theme/theme_helper.dart';
@@ -14,23 +15,23 @@ class FleetSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool mobile = Responsive.isMobile(context);
-    final bool tablet = Responsive.isTablet(context);
+    final bool isMobile = Responsive.isMobile(context);
+    final bool isTablet = Responsive.isTablet(context);
+    final double screenWidth = MediaQuery.of(context).size.width;
 
     return Container(
       decoration: BoxDecoration(
-        color: Color(0xffE8EDED),
+        color: const Color(0xffE8EDED),
         borderRadius: BorderRadius.circular(20),
       ),
       margin: EdgeInsets.symmetric(
-        vertical: mobile ? 30 : 60,
-        horizontal: mobile ? 16 : 40,
+        vertical: isMobile ? 30 : 60,
+        horizontal: isMobile ? 20 : 40,
       ),
       padding: EdgeInsets.symmetric(
-        vertical: mobile ? 12 : 40,
-        horizontal: mobile ? 12 : 40,
+        vertical: isMobile ? 20 : 40,
+        horizontal: isMobile ? 16 : 40,
       ),
-      // height: mobile ? 1320 : 560,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -41,7 +42,7 @@ class FleetSection extends StatelessWidget {
               Text(
                 "Our Fleet",
                 style: GoogleFonts.dmSans(
-                  fontSize: mobile ? 22 : 32,
+                  fontSize: isMobile ? 22 : 32,
                   fontWeight: FontWeight.bold,
                   color: appTheme.black,
                 ),
@@ -52,7 +53,7 @@ class FleetSection extends StatelessWidget {
                     'Fleet More',
                     style: GoogleFonts.dmSans().copyWith(
                       color: appTheme.black,
-                      fontSize: mobile ? 10 : 12,
+                      fontSize: isMobile ? 10 : 12,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -69,86 +70,114 @@ class FleetSection extends StatelessWidget {
 
           const SizedBox(height: 40),
 
-          /// Fleet Cards
-          Wrap(
-            spacing: 20,
-            runSpacing: 20,
-            alignment: WrapAlignment.center,
-            children: [
-              _buildFleetCard(
-                title: "The BMW 7 Series Sedan",
-                subtitle: 'Mercedes-Benz V-Class, Chevrolet Suburban, Cadillac',
-                imagePath: ImageConstants.bmw,
-                passengers: '2 Passengers',
-                luggage: '3 Luggage',
-                mobile: mobile,
-                tablet: tablet,
-              ),
-              _buildFleetCard(
-                title: "Audi Q3 Sportback",
-                subtitle: 'Mercedes-Benz V-Class, Chevrolet Suburban, Cadillac',
-                imagePath: ImageConstants.audi,
-                passengers: '2 Passengers',
-                luggage: '2 Luggage',
-                mobile: mobile,
-                tablet: tablet,
-              ),
-              _buildFleetCard(
-                title: "Electric Class",
-                subtitle: 'Mercedes-Benz EQS, BMW 7 Series, Audi A8 or similar',
-                imagePath: ImageConstants.electricClass,
-                passengers: '2 Passengers',
-                luggage: '2 Luggage',
-                mobile: mobile,
-                tablet: tablet,
-              ),
-            ],
+          /// Fleet Cards with Wrap
+          Center(
+            child: Wrap(
+              spacing: 20,
+              runSpacing: 20,
+              alignment: WrapAlignment.center,
+              children: [
+                _buildFleetCard(
+                  context,
+                  title: "The BMW 7 Series Sedan",
+                  subtitle:
+                      'Mercedes-Benz V-Class, Chevrolet Suburban, Cadillac',
+                  imagePath: ImageConstants.bmw,
+                  passengers: '2 Passengers',
+                  luggage: '3 Luggage',
+                  isMobile: isMobile,
+                  isTablet: isTablet,
+                  screenWidth: screenWidth,
+                ),
+                _buildFleetCard(
+                  context,
+                  title: "Audi Q3 Sportback",
+                  subtitle:
+                      'Mercedes-Benz V-Class, Chevrolet Suburban, Cadillac',
+                  imagePath: ImageConstants.audi,
+                  passengers: '2 Passengers',
+                  luggage: '2 Luggage',
+                  isMobile: isMobile,
+                  isTablet: isTablet,
+                  screenWidth: screenWidth,
+                ),
+                _buildFleetCard(
+                  context,
+                  title: "Electric Class",
+                  subtitle:
+                      'Mercedes-Benz EQS, BMW 7 Series, Audi A8 or similar',
+                  imagePath: ImageConstants.electricClass,
+                  passengers: '2 Passengers',
+                  luggage: '2 Luggage',
+                  isMobile: isMobile,
+                  isTablet: isTablet,
+                  screenWidth: screenWidth,
+                ),
+              ],
+            ),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildFleetCard({
+  Widget _buildFleetCard(
+    BuildContext context, {
     required String title,
     required String subtitle,
     required String imagePath,
     required String passengers,
     required String luggage,
-    required bool mobile,
-    required bool tablet,
+    required bool isMobile,
+    required bool isTablet,
+    required double screenWidth,
   }) {
-    double cardWidth = 440;
+    double cardWidth = isMobile ? 500 : 374.w;
+    // if (isMobile) {
+    //   cardWidth = screenWidth * 0.9; // almost full width
+    // } else if (isTablet) {
+    //   cardWidth = screenWidth * 0.45; // two per row
+    // } else {
+    //   cardWidth = 420; // fixed width on desktop
+    // }
+
     return Container(
       width: cardWidth,
-      height: 372,
+
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Colors.grey.shade400),
       ),
-      padding: const EdgeInsets.all(32),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const SizedBox(height: 20),
+
           /// Vehicle Title
-          Text(
-            title,
-            style: GoogleFonts.dmSans(
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
-              color: appTheme.black,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Text(
+              title,
+              style: GoogleFonts.dmSans(
+                fontWeight: FontWeight.w600,
+                fontSize: isMobile ? 20 : 20.sp,
+                color: appTheme.black,
+              ),
             ),
           ),
           const SizedBox(height: 10),
 
           /// Subtitle
-          Text(
-            subtitle,
-            style: GoogleFonts.dmSans(
-              fontWeight: FontWeight.w500,
-              fontSize: 14,
-              color: appTheme.black,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Text(
+              subtitle,
+              style: GoogleFonts.dmSans(
+                fontWeight: FontWeight.w500,
+                fontSize: isMobile ? 14 : 14.sp,
+                color: appTheme.black,
+              ),
             ),
           ),
           const SizedBox(height: 20),
@@ -157,34 +186,42 @@ class FleetSection extends StatelessWidget {
           Center(
             child: CustomImageView(
               imagePath: imagePath,
-              fit: BoxFit.cover,
-              height: 144,
+              width: isMobile ? 312 : 312.w,
+              height: isMobile ? 144 : 144.w,
             ),
           ),
           const SizedBox(height: 20),
 
-          /// Passengers & Luggage Row
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _buildInfoItem(ImageConstants.passenger, passengers),
-              _buildInfoItem(ImageConstants.luggage, luggage),
-            ],
+          /// Passengers & Luggage
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _buildInfoItem(ImageConstants.passenger, passengers, isMobile),
+                _buildInfoItem(ImageConstants.luggage, luggage, isMobile),
+              ],
+            ),
           ),
+
+          const SizedBox(height: 20),
         ],
       ),
     );
   }
 
-  /// Helper widget for passenger/luggage info
-  Widget _buildInfoItem(String iconPath, String text) {
+  /// Passenger / Luggage Item
+  Widget _buildInfoItem(String iconPath, String text, isMobile) {
     return Row(
       children: [
-        CustomImageView(imagePath: iconPath, width: 16, height: 16),
+        CustomImageView(imagePath: iconPath, width: 16.w, height: 16.w),
         const SizedBox(width: 4),
         Text(
           text,
-          style: GoogleFonts.dmSans(fontSize: 10, color: Colors.black54),
+          style: GoogleFonts.dmSans(
+            fontSize: isMobile ? 12 : 12.sp,
+            color: Colors.black54,
+          ),
         ),
       ],
     );

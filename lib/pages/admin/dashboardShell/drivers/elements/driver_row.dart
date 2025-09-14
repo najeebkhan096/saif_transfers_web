@@ -1,8 +1,8 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../../../../model/driver.dart';
 import 'drivers_tab_config.dart';
-import '../../../../model/driver.dart';
 
 class DriverRow extends StatelessWidget {
   final DriverModel driver;
