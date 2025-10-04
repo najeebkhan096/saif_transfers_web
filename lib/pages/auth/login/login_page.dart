@@ -1,20 +1,102 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:saif_transfers_web/core/routes.dart';
-import 'package:saif_transfers_web/core/styling.dart';
-import 'package:saif_transfers_web/core/utils/images.dart';
-import 'package:saif_transfers_web/theme/theme_helper.dart';
-import 'package:saif_transfers_web/widgets/custom_button.dart';
-import 'package:saif_transfers_web/widgets/custom_image_view.dart';
+import 'package:provider/provider.dart';
 
-class LoginPage extends StatelessWidget {
+import '../../../core/styling.dart';
+import '../../../core/utils/images.dart';
+import '../../../theme/theme_helper.dart';
+import '../../../widgets/custom_button.dart';
+import '../../../widgets/custom_image_view.dart';
+import '../../../routes/app_paths.dart';
+import '../../../providers/user_provider.dart';
+
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  bool _isLoading = false;
+  bool _obscurePassword = true;
+
+  void _showMessage(String text, {Color color = Colors.red}) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(text),
+        backgroundColor: color,
+        behavior: SnackBarBehavior.floating,
+      ),
+    );
+  }
+
+  Future<void> _login() async {
+    if (!_formKey.currentState!.validate()) return;
+
+    setState(() => _isLoading = true);
+
+    try {
+      final userProvider = Provider.of<UserProvider>(context, listen: false);
+      await userProvider.login(
+        _emailController.text.trim(),
+        _passwordController.text.trim(),
+      );
+
+      // Debug prints
+      print(
+        '🔹 Login complete. isLoggedIn=${userProvider.isLoggedIn}, userType=${userProvider.userType}',
+      );
+
+      if (userProvider.isLoggedIn) {
+        _showMessage("✅ Login successful!", color: Colors.green);
+
+        // GoRouter redirect will also trigger automatically via refreshListenable
+      }
+    } catch (e) {
+      _showMessage("❌ ${e.toString()}");
+    } finally {
+      setState(() => _isLoading = false);
+    }
+  }
+
+  Future<void> _loginWithGoogle() async {
+    setState(() => _isLoading = true);
+
+    try {
+      final userProvider = Provider.of<UserProvider>(context, listen: false);
+      // await userProvider.signInWithGoogle();
+
+      print(
+        '🔹 Google login complete. isLoggedIn=${userProvider.isLoggedIn}, userType=${userProvider.userType}',
+      );
+
+      if (userProvider.isLoggedIn) {
+        _showMessage("✅ Google login successful!", color: Colors.green);
+      }
+    } catch (e) {
+      _showMessage("❌ Google login failed: ${e.toString()}");
+    } finally {
+      setState(() => _isLoading = false);
+    }
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffF8FAFC),
+      backgroundColor: const Color(0xffF8FAFC),
       body: LayoutBuilder(
         builder: (context, constraints) {
           bool isMobile = constraints.maxWidth < 900;
@@ -22,169 +104,187 @@ class LoginPage extends StatelessWidget {
           return Padding(
             padding: appPaddingHorizontal,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Left Panel (Form)
                 Expanded(
-                  flex: isMobile ? 1 : 1,
                   child: SingleChildScrollView(
                     padding: EdgeInsets.symmetric(
                       horizontal: isMobile ? 24.h : 40.h,
                       vertical: 20,
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                         SizedBox(height: 30.h),
-                        // Logo
-                        CustomImageView(
-                          imagePath: ImageConstants.logo,
-                          width: 100,
-                          fit: BoxFit.fill,
-                        ),
-                         SizedBox(height: 40.h),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 30.h),
 
-                        // Welcome
-                        RichText(
-                          text: TextSpan(
-                            style: GoogleFonts.poppins(
-                              fontSize: 24,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
+                          /// Logo
+                          CustomImageView(
+                            imagePath: ImageConstants.logo,
+                            width: 100,
+                            fit: BoxFit.fill,
+                          ),
+                          SizedBox(height: 40.h),
+
+                          /// Welcome
+                          RichText(
+                            text: TextSpan(
+                              style: GoogleFonts.poppins(
+                                fontSize: 24,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black,
+                              ),
+                              children: const [
+                                TextSpan(text: "Welcome to "),
+                                TextSpan(
+                                  text: "Company Name",
+                                  style: TextStyle(
+                                    color: Color(0xffb58a00),
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
                             ),
-                            children: const [
-                              TextSpan(text: "Welcome to "),
-                              TextSpan(
-                                text: "Company Name",
-                                style: TextStyle(
-                                  color: Color(0xffb58a00),
-                                  fontWeight: FontWeight.w600,
+                          ),
+                          SizedBox(height: 10.h),
+
+                          Text(
+                            "Login to manage your rides and bookings.",
+                            style: GoogleFonts.poppins(
+                              fontSize: 12,
+                              color: appTheme.greyCustom,
+                            ),
+                          ),
+                          SizedBox(height: 30.h),
+
+                          /// Email
+                          TextFormField(
+                            controller: _emailController,
+                            validator: (v) {
+                              if (v == null || v.isEmpty)
+                                return "Email is required";
+                              final emailRegex = RegExp(
+                                r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                              );
+                              if (!emailRegex.hasMatch(v))
+                                return "Enter a valid email";
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              hintText: "Enter your email",
+                              hintStyle: GoogleFonts.poppins(
+                                fontSize: 14,
+                                color: appTheme.greyCustom,
+                              ),
+                              border: const UnderlineInputBorder(),
+                            ),
+                          ),
+                          SizedBox(height: 20.h),
+
+                          /// Password
+                          TextFormField(
+                            controller: _passwordController,
+                            obscureText: _obscurePassword,
+                            validator: (v) {
+                              if (v == null || v.isEmpty)
+                                return "Password is required";
+                              if (v.length < 6)
+                                return "Password must be at least 6 characters";
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              hintText: "Enter your password",
+                              hintStyle: GoogleFonts.poppins(
+                                fontSize: 14,
+                                color: appTheme.greyCustom,
+                              ),
+                              border: const UnderlineInputBorder(),
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  _obscurePassword
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
+                                  size: 18,
+                                  color: appTheme.greyCustom,
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    _obscurePassword = !_obscurePassword;
+                                  });
+                                },
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 30.h),
+
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: Text(
+                              "Forgot your password?",
+                              style: GoogleFonts.poppins(
+                                fontSize: 12,
+                                color: const Color(0xffb58a00),
+                                decoration: TextDecoration.underline,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 30.h),
+
+                          /// Login Button
+                          CustomButton(
+                            text: _isLoading ? 'Loading...' : 'Login',
+                            borderRadius: 10,
+                            height: 50,
+                            onPressed: _isLoading ? null : _login,
+                          ),
+                          SizedBox(height: 30.h),
+
+                          _buildDividerWithText("OR"),
+                          SizedBox(height: 30.h),
+
+                          /// Google Button
+                          GestureDetector(
+                            onTap: _isLoading ? null : _loginWithGoogle,
+                            child: _buildGoogleButton(),
+                          ),
+                          SizedBox(height: 30.h),
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Don't have an account yet?",
+                                style: GoogleFonts.poppins(
+                                  fontSize: 12,
+                                  color: appTheme.greyCustom,
+                                ),
+                              ),
+                              const SizedBox(width: 4),
+                              InkWell(
+                                onTap: () {
+                                  context.go(AppPaths.register);
+                                },
+                                child: Text(
+                                  "Sign Up",
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 12,
+                                    color: const Color(0xffb58a00),
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
                               ),
                             ],
                           ),
-                        ),
-                         SizedBox(height: 10.h),
-
-                        // Description
-                        Text(
-                          "You'll be able to easily book and manage rides, and get ride status updates on the day of travel.",
-                          style: GoogleFonts.poppins(
-                            fontSize: 12,
-                            color: appTheme.greyCustom,
-                          ),
-                        ),
-                         SizedBox(height: 30.h),
-
-                        // Email
-                        TextField(
-                          decoration: InputDecoration(
-                            hintText: "Enter your email",
-                            hintStyle: GoogleFonts.poppins(
-                              fontSize: 14,
-                              color: appTheme.greyCustom,
-                            ),
-                            border: const UnderlineInputBorder(),
-                          ),
-                        ),
-                         SizedBox(height: 20.h),
-
-                        // Password
-                        TextField(
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            hintText: "Enter your password",
-                            hintStyle: GoogleFonts.poppins(
-                              fontSize: 14,
-                              color: appTheme.greyCustom,
-                            ),
-                            border: const UnderlineInputBorder(),
-                            suffixIcon: Icon(
-                              Icons.visibility_off,
-                              size: 18,
-                              color: appTheme.greyCustom,
-                            ),
-                          ),
-                        ),
-                         SizedBox(height: 30.h),
-
-                        // Forgot password
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: Text(
-                            "Forgot your password?",
-                            style: GoogleFonts.poppins(
-                              fontSize: 12,
-                              color: const Color(0xffb58a00),
-                              decoration: TextDecoration.underline,
-                            ),
-                          ),
-                        ),
-                         SizedBox(height: 30.h),
-
-                        // Login Button
-                        CustomButton(
-                          text: 'Login',
-                          borderRadius: 10,
-                          height: 50,
-                          onPressed: () {
-                            Navigator.pushNamed(context, AppRoutes.dashboard);
-                          },
-                        ),
-                         SizedBox(height: 30.h),
-
-                        // Divider
-                        _buildDividerWithText("OR"),
-                         SizedBox(height: 30.h),
-
-                        // Google Button
-                        _buildGoogleButton(context),
-                         SizedBox(height: 30.h),
-
-                        // Already have an account
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Don't have an account yet?",
-                              style: GoogleFonts.poppins(
-                                fontSize: 12,
-                                color: appTheme.greyCustom,
-                              ),
-                            ),
-                            const SizedBox(width: 4),
-                            InkWell(
-                              onTap: () {
-                                Navigator.pushNamed(
-                                  context,
-                                  AppRoutes.register,
-                                );
-                              },
-                              child: Text(
-                                "Sign Up",
-                                style: GoogleFonts.poppins(
-                                  fontSize: 12,
-                                  color: const Color(0xffb58a00),
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                         SizedBox(height: 30.h),
-                        FakeCaptcha(),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
-                // Right Panel (Illustration)
                 if (!isMobile)
                   Expanded(
                     flex: 1,
                     child: Container(
-                      margin: EdgeInsets.symmetric(vertical: 20),
+                      margin: const EdgeInsets.symmetric(vertical: 20),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         image: DecorationImage(
@@ -221,7 +321,7 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  static Widget _buildGoogleButton(context) {
+  static Widget _buildGoogleButton() {
     return Container(
       height: 48,
       decoration: BoxDecoration(
@@ -229,79 +329,13 @@ class LoginPage extends StatelessWidget {
         color: Colors.white,
         border: Border.all(color: appTheme.greyCustom, width: 0.15),
       ),
-      padding: EdgeInsets.symmetric(vertical: 5),
-      child: InkWell(
-        onTap: () {
-          Navigator.pushNamed(context, AppRoutes.dashboard);
-        },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CustomImageView(imagePath: ImageConstants.google),
-            const SizedBox(width: 8),
-            Text("Login with Google", style: GoogleFonts.poppins(fontSize: 14)),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class FakeCaptcha extends StatefulWidget {
-  const FakeCaptcha({super.key});
-
-  @override
-  State<FakeCaptcha> createState() => _FakeCaptchaState();
-}
-
-class _FakeCaptchaState extends State<FakeCaptcha> {
-  bool isChecked = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 350.h,
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(6),
-        color: Color(0xffF3F3F3),
-      ),
+      padding: const EdgeInsets.symmetric(vertical: 5),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CustomImageView(imagePath: ImageConstants.captcha, width: 40),
-          SizedBox(width: 10),
-
-          Transform.scale(
-            scale: 1.4, // increase size (1.0 = default)
-            child: Checkbox(
-              value: isChecked,
-              onChanged: (val) {
-                setState(() {
-                  isChecked = val ?? false;
-                });
-              },
-              checkColor: Colors.white, // color of the tick
-              fillColor: WidgetStateProperty.resolveWith<Color>((states) {
-                if (states.contains(WidgetState.selected)) {
-                  return const Color(0xff4285F4); // Google blue when checked
-                }
-                return Colors.white; // background when unchecked
-              }),
-              side: const BorderSide(
-                color: Colors.white, // visible border
-                width: 1.5,
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(4), // square-like look
-              ),
-            ),
-          ),
-
+          CustomImageView(imagePath: ImageConstants.google),
           const SizedBox(width: 8),
-          const Text(
-            "I'm not a robot",
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-          ),
+          Text("Login with Google", style: GoogleFonts.poppins(fontSize: 14)),
         ],
       ),
     );

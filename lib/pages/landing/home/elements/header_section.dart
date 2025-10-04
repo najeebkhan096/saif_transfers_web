@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:saif_transfers_web/core/utils/images.dart';
@@ -7,8 +8,8 @@ import 'package:saif_transfers_web/theme/app_colors.dart';
 import 'package:saif_transfers_web/theme/theme_helper.dart';
 import 'package:saif_transfers_web/widgets/custom_button.dart';
 import '../../../../core/responsive.dart';
-import '../../../../core/routes.dart';
 import '../../../../providers/navigation.dart';
+import '../../../../routes/app_paths.dart';
 import '../../../../widgets/custom_image_view.dart';
 
 class LandingHeaderSection extends StatelessWidget {
@@ -83,7 +84,7 @@ class LandingHeaderSection extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   fontSize: 15.sp,
                   onPressed: () {
-                    Navigator.pushNamed(context, AppRoutes.login);
+                        context.go( AppPaths.login);
                   },
                 ),
                 const SizedBox(width: 10),
@@ -99,7 +100,7 @@ class LandingHeaderSection extends StatelessWidget {
                   textColor: Colors.white,
                   fontWeight: FontWeight.w600,
                   onPressed: () {
-                    Navigator.pushNamed(context, AppRoutes.register);
+                        context.go( AppPaths.register);
                   },
                 ),
               ],

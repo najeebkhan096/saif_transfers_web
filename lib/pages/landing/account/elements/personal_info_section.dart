@@ -6,8 +6,8 @@ import '../../../../model/user.dart';
 
 
 class PersonalInfoSection extends StatelessWidget {
-  final UserModel user;
-  final ValueChanged<UserModel> onUpdate;
+  final AppUser user;
+  final ValueChanged<AppUser> onUpdate;
 
   const PersonalInfoSection({
     super.key,
@@ -66,10 +66,9 @@ class PersonalInfoSection extends StatelessWidget {
               _infoTile("Email", user.email, () {}),
               const SizedBox(height: 8),
               _infoTile("Phone", user.phone, () {}),
+
               const SizedBox(height: 8),
-              _infoTile("Company", user.company, () {}),
-              const SizedBox(height: 8),
-              _infoTile("Address", user.address, () {}),
+              _infoTile("Address", user.location, () {}),
             ],
           ),
         ),

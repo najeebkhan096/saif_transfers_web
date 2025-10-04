@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:saif_transfers_web/core/routes.dart';
 import 'package:saif_transfers_web/core/styling.dart';
 import 'package:saif_transfers_web/core/utils/images.dart';
+import 'package:saif_transfers_web/routes/app_paths.dart';
+import 'package:saif_transfers_web/routes/app_router.dart';
 import 'package:saif_transfers_web/theme/theme_helper.dart';
 import 'package:saif_transfers_web/widgets/custom_button.dart';
 import 'package:saif_transfers_web/widgets/custom_image_view.dart';
@@ -70,7 +72,8 @@ class AdminLoginPage extends StatelessWidget {
 
                         // Description
                         Text(
-                         'You\'ll be able to easily book and manage rides, and get ride status updates on the day of travel.', style: GoogleFonts.poppins(
+                          'You\'ll be able to easily book and manage rides, and get ride status updates on the day of travel.',
+                          style: GoogleFonts.poppins(
                             fontSize: 12,
                             color: appTheme.greyCustom,
                           ),
@@ -129,7 +132,7 @@ class AdminLoginPage extends StatelessWidget {
                           borderRadius: 10,
                           height: 50,
                           onPressed: () {
-                            Navigator.pushNamed(context, AppRoutes.dashboard);
+                            (context, AppPaths.dashboard);
                           },
                         ),
                         SizedBox(height: 30.h),
@@ -156,10 +159,7 @@ class AdminLoginPage extends StatelessWidget {
                             const SizedBox(width: 4),
                             InkWell(
                               onTap: () {
-                                Navigator.pushNamed(
-                                  context,
-                                  AppRoutes.register,
-                                );
+                                context.go(AppPaths.register);
                               },
                               child: Text(
                                 "Sign Up",
@@ -200,13 +200,20 @@ class AdminLoginPage extends StatelessWidget {
       ),
     );
   }
+
   static Widget _buildDividerWithText(String text) {
     return Row(
       children: [
         Expanded(child: Divider(color: appTheme.greyCustom)),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: Text(text, style: GoogleFonts.poppins(fontSize: 12,color: appTheme.greyCustom)),
+          child: Text(
+            text,
+            style: GoogleFonts.poppins(
+              fontSize: 12,
+              color: appTheme.greyCustom,
+            ),
+          ),
         ),
         Expanded(child: Divider(color: appTheme.greyCustom)),
       ],
@@ -217,30 +224,27 @@ class AdminLoginPage extends StatelessWidget {
     return Container(
       height: 48,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-          color: Colors.white,
-          border: Border.all(color: appTheme.greyCustom,width: 0.15)
+        borderRadius: BorderRadius.circular(5),
+        color: Colors.white,
+        border: Border.all(color: appTheme.greyCustom, width: 0.15),
       ),
       child: InkWell(
         onTap: () {
-          Navigator.pushNamed(context, AppRoutes.dashboard);
+          context.go(AppPaths.dashboard);
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CustomImageView(imagePath: ImageConstants.google),
             const SizedBox(width: 8),
-            Text(
-              "Login with Google",
-              style: GoogleFonts.poppins(fontSize: 14),
-            ),
+            Text("Login with Google", style: GoogleFonts.poppins(fontSize: 14)),
           ],
         ),
       ),
     );
   }
-
 }
+
 class FakeCaptcha extends StatefulWidget {
   const FakeCaptcha({super.key});
 
@@ -258,16 +262,13 @@ class _FakeCaptchaState extends State<FakeCaptcha> {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(6),
-              color: Color(0xffF3F3F3)
+            borderRadius: BorderRadius.circular(6),
+            color: Color(0xffF3F3F3),
           ),
           child: Row(
             children: [
-              CustomImageView(
-                imagePath: ImageConstants.captcha,
-                width: 40,
-              ),
-              SizedBox(width: 10,),
+              CustomImageView(imagePath: ImageConstants.captcha, width: 40),
+              SizedBox(width: 10),
 
               Transform.scale(
                 scale: 1.4, // increase size (1.0 = default)
@@ -279,14 +280,14 @@ class _FakeCaptchaState extends State<FakeCaptcha> {
                     });
                   },
                   checkColor: Colors.white, // color of the tick
-                  fillColor: WidgetStateProperty.resolveWith<Color>(
-                        (states) {
-                      if (states.contains(WidgetState.selected)) {
-                        return const Color(0xff4285F4); // Google blue when checked
-                      }
-                      return Colors.white; // background when unchecked
-                    },
-                  ),
+                  fillColor: WidgetStateProperty.resolveWith<Color>((states) {
+                    if (states.contains(WidgetState.selected)) {
+                      return const Color(
+                        0xff4285F4,
+                      ); // Google blue when checked
+                    }
+                    return Colors.white; // background when unchecked
+                  }),
                   side: const BorderSide(
                     color: Colors.white, // visible border
                     width: 1.5,
@@ -295,15 +296,13 @@ class _FakeCaptchaState extends State<FakeCaptcha> {
                     borderRadius: BorderRadius.circular(4), // square-like look
                   ),
                 ),
-              )
-              ,
+              ),
 
               const SizedBox(width: 8),
               const Text(
                 "I'm not a robot",
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
               ),
-
             ],
           ),
         ),

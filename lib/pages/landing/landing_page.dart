@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:saif_transfers_web/core/routes.dart';
 import 'package:saif_transfers_web/core/styling.dart';
 import 'package:saif_transfers_web/pages/bookRide/book_ride_page.dart';
 import 'package:saif_transfers_web/pages/landing/contact/contact_page.dart';
@@ -9,6 +9,7 @@ import 'package:saif_transfers_web/theme/app_colors.dart';
 import 'package:saif_transfers_web/theme/theme_helper.dart';
 import '../../core/utils/images.dart';
 import '../../providers/navigation.dart';
+import '../../routes/app_paths.dart';
 import 'account/my_account_page.dart';
 import 'home/elements/header_section.dart';
 
@@ -57,7 +58,7 @@ class LandingPage extends StatelessWidget {
                 onTap: () {
                   if (title == 'Admin Side') {
                     Navigator.of(context).pop(); // close drawer first
-                    Navigator.pushNamed(context, AppRoutes.adminLoginPage);
+                        context.go( AppPaths.adminLogin);
                   } else {
                     navigationProvider.setActiveItem(title);
                     Navigator.of(context).pop(); // close drawer

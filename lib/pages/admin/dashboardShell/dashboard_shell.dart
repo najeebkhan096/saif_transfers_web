@@ -2,8 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:saif_transfers_web/pages/admin/dashboardShell/fareManagement/fare_management_page.dart';
 import 'package:saif_transfers_web/pages/admin/dashboardShell/settings/settings_page.dart';
 import '../../../core/utils/images.dart';
+import '../../../providers/user_provider.dart';
 import '../../../theme/theme_helper.dart';
 import 'bookings/booking_page.dart';
 import 'cleints/client_page.dart';
@@ -26,6 +29,7 @@ class _DashboardShellState extends State<DashboardShell> {
     "Clients",
     "Drivers",
     "Settings",
+    'Fare Management',
   ];
 
   final List<String> menuIcons = [
@@ -33,6 +37,7 @@ class _DashboardShellState extends State<DashboardShell> {
     ImageConstants.bookings,
     ImageConstants.clients,
     ImageConstants.drivers,
+    ImageConstants.settings,
     ImageConstants.settings,
   ];
 
@@ -42,6 +47,7 @@ class _DashboardShellState extends State<DashboardShell> {
     const ClientsPage(),
     const DriversPage(),
     const SettingsPage(),
+    const FareManagementPage(),
   ];
 
   @override
@@ -127,17 +133,25 @@ class Sidebar extends StatelessWidget {
         children: [
           const SizedBox(height: 20),
           ListTile(
-            leading: const CircleAvatar(
+            leading: CircleAvatar(
               backgroundImage: NetworkImage(
-                'https://corsproxy.io/?https://www.gulfgoodnews.com/uploads/images/2025/08/image_750x_689824c9a295d.jpg',
+                context
+                            .watch<UserProvider>()
+                            .appUser
+                            ?.profileImageUrl
+                            .isNotEmpty ==
+                        true
+                    ? context.watch<UserProvider>().appUser!.profileImageUrl
+                    : "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png",
               ),
             ),
-            title: const Text(
-              "Muneeza",
-              style: TextStyle(fontWeight: FontWeight.bold),
+            title: Text(
+              context.watch<UserProvider>().appUser?.name ?? "Guest",
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
-            subtitle: const Text("+998 (99) 436-46-15"),
+            subtitle: Text(context.watch<UserProvider>().appUser?.email ?? ""),
           ),
+
           const SizedBox(height: 20),
           ...List.generate(menuItems.length, (index) {
             return SidebarItem(

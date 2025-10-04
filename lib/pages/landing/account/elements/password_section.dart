@@ -6,7 +6,7 @@ import '../../../../model/user.dart';
 
 
 class PasswordSection extends StatelessWidget {
-  final UserModel user;
+  final AppUser user;
   final VoidCallback onEdit;
 
   const PasswordSection({
@@ -39,7 +39,7 @@ class PasswordSection extends StatelessWidget {
                 children: [
                   Text("Password", style: const TextStyle(fontSize: 12, color: Colors.black54)),
                   const SizedBox(height: 2),
-                  Text(user.password, style: const TextStyle(fontSize: 14, color: Colors.black)),
+                  Text('1234', style: const TextStyle(fontSize: 14, color: Colors.black)),
                 ],
               ),
             ),

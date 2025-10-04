@@ -6,8 +6,8 @@ import '../../../../model/user.dart';
 
 
 class NotificationsSection extends StatelessWidget {
-  final UserModel user;
-  final ValueChanged<UserModel> onUpdate;
+  final AppUser user;
+  final ValueChanged<AppUser> onUpdate;
 
   const NotificationsSection({
     super.key,
@@ -43,15 +43,15 @@ class NotificationsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String bookingValue = '';
-    if (user.bookingEmail && user.bookingSMS) {
-      bookingValue = 'On: Email and SMS';
-    } else if (user.bookingEmail) {
-      bookingValue = 'On: Email';
-    } else if (user.bookingSMS) {
-      bookingValue = 'On: SMS';
-    } else {
-      bookingValue = 'Off';
-    }
+    // if (user.email && user.bookingSMS) {
+    //   bookingValue = 'On: Email and SMS';
+    // } else if (user.bookingEmail) {
+    //   bookingValue = 'On: Email';
+    // } else if (user.bookingSMS) {
+    //   bookingValue = 'On: SMS';
+    // } else {
+    //   bookingValue = 'Off';
+    // }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,7 +68,7 @@ class NotificationsSection extends StatelessWidget {
             children: [
               _notificationTile(
                 "Marketing emails",
-                user.marketingEmails ? "On" : "Off",
+                 "Off",
                     () {
                   // TODO: Open notification settings
                 },

@@ -2,12 +2,16 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
+
 import 'package:saif_transfers_web/providers/navigation.dart';
 import 'package:saif_transfers_web/providers/stepper_provider.dart';
-import 'core/routes.dart';
+import 'package:saif_transfers_web/routes/app_router.dart';
+import 'package:saif_transfers_web/providers/user_provider.dart'; // optional for auth redirect
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
     options: const FirebaseOptions(
       apiKey: "AIzaSyAkNO8jRPKT8OL_2d1BuZdl_yXnuVn8-3E",
@@ -16,9 +20,10 @@ void main() async {
       storageBucket: "airporttransfer-2d9c0.firebasestorage.app",
       messagingSenderId: "1068138876918",
       appId: "1:1068138876918:web:e45cc4f687538319bdc1d7",
-      measurementId: "G-PKLTFXZYHT", // Optional
+      measurementId: "G-PKLTFXZYHT",
     ),
   );
+
   runApp(const MyApp());
 }
 
@@ -31,17 +36,24 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => CheckoutStepperProvider()),
         ChangeNotifierProvider(create: (_) => NavigationProvider()),
+        ChangeNotifierProvider(create: (_) => UserProvider()), // optional for auth redirect
       ],
       child: ScreenUtilInit(
-        designSize: const Size(1440, 1024), // reference design size
-        minTextAdapt: true, // adapts text automatically
-        splitScreenMode: true, // handles split screen
+        designSize: const Size(1440, 1024),
+        minTextAdapt: true,
+        splitScreenMode: true,
         builder: (context, child) {
-          return MaterialApp(
+          final userProvider = Provider.of<UserProvider>(context, listen: true);
+
+          // ✅ GoRouter instance
+          final router = AppRouter.router(userProvider);
+
+          return MaterialApp.router(
             title: 'Saif Transfers',
             debugShowCheckedModeBanner: false,
-            initialRoute: AppRoutes.landing,
-            onGenerateRoute: AppRoutes.generateRoute,
+            routeInformationParser: router.routeInformationParser,
+            routerDelegate: router.routerDelegate,
+            routeInformationProvider: router.routeInformationProvider,
           );
         },
       ),

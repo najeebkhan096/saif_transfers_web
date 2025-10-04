@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:saif_transfers_web/pages/bookRide/peymentSection/payment_form_page.dart';
 import 'package:saif_transfers_web/pages/bookRide/pickupInfo/pick_up_info_page.dart';
 import 'package:saif_transfers_web/pages/bookRide/serviceClass/service_class_page.dart';
 import 'package:saif_transfers_web/theme/theme_helper.dart';
 import 'package:saif_transfers_web/widgets/custom_button.dart';
-
-import '../../core/routes.dart';
 import '../../core/utils/images.dart';
 import '../../providers/navigation.dart';
 import '../../providers/stepper_provider.dart';
+import '../../routes/app_paths.dart';
 import 'carSummary/car_summary_section_page.dart';
 import 'elements/header_section.dart';
 import 'elements/triple_section.dart';
@@ -70,9 +70,8 @@ class BookRidePage extends StatelessWidget {
                       onTap: () {
                         if (title == 'Admin Side') {
                           Navigator.of(context).pop(); // close drawer first
-                          Navigator.pushNamed(
-                            context,
-                            AppRoutes.adminLoginPage,
+                          context.go(
+                            AppPaths.adminLogin,
                           );
                         } else {
                           navigationProvider.setActiveItem(title);

@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
 import 'package:saif_transfers_web/core/utils/images.dart';
 import 'package:saif_transfers_web/pages/bookRide/serviceClass/service_list_section.dart';
 import 'package:saif_transfers_web/theme/theme_helper.dart';
-import 'package:saif_transfers_web/widgets/custom_button.dart';
-import '../../../core/routes.dart';
 import '../../../model/service_class_info.dart';
-import '../../../providers/navigation.dart';
 import '../elements/triple_section.dart';
 import 'elements/all_classes_include_section.dart';
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:saif_transfers_web/enum/user_type.dart';
 import 'package:saif_transfers_web/theme/theme_helper.dart';
 import '../../../model/user.dart';
 import '../../../widgets/custom_button.dart';
@@ -15,13 +16,13 @@ class MyAccountPage extends StatefulWidget {
 }
 
 class _MyAccountPageState extends State<MyAccountPage> {
-  UserModel user = UserModel(
+  AppUser user = AppUser(
     name: "Ahmed Hussain Mujtaba",
     email: "ahmedh@example.com",
     phone: "+923407657765",
-    company: "+923407657765",
-    address: "+923407657765",
-    password: "**********",
+    location: "islamabad",
+    id: '',
+    type: AppUserType.rider,
   );
 
   @override
@@ -52,11 +53,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                 },
               ),
               const SizedBox(height: 20),
-              PasswordSection(
-                user: user,
-                onEdit: () {
-                },
-              ),
+              PasswordSection(user: user, onEdit: () {}),
               const SizedBox(height: 20),
               PaymentSection(),
               const SizedBox(height: 20),
