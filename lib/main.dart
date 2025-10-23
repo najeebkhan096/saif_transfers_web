@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
+import 'package:saif_transfers_web/providers/driver_provider.dart';
 
 import 'package:saif_transfers_web/providers/navigation.dart';
 import 'package:saif_transfers_web/providers/stepper_provider.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => CheckoutStepperProvider()),
         ChangeNotifierProvider(create: (_) => NavigationProvider()),
+        ChangeNotifierProvider(create: (_) => DriverProvider()),
         ChangeNotifierProvider(create: (_) => UserProvider()), // optional for auth redirect
       ],
       child: ScreenUtilInit(

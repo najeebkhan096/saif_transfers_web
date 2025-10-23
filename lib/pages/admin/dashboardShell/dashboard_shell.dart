@@ -26,6 +26,7 @@ class _DashboardShellState extends State<DashboardShell> {
   final List<String> menuItems = [
     "Dashboard",
     "Bookings & Transfers",
+    "Bookings",
     "Clients",
     "Drivers",
     "Settings",
@@ -34,6 +35,7 @@ class _DashboardShellState extends State<DashboardShell> {
 
   final List<String> menuIcons = [
     ImageConstants.dashboard,
+    ImageConstants.bookings,
     ImageConstants.bookings,
     ImageConstants.clients,
     ImageConstants.drivers,

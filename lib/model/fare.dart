@@ -56,4 +56,5 @@ class Fare {
       "createdAt": createdAt ?? FieldValue.serverTimestamp(),
     };
   }
+
 }

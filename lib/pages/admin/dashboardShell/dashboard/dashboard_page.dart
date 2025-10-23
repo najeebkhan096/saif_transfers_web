@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:saif_transfers_web/model/driver.dart';
 import 'package:saif_transfers_web/theme/theme_helper.dart';
 import '../../../../model/booking.dart';
+import '../../../../providers/driver_provider.dart';
 import '../bookings/elements/booking_row.dart';
 import '../bookings/elements/booking_tab_header.dart';
 import 'elements/OverviewCardsRow.dart';
@@ -17,73 +19,13 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
-  static final List<DriverModel> topDrivers = [
-    DriverModel(
-      firstName: 'Gina',
-      lastName: 'Garza',
-      birthDate: '1992-03-05',
-      state: 'Active',
-      homeLocation: 'Samarkand',
-      workLocation: 'Samarkand City',
-      avatar:
-          'https://corsproxy.io/?https://randomuser.me/api/portraits/women/2.jpg',
-      phone: '+998 (99) 158-10-15',
-      orders: 5,
-      income: 15,
-    ),
-    DriverModel(
-      firstName: 'Brian',
-      lastName: 'Reed',
-      birthDate: '1988-07-21',
-      state: 'Active',
-      homeLocation: 'Bukhara',
-      workLocation: 'Bukhara City',
-      avatar:
-          'https://corsproxy.io/?https://randomuser.me/api/portraits/men/3.jpg',
-      phone: '+998 (95) 489-46-20',
-      orders: 5,
-      income: 23,
-    ),
-    DriverModel(
-      firstName: 'Tammy',
-      lastName: 'Spencer',
-      birthDate: '1991-11-12',
-      state: 'Active',
-      homeLocation: 'Khiva',
-      workLocation: 'Khiva City',
-      avatar:
-          'https://corsproxy.io/?https://randomuser.me/api/portraits/women/4.jpg',
-      phone: '+998 (95) 785-10-02',
-      orders: 5,
-      income: 98,
-    ),
-    DriverModel(
-      firstName: 'Joseph',
-      lastName: 'Brooks',
-      birthDate: '1990-06-18',
-      state: 'Active',
-      homeLocation: 'Navoi',
-      workLocation: 'Navoi City',
-      avatar:
-          'https://corsproxy.io/?https://randomuser.me/api/portraits/men/5.jpg',
-      phone: '+998 (99) 436-46-15',
-      orders: 5,
-      income: 98,
-    ),
-    DriverModel(
-      firstName: 'Juan',
-      lastName: 'Steward',
-      birthDate: '1989-05-22',
-      state: 'Active',
-      homeLocation: 'Andijan',
-      workLocation: 'Andijan City',
-      avatar:
-          'https://corsproxy.io/?https://randomuser.me/api/portraits/men/6.jpg',
-      phone: '+998 (99) 436-46-15',
-      orders: 5,
-      income: 98,
-    ),
-  ];
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(
+      () => Provider.of<DriverProvider>(context, listen: false).fetchDrivers(),
+    );
+  }
 
   final List<Booking> bookings = [
     Booking(
@@ -320,6 +262,8 @@ class _DashboardPageState extends State<DashboardPage> {
 
   @override
   Widget build(BuildContext context) {
+    final driverProvider = Provider.of<DriverProvider>(context);
+    final drivers = driverProvider.drivers;
     return Container(
       padding: const EdgeInsets.all(24),
       color: appTheme.whiteCustom,
@@ -367,7 +311,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       Expanded(
                         flex: 2,
                         child: SingleChildScrollView(
-                          child: TopDriversList(drivers: topDrivers),
+                          child: TopDriversList(drivers: drivers),
                         ),
                       ),
                     ],
@@ -419,7 +363,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   const SizedBox(height: 36),
                   const StatisticChartSection(),
                   const SizedBox(height: 32),
-                  TopDriversList(drivers: topDrivers),
+                  TopDriversList(drivers: drivers),
                   const SizedBox(height: 32),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
@@ -464,7 +408,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   const SizedBox(height: 24),
                   const StatisticChartSection(),
                   const SizedBox(height: 24),
-                  TopDriversList(drivers: topDrivers),
+                  TopDriversList(drivers: drivers),
                   const SizedBox(height: 24),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
